@@ -1,15 +1,15 @@
 import React from "react";
-import Header from "./components/header/header";
-import Main from "./components/main/main";
+import Header from "./components/header";
+import Nav from "./components/nav";
 
-function Home() {
+export interface IHomeProps {}
+
+const Home: React.FC<IHomeProps> = () => {
   return (
-    <div>
-      <h1>HOME</h1>
-      <Header />
-      <Main />
-    </div>
+    <>
+      <h1>Home</h1>
+    </>
   );
-}
+};
 
 export default Home;

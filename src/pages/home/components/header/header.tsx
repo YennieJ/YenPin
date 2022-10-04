@@ -1,7 +1,8 @@
 import React from "react";
+import * as S from "./header.styled";
 
-function Header() {
-  return <div>Header</div>;
-}
+const Header = () => {
+  return <S.Container>헤더</S.Container>;
+};
 
 export default Header;
