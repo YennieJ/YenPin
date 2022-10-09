@@ -1,9 +1,9 @@
 import React from "react";
 import * as S from "./popular.styled";
 
-export interface IPopularProps {}
+export interface Props {}
 
-const Popular: React.FC<IPopularProps> = () => {
+const Popular = ({}: Props) => {
   return <S.Container>파풀러</S.Container>;
 };
 
