@@ -1,20 +1,28 @@
 import React from "react";
-import { CardType } from "../maker/maker";
 import * as S from "./preview.styled";
-
+// 자식컴포넌트로 넘겨주기위해 export해 줍시다.
+export interface CardType {
+  id: number;
+  fileName: string;
+  fileURL: string;
+}
 type CardProps = {
-  card: CardType;
+  cards: CardType[];
 };
 
-const Preview = ({ card }: CardProps): React.ReactElement => {
-  const { id, fileName, fileURL } = card;
+const Preview = ({ cards }: CardProps) => {
+  // const { id, fileName, fileURL } = cards;
 
   return (
-    <li>
-      <p>아이디: {id}</p>
-      <p>파일네임: {fileName}</p>
-      <p>파일유알엘: {fileURL}</p>
-    </li>
+    <>
+      {cards.map((card) => (
+        <li>
+          <p>아이디: {card.id}</p>
+          <p>파일네임: {card.fileName}</p>
+          <p>파일유알엘: {card.fileURL}</p>
+        </li>
+      ))}
+    </>
     // dhrny6pt
   );
 };

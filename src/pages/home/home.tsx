@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Maker from "./components/maker";
 import Preview from "./components/preview";
-import { CardType } from "pages/home/components/maker";
+import { CardType } from "pages/home/components/preview";
 import { Link } from "react-router-dom";
 
 // import { Props as PopProps } from "../popular/popular";
@@ -36,7 +36,9 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <Maker cards={cards} />
+      <Maker>
+        <Preview cards={cards} />
+      </Maker>
       <button onClick={move}>qwe</button>
     </>
   );
