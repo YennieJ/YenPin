@@ -31,3 +31,13 @@ export const NavbarLink = styled(Link)`
     color: red;
   }
 `;
+
+export const DetailButton = styled.button`
+  width: 70px;
+  height: 50px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 45px;
+  cursor: pointer;
+`;
