@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 
 import { AuthContext } from "service/authContext";
 import Login from "components/login";
+import Button from "components/button";
 
 import * as S from "components/navbar/navbar.styled";
 
@@ -49,8 +50,6 @@ const Nav = ({}: Props) => {
               <>{!isOpen ? "login" : null}</>
             )}
           </div>
-
-          {/* <div onClick={onclick}>{!isOpen ? "login" : null}</div> */}
         </S.NavbarLinkContainer>
       </S.NavbarContainer>
     </>

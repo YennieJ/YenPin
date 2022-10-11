@@ -27,7 +27,7 @@ export const UserForm = styled.form`
 `;
 
 export const DialogBox = styled.dialog`
-  width: 500px;
+  width: 450px;
   height: 300px;
   display: flex;
   flex-direction: column;

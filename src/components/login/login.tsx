@@ -7,11 +7,10 @@ import {
 } from "@firebase/auth";
 import { auth } from "service/firebase";
 import { AuthContext } from "service/authContext";
-
+import Button from "components/button";
 import * as S from "./login.styled";
 
 export interface Props {}
-
 const Login = ({}: Props) => {
   const userInfo = useContext(AuthContext);
 
@@ -107,10 +106,10 @@ const Login = ({}: Props) => {
                   onChange={handlePwd}
                   value={pwd}
                 />
-                <button type="submit"> {isCreate ? "만들기" : "로그인"}</button>
-                <button type="button" onClick={handleClickCreate}>
+                <Button>{isCreate ? "만들기" : "로그인"}</Button>
+                <Button onClick={handleClickCreate}>
                   {isCreate ? "취소" : "회원가입"}
-                </button>
+                </Button>
               </S.DialogBox>
             </S.UserForm>
           </S.Backdrop>

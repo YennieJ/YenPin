@@ -1,10 +1,10 @@
-import Login from "components/login";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Maker from "./components/maker";
 import Preview from "./components/preview";
 import { CardType } from "pages/home/components/preview";
-import { Link } from "react-router-dom";
+import Button from "components/button";
+import Login from "components/login";
 
 // import { Props as PopProps } from "../popular/popular";
 // const temp: PopProps = { name: "qwe" };
@@ -33,12 +33,14 @@ const Home = () => {
     });
   };
 
+  const onclick = () => console.log("gg");
   return (
     <>
       <h1>Home</h1>
       <Maker>
         <Preview cards={cards} />
       </Maker>
+      <Button onClick={onclick}>ddd</Button>
       <button onClick={move}>qwe</button>
     </>
   );
