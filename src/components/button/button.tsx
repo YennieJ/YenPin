@@ -4,29 +4,21 @@ import * as S from "./button.styled";
 export interface Props {
   children: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  nav?: boolean;
+  Snav?: boolean;
+  User?: boolean;
+  X?: boolean;
 }
 
-const Button = ({ children, onClick }: Props) => {
+const Button = ({ children, onClick, nav, Snav, User, X }: Props) => {
   return (
     <>
-      <S.Button onClick={onClick}>{children}</S.Button>
+      {nav && <S.NavBtn onClick={onClick}>{children}</S.NavBtn>}
+      {Snav && <S.SnavBtn onClick={onClick}>{children}</S.SnavBtn>}
+      {User && <S.User onClick={onClick}>{children}</S.User>}
+      {X && <S.X onClick={onClick}>{children}</S.X>}
     </>
   );
 };
-// function Button(props) {
-//   return( <>
-
-//   {props.type === "trashbin" && (
-//     <S.Button
-//       className="trashbin"
-//       type="button"
-//       onClick={props.handleClick}
-//     >
-//     </S.Button>
-//   )}
-
-//   <Button type="goToday" handleClick={goToday}>
-//   </>)
-// }
 
 export default Button;

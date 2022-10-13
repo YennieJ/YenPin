@@ -10,8 +10,10 @@ import { AuthContext } from "service/authContext";
 import Button from "components/button";
 import * as S from "./login.styled";
 
-export interface Props {}
-const Login = ({}: Props) => {
+export interface Props {
+  handleModal: () => void;
+}
+const Login = ({ handleModal }: Props) => {
   const userInfo = useContext(AuthContext);
 
   const [sidebar, setSidebar] = useState(false);
@@ -78,20 +80,39 @@ const Login = ({}: Props) => {
         {userInfo ? (
           <>
             {sidebar ? (
-              <S.SidebarButton onClick={sidebarToggle}>&#8801;</S.SidebarButton>
+              <Button nav onClick={sidebarToggle}>
+                &#8801;
+              </Button>
             ) : (
               <>
-                <S.SidebarButton onClick={sidebarToggle}>
+                <Button Snav onClick={sidebarToggle}>
                   &#10005;
-                </S.SidebarButton>
-                <button onClick={handleLogout}>로그아웃</button>
+                </Button>
+                <S.SidebarMenu>
+                  <Button User onClick={handleLogout}>
+                    로그아웃
+                  </Button>
+                  <Button User onClick={handleLogout}>
+                    로그아웃
+                  </Button>{" "}
+                  <Button User onClick={handleLogout}>
+                    로그아웃
+                  </Button>
+                </S.SidebarMenu>
               </>
             )}
           </>
         ) : (
           <S.Backdrop>
-            <S.UserForm onSubmit={handleSubmit}>
-              <S.DialogBox>
+            <S.DialogBox>
+              <S.UserForm onSubmit={handleSubmit}>
+                <S.UserFormHead>
+                  <div></div>
+                  <div>{isCreate ? "회원가입" : "로그인"}</div>
+                  <Button X onClick={handleModal}>
+                    &#10005;
+                  </Button>
+                </S.UserFormHead>
                 <input
                   placeholder="email"
                   type="email"
@@ -106,12 +127,12 @@ const Login = ({}: Props) => {
                   onChange={handlePwd}
                   value={pwd}
                 />
-                <Button>{isCreate ? "만들기" : "로그인"}</Button>
-                <Button onClick={handleClickCreate}>
+                <Button User>{isCreate ? "만들기" : "로그인"}</Button>
+                <Button User onClick={handleClickCreate}>
                   {isCreate ? "취소" : "회원가입"}
                 </Button>
-              </S.DialogBox>
-            </S.UserForm>
+              </S.UserForm>
+            </S.DialogBox>
           </S.Backdrop>
         )}
       </div>

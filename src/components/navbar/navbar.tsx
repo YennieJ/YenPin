@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 
 import { AuthContext } from "service/authContext";
 import Login from "components/login";
-import Button from "components/button";
 
 import * as S from "components/navbar/navbar.styled";
+import Button from "components/button";
 
 export interface Props {}
 
@@ -13,45 +13,49 @@ const Nav = ({}: Props) => {
 
   const userInfo = useContext(AuthContext);
 
-  const onclick = () => setIsOpen(!isOpen);
+  const handleModal = () => setIsOpen(!isOpen);
   return (
     <>
-      <S.NavbarHeader>
-        <S.NavbarLink className="nav-link active" to="/">
+      <S.Header>
+        <S.LinkTag className="nav-link active" to="/">
           HOME
-        </S.NavbarLink>
-      </S.NavbarHeader>
-      <S.NavbarContainer>
-        <S.NavbarLinkContainer>
-          <S.NavbarLink className="nav-link" to="/popular">
+        </S.LinkTag>
+      </S.Header>
+      <S.Container>
+        <S.LinkContainer>
+          <S.LinkTag className="nav-link" to="/popular">
             popular
-          </S.NavbarLink>
+          </S.LinkTag>
           {userInfo ? (
-            <S.NavbarLink className="nav-link" to="/my">
+            <S.LinkTag className="nav-link" to="/my">
               my
-            </S.NavbarLink>
+            </S.LinkTag>
           ) : null}
+        </S.LinkContainer>
 
-          {isOpen === false ? null : (
-            <>
-              <Login />
-            </>
-          )}
-
-          <div onClick={onclick}>
-            {" "}
-            {userInfo ? (
-              <>
-                {isOpen ? null : (
-                  <S.DetailButton onClick={onclick}>&#8801;</S.DetailButton>
-                )}
-              </>
-            ) : (
-              <>{!isOpen ? "login" : null}</>
+        {!isOpen ? null : (
+          <S.LinkContainer>
+            <Login handleModal={handleModal} />
+          </S.LinkContainer>
+        )}
+        {userInfo ? (
+          <>
+            {isOpen ? null : (
+              <Button nav onClick={handleModal}>
+                &#8801;
+              </Button>
             )}
-          </div>
-        </S.NavbarLinkContainer>
-      </S.NavbarContainer>
+          </>
+        ) : (
+          <>
+            {!isOpen ? (
+              <Button Snav onClick={handleModal}>
+                Login
+              </Button>
+            ) : null}
+          </>
+        )}
+      </S.Container>
     </>
   );
 };

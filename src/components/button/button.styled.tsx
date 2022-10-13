@@ -1,27 +1,65 @@
 import styled, { css } from "styled-components";
 
-export const Button = styled.button`
-  outline: 0;
-  padding: 0px 48px;
-  height: 48px;
-  line-height: 1;
-  background-color: #fff;
-  -webkit-appearance: none;
-  border: 2px solid #000;
-  border-radius: 24px;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
+export const ex = styled.button`
+  height: 50px;
   cursor: pointer;
-  z-index: 1;
-  &:focus {
-    outline: none;
+  position: relative;
+`;
+
+// export const extend = styled(All)`
+//   font-size: 30px;
+//   width: 300px;
+//   background-color: #fff;
+//   border: 2px solid #000;
+//   border-radius: 24px;
+//   ${(done) => {
+//     return css`
+//       &:hover {
+//         background: red;
+//       }
+//     `;
+//   }}
+// `;
+
+const basic = styled.button`
+  height: 50px;
+  cursor: pointer;
+  position: relative;
+  border: none;
+`;
+
+export const NavBtn = styled(basic)`
+  width: 70px;
+  background: none;
+  color: white;
+  font-size: 45px;
+`;
+
+export const SnavBtn = styled(basic)`
+  width: 70px;
+  background: none;
+  color: white;
+  font-size: x-large;
+`;
+
+export const User = styled(basic)`
+  font-size: 25px;
+  width: 300px;
+  background-color: #fff;
+  border: 2px solid purple;
+  border-radius: 24px;
+  margin: 10px;
+  &:hover {
+    background-color: #f1c7f1;
   }
 `;
 
-export const ButtonText = styled.span`
-  font-size: 16px;
-  position: relative;
-  z-index: 1;
-  color: #000;
+export const X = styled(SnavBtn)`
+  color: black;
+  justify-self: right;
 `;
+// export const ButtonText = styled.span`
+//   font-size: 25px;
+//   position: relative;
+//   color: #000;
+// `;

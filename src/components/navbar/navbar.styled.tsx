@@ -1,26 +1,25 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const NavbarHeader = styled.h1`
+export const Header = styled.h1`
   background-color: black;
 `;
 
-export const NavbarContainer = styled.nav`
+export const Container = styled.nav`
   width: 100%;
   height: 50px;
   background-color: purple;
   display: flex;
-  flex-direction: column; ;
+  justify-content: space-between;
 `;
 
-export const NavbarLinkContainer = styled.div`
+export const LinkContainer = styled.div`
   display: flex;
 `;
 
-export const NavbarLink = styled(Link)`
+export const LinkTag = styled(Link)`
   color: white;
   font-size: x-large;
-  font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
   margin: 10px;
   &:hover,
@@ -32,12 +31,19 @@ export const NavbarLink = styled(Link)`
   }
 `;
 
-export const DetailButton = styled.button`
-  width: 70px;
+export const DetailButton = styled.button<{ later?: boolean }>`
   height: 50px;
+  cursor: pointer;
+  position: relative;
+
+  width: 70px;
   background: none;
   border: none;
   color: white;
   font-size: 45px;
-  cursor: pointer;
+  ${({ later }) =>
+    later &&
+    css`
+      font-size: x-large;
+    `}
 `;
