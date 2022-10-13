@@ -11,7 +11,7 @@ import Button from "components/button";
 import * as S from "./login.styled";
 
 export interface Props {
-  handleModal: () => void;
+  handleModal: React.MouseEventHandler<HTMLButtonElement>;
 }
 const Login = ({ handleModal }: Props) => {
   const userInfo = useContext(AuthContext);

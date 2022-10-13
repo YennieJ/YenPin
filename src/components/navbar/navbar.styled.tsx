@@ -15,6 +15,10 @@ export const Container = styled.nav`
 
 export const LinkContainer = styled.div`
   display: flex;
+  .sidebarbutton {
+    color: blue;
+  }
+  text-align: end;
 `;
 
 export const LinkTag = styled(Link)`
@@ -31,19 +35,19 @@ export const LinkTag = styled(Link)`
   }
 `;
 
-export const DetailButton = styled.button<{ later?: boolean }>`
-  height: 50px;
-  cursor: pointer;
-  position: relative;
+// export const DetailButton = styled.button<{ later?: boolean }>`
+//   height: 50px;
+//   cursor: pointer;
+//   position: relative;
 
-  width: 70px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 45px;
-  ${({ later }) =>
-    later &&
-    css`
-      font-size: x-large;
-    `}
-`;
+//   width: 70px;
+//   background: none;
+//   border: none;
+//   color: white;
+//   font-size: 45px;
+//   ${({ later }) =>
+//     later &&
+//     css`
+//       font-size: x-large;
+//     `}
+// `;

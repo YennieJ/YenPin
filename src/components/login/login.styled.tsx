@@ -68,25 +68,26 @@ export const DialogBox = styled.dialog`
   z-index: 10000;
 `;
 
-export const SidebarButton = styled.button<{ done?: boolean }>`
-  height: 50px;
-  cursor: pointer;
-  position: relative;
+// export const SidebarButton = styled.button<{ done?: boolean }>`
+//   height: 50px;
+//   cursor: pointer;
+//   position: relative;
 
-  width: 70px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 45px;
-  ${({ done }) =>
-    done &&
-    css`
-      font-size: x-large;
-    `}
-`;
+//   width: 70px;
+//   background: none;
+//   border: none;
+//   color: white;
+//   font-size: 45px;
+//   ${({ done }) =>
+//     done &&
+//     css`
+//       font-size: x-large;
+//     `}
+// `;
+
 export const SidebarMenu = styled.div`
   width: 20rem;
-  background-color: #1f2d3d;
+  background-color: purple;
   height: calc(100vh - 3.5rem);
   position: relative;
   z-index: 1;
@@ -94,3 +95,14 @@ export const SidebarMenu = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+// export const SidebarMenu = styled.div`
+//   width: 20rem;
+//   background-color: #1f2d3d;
+//   height: calc(100vh - 3.5rem);
+//   position: relative;
+//   z-index: 1;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `;

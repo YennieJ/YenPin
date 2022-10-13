@@ -17,20 +17,12 @@ const Nav = ({}: Props) => {
   return (
     <>
       <S.Header>
-        <S.LinkTag className="nav-link active" to="/">
-          HOME
-        </S.LinkTag>
+        <S.LinkTag to="/">HOME</S.LinkTag>
       </S.Header>
       <S.Container>
         <S.LinkContainer>
-          <S.LinkTag className="nav-link" to="/popular">
-            popular
-          </S.LinkTag>
-          {userInfo ? (
-            <S.LinkTag className="nav-link" to="/my">
-              my
-            </S.LinkTag>
-          ) : null}
+          <S.LinkTag to="/popular">popular</S.LinkTag>
+          {userInfo ? <S.LinkTag to="/my">my</S.LinkTag> : null}
         </S.LinkContainer>
 
         {!isOpen ? null : (

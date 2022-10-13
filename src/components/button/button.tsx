@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React, { ButtonHTMLAttributes, Children } from "react";
 import * as S from "./button.styled";
 
 export interface Props {
