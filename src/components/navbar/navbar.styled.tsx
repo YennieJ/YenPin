@@ -6,11 +6,13 @@ export const Header = styled.h1`
 `;
 
 export const Container = styled.nav`
-  width: 100%;
-  height: 50px;
-  background-color: purple;
   display: flex;
   justify-content: space-between;
+
+  width: 100%;
+  height: 50px;
+
+  background-color: purple;
 `;
 
 export const LinkContainer = styled.div`
@@ -19,10 +21,11 @@ export const LinkContainer = styled.div`
 `;
 
 export const LinkTag = styled(Link)`
+  margin: 10px;
+
   color: white;
   font-size: x-large;
   text-decoration: none;
-  margin: 10px;
 
   &:hover,
   &:focus {
