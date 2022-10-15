@@ -6,6 +6,7 @@ import { CardType } from "pages/home/components/preview";
 import Button from "components/button";
 import Login from "components/login";
 import * as S from "components/button/button.styled";
+import Sidebar from "components/sidebar";
 
 // import { Props as PopProps } from "../popular/popular";
 // const temp: PopProps = { name: "qwe" };
@@ -38,13 +39,14 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <Maker>
+      {/* <Maker>
         <Preview cards={cards} />
-      </Maker>
+      </Maker> */}
+      <Sidebar />
       {/* <Button onClick={onclick}>ddd</Button>
       <S.ex onClick={onclick}>ddd</S.ex> */}
 
-      <button onClick={move}>qwe</button>
+      {/* <button onClick={move}>qwe</button> */}
     </>
   );
 };

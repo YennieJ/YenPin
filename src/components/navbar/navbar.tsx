@@ -2,18 +2,15 @@ import React, { useState, useContext } from "react";
 
 import { AuthContext } from "service/authContext";
 import Login from "components/login";
+import Sidebar from "components/sidebar";
 
 import * as S from "components/navbar/navbar.styled";
-import Button from "components/button";
 
 export interface Props {}
 
 const Nav = ({}: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const userInfo = useContext(AuthContext);
 
-  const handleModal = () => setIsOpen(!isOpen);
   return (
     <>
       <S.Header>
@@ -22,31 +19,10 @@ const Nav = ({}: Props) => {
       <S.Container>
         <S.LinkContainer>
           <S.LinkTag to="/popular">popular</S.LinkTag>
-          {userInfo ? <S.LinkTag to="/my">my</S.LinkTag> : null}
+          {userInfo && <S.LinkTag to="/my">my</S.LinkTag>}
         </S.LinkContainer>
 
-        {!isOpen ? null : (
-          <S.LinkContainer>
-            <Login handleModal={handleModal} />
-          </S.LinkContainer>
-        )}
-        {userInfo ? (
-          <>
-            {isOpen ? null : (
-              <Button nav onClick={handleModal}>
-                &#8801;
-              </Button>
-            )}
-          </>
-        ) : (
-          <>
-            {!isOpen ? (
-              <Button Snav onClick={handleModal}>
-                Login
-              </Button>
-            ) : null}
-          </>
-        )}
+        {userInfo ? <Sidebar /> : <Login />}
       </S.Container>
     </>
   );

@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
-export const ex = styled.button`
-  height: 50px;
-  cursor: pointer;
-  position: relative;
-`;
+// export const ex = styled.button`
+//   height: 50px;
+//   cursor: pointer;
+//   position: relative;
+// `;
 
 // export const extend = styled(All)`
 //   font-size: 30px;
@@ -20,12 +20,16 @@ export const ex = styled.button`
 //     `;
 //   }}
 // `;
+interface ButtonProps {
+  font?: number;
+}
 
-const basic = styled.button`
+export const basic = styled.button<ButtonProps>`
   height: 50px;
   cursor: pointer;
   position: relative;
   border: none;
+  font-size: ${({ font }) => (font ? `${font}px` : "16px")};
 `;
 
 export const NavBtn = styled(basic)`

@@ -1,22 +1,38 @@
-import React, { ButtonHTMLAttributes, Children } from "react";
+import React from "react";
 import * as S from "./button.styled";
 
 export interface Props {
   children: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  handleClick?: () => void;
+  handleSubmit?: React.MouseEventHandler<HTMLButtonElement>;
   nav?: boolean;
   Snav?: boolean;
   User?: boolean;
   X?: boolean;
+  font?: number;
 }
 
-const Button = ({ children, onClick, nav, Snav, User, X }: Props) => {
+const Button = ({
+  children,
+  handleClick,
+  handleSubmit,
+  nav,
+  Snav,
+  User,
+  X,
+}: Props) => {
   return (
     <>
-      {nav && <S.NavBtn onClick={onClick}>{children}</S.NavBtn>}
-      {Snav && <S.SnavBtn onClick={onClick}>{children}</S.SnavBtn>}
-      {User && <S.User onClick={onClick}>{children}</S.User>}
-      {X && <S.X onClick={onClick}>{children}</S.X>}
+      {/* <S.basic font={font}>{children}</S.basic> */}
+
+      {nav && <S.NavBtn onClick={handleClick}>{children}</S.NavBtn>}
+      {Snav && <S.SnavBtn onClick={handleClick}>{children}</S.SnavBtn>}
+      {User && <S.User onClick={handleSubmit}>{children}</S.User>}
+      {X && (
+        <S.X type="button" onClick={handleClick}>
+          {children}
+        </S.X>
+      )}
     </>
   );
 };
