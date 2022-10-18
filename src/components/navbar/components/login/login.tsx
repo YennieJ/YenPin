@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 import {
   createUserWithEmailAndPassword,
@@ -12,6 +12,7 @@ import * as S from "./login.styled";
 //   handleModal: () => void;
 // }
 // { handleModal }: Props
+
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
@@ -56,6 +57,13 @@ const Login = () => {
     }
   };
 
+  const HandleLoginModal = () => {
+    setEmail("");
+    setPwd("");
+    setIsCreate(false);
+    setLoginModalControl(!loginModalcontrol);
+  };
+
   return (
     <>
       {loginModalcontrol ? (
@@ -67,7 +75,7 @@ const Login = () => {
                 <div>{isCreate ? "회원가입" : "로그인"}</div>
                 <S.CloseLoginModalButton
                   type="button"
-                  onClick={() => setLoginModalControl(!loginModalcontrol)}
+                  onClick={HandleLoginModal}
                 >
                   &#10005;
                 </S.CloseLoginModalButton>
@@ -98,7 +106,7 @@ const Login = () => {
           type="button"
           onClick={() => setLoginModalControl(!loginModalcontrol)}
         >
-          login
+          Login
         </S.LoginButton>
       )}
     </>

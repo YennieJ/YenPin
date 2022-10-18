@@ -32,12 +32,14 @@ export const SidebarButton = styled.button<ButtonProps>`
 
   color: white;
 
-  font-size: ${({ font }) => (font ? `${font}px` : "x-large")};
-  text-align: ${({ close }) => (close ? "end" : "")};
-  padding-right: ${({ close }) => (close ? "30px" : "")};
-
   cursor: pointer;
   :hover {
     background-color: rgba(0, 0, 0, 0.2);
   }
+
+  font-size: ${({ font }) => (font ? `${font}px` : "x-large")};
+  ${({ close }) => css`
+    text-align: ${close ? "end" : ""};
+    padding-right: ${close ? "30px" : ""};
+  `}
 `;

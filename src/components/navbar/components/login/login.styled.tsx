@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Backdrop = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ export const Backdrop = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 0;
 
   width: 100vw;
   height: 100vh;
@@ -16,7 +16,6 @@ export const Backdrop = styled.div`
 
 export const DialogBox = styled.dialog`
   display: flex;
-  z-index: 10000;
 
   width: 450px;
   height: 450px;
@@ -46,6 +45,8 @@ export const UserForm = styled.form`
     border-bottom: 1px solid #9e9e9e;
 
     font-size: 20px;
+
+    outline: none;
 
     &:nth-of-type(2) {
       margin-bottom: 50px;

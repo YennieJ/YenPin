@@ -10,18 +10,18 @@ export interface CardType {
   fileName?: any;
   fileURL?: any;
 }
-type CardProps = {
-  cards: CardType[];
-};
+// interface CardProps {
+//   cards: CardType[];
+// }
 
 const My = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const secRef = useRef<HTMLInputElement>(null);
 
-  const [cards, setCards] = useState<CardType[]>();
+  const [cards, setCards] = useState<CardType[]>([]);
 
-  const onsubmit = (e: React.FormEvent) => {
+  const addCard = (e: React.FormEvent) => {
     const card = [
       {
         id: Date.now(),
@@ -31,22 +31,32 @@ const My = () => {
     ];
 
     e.preventDefault();
-    setCards(card);
+    setCards(cards.concat(card));
     formRef.current?.reset();
   };
-
-  console.log(cards);
-
+  const deleteCard = (id: number) => {
+    const filteredCard = cards.filter((card) => card.id !== id);
+    setCards(filteredCard);
+  };
   return (
     <>
       <S.Container>
-        <form ref={formRef} onSubmit={onsubmit}>
+        <form ref={formRef} onSubmit={addCard}>
           <input ref={inputRef} type="text" />
           <input ref={secRef} type="text" />
           <button type="submit">등록</button>
         </form>
       </S.Container>
-      {cards?.map((item) => console.log(item))}
+
+      {cards.map((card) => {
+        return (
+          <div key={card.id}>
+            {card.fileName}
+            {card.fileURL}
+            <button onClick={() => deleteCard(card.id)}>삭제</button>
+          </div>
+        );
+      })}
     </>
   );
 };
