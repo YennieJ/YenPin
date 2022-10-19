@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { fileURLToPath } from "url";
+import ImageUploader from "service/img_uploader";
 
 import * as S from "./my.styled";
 
@@ -7,9 +7,10 @@ import * as S from "./my.styled";
 
 export interface CardType {
   id: number;
-  fileName?: any;
-  fileURL?: any;
+  fileName?: string;
+  fileURL?: string;
 }
+// 부모에서 상속받을떼???????????쓰는거래
 // interface CardProps {
 //   cards: CardType[];
 // }
@@ -17,33 +18,40 @@ export interface CardType {
 const My = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const secRef = useRef<HTMLInputElement>(null);
 
   const [cards, setCards] = useState<CardType[]>([]);
+  const [file, setFile] = useState<string>();
+
+  const imgUploader = new ImageUploader();
+
+  const filehandler = async (event: any) => {
+    const uploaded = await imgUploader.upload(event.target.files[0]);
+    console.log(uploaded);
+    setFile(uploaded.url);
+  };
 
   const addCard = (e: React.FormEvent) => {
-    const card = [
-      {
-        id: Date.now(),
-        fileName: inputRef.current?.value,
-        fileURL: secRef.current?.value,
-      },
-    ];
-
+    const card = {
+      id: Date.now(),
+      fileName: inputRef.current?.value,
+      fileURL: file,
+    };
     e.preventDefault();
-    setCards(cards.concat(card));
+    setCards([...cards, card]);
     formRef.current?.reset();
   };
+
   const deleteCard = (id: number) => {
     const filteredCard = cards.filter((card) => card.id !== id);
     setCards(filteredCard);
   };
+
   return (
     <>
       <S.Container>
         <form ref={formRef} onSubmit={addCard}>
           <input ref={inputRef} type="text" />
-          <input ref={secRef} type="text" />
+          <input type="file" accept="image/*" onChange={filehandler} />
           <button type="submit">등록</button>
         </form>
       </S.Container>
@@ -52,7 +60,7 @@ const My = () => {
         return (
           <div key={card.id}>
             {card.fileName}
-            {card.fileURL}
+            <img src={card.fileURL}></img>
             <button onClick={() => deleteCard(card.id)}>삭제</button>
           </div>
         );
