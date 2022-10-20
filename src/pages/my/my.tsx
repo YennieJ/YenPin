@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-// import ImageUploader from "service/img_uploader";
-import { firebaseDatabase } from "service/firebase";
-import { getDatabase, ref, set } from "firebase/database";
+import React, { useRef, useState, useContext } from "react";
+
+import { AuthContext } from "service/authContext";
+
+import CardRepository from "service/card_repository";
 import * as S from "./my.styled";
 
 // import {Props as MyProps} from '../my.tsx'
-
 export interface CardType {
   id: number;
   fileName?: string;
@@ -16,25 +16,14 @@ export interface CardType {
 //   cards: CardType[];
 // }
 
-// function writeUserData(userId, name, email, imageUrl) {
-//   const db = getDatabase();
-//   set(ref(db, 'users/' + userId), {
-//     username: name,
-//     email: email,
-//     profile_picture : imageUrl
-//   });
-// }
-
-const sample = (card: any) => {
-  const db = getDatabase();
-  set(ref(db, "users/"), {
-    card,
-  });
-};
+const cardRepository = new CardRepository();
+//여기서 가져오는것이 맞는것인가 아니면 최상단에서 가져와서 프롭스로 가져와야하는가
 
 const My = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const userInfo = useContext(AuthContext);
+  const userUid = userInfo?.uid;
 
   const [cards, setCards] = useState<CardType[]>([]);
 
@@ -55,12 +44,13 @@ const My = () => {
     e.preventDefault();
     setCards([...cards, card]);
     formRef.current?.reset();
-    sample(card);
+    cardRepository.saveCard(userUid, card);
   };
 
   const deleteCard = (id: number) => {
     const filteredCard = cards.filter((card) => card.id !== id);
     setCards(filteredCard);
+    cardRepository.deleteCard(userUid, { id });
   };
 
   return (
