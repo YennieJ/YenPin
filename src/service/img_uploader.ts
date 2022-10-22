@@ -1,3 +1,6 @@
+import { storage } from "./firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 class ImageUploader {
   async upload(file: any) {
     const data = new FormData();
@@ -15,25 +18,3 @@ class ImageUploader {
 }
 
 export default ImageUploader;
-
-// import { firebaseDatabase } from "./firebase";
-
-// class CardRepository {
-//   syncCards(userId, onUpdate) {
-//     const ref = firebaseDatabase.ref(`${userId}/cards`);
-//     ref.on("value", (snapshot) => {
-//       const value = snapshot.val();
-//       value && onUpdate(value);
-//     });
-//     return () => ref.off();
-//   }
-//   saveCard(userId, card) {
-//     firebaseDatabase.ref(`${userId}/cards/${card.id}`).set(card);
-//   }
-
-//   removeCard(userId, card) {
-//     firebaseDatabase.ref(`${userId}/cards/${card.id}`).remove();
-//   }
-// }
-
-// export default CardRepository;
