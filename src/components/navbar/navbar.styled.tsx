@@ -21,7 +21,7 @@ export const LinkContainer = styled.div`
 `;
 
 export const LinkTag = styled(Link)`
-  margin: 10px;
+  padding: 10px;
 
   color: white;
   font-size: x-large;

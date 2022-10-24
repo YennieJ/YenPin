@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { getDatabase, ref, set, remove, onValue } from "firebase/database";
 import { CardType } from "pages/my/my"; //여기서 임포트인가 여기서 만들어서 마이에서 임포트인가
 
@@ -34,7 +33,7 @@ export const SyncCards = (userUid: string | undefined, onUpdate: any) => {
   const starCountRef = ref(db, `users/${userUid}`);
   onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
-    onUpdate(data);
+    data && onUpdate(data);
   });
 };
 
@@ -47,7 +46,7 @@ export const SaveCard = (userUid: string | undefined, card: CardType) => {
   });
 };
 
-export const DeleteCard = (userUid: string | undefined, card: CardType) => {
+export const DeleteCard = (userUid: string | undefined, id: number) => {
   const db = getDatabase();
-  remove(ref(db, `users/${userUid}/${card.id}`));
+  remove(ref(db, `users/${userUid}/${id}`));
 };

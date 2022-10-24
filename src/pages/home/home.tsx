@@ -31,7 +31,6 @@ const Home = () => {
   //   });
   // };
 
-  const onclick = () => console.log("gg");
   return (
     <>
       <h1>Home</h1>
