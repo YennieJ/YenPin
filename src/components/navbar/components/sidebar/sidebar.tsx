@@ -3,11 +3,15 @@ import { signOut } from "@firebase/auth";
 import { auth } from "service/firebase";
 
 import * as S from "./sidebar.styled";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   const [sidebarControl, setSidebarControl] = useState<boolean>(false);
   const handleLogout = () => {
     signOut(auth);
+    navigate("/");
     window.location.reload();
   };
   return (

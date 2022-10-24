@@ -4,6 +4,7 @@ import { AuthContext } from "service/authContext";
 import { SyncCards, SaveCard, DeleteCard } from "service/card_repository";
 import { UploadImageFile, DeleteImageFile } from "service/img_uploader";
 
+import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./my.styled";
 
 // import {Props as MyProps} from '../my.tsx'
@@ -67,13 +68,13 @@ const My = () => {
 
   return (
     <>
-      <S.Container>
+      <div>
         <form ref={formRef} onSubmit={addCard}>
           <input ref={inputRef} type="text" />
           <input type="file" accept="image/*" onChange={handleUploadFile} />
           <button type="submit">등록</button>
         </form>
-      </S.Container>
+      </div>
 
       {cards.map((card) => (
         <div key={card.id}>

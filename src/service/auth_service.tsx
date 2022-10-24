@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const AuthProvider = ({ children }: Props) => {
+export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const subscribe = auth.onAuthStateChanged((fbUser) => {
@@ -20,5 +20,3 @@ const AuthProvider = ({ children }: Props) => {
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
-
-export default AuthProvider;

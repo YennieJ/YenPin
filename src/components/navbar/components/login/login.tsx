@@ -6,6 +6,7 @@ import {
 } from "@firebase/auth";
 import { auth } from "service/firebase";
 
+import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./login.styled";
 
 // export interface Props {
@@ -67,40 +68,35 @@ const Login = () => {
   return (
     <>
       {loginModalcontrol ? (
-        <S.Backdrop>
-          <S.DialogBox>
-            <S.UserForm onSubmit={handleSubmit}>
-              <S.UserFormHead>
-                <div></div>
-                <div>{isCreate ? "회원가입" : "로그인"}</div>
-                <S.CloseLoginModalButton
-                  type="button"
-                  onClick={HandleLoginModal}
-                >
-                  &#10005;
-                </S.CloseLoginModalButton>
-              </S.UserFormHead>
-              <input
-                placeholder="email"
-                type="email"
-                name="email"
-                onChange={handleEmail}
-                value={email}
-              />
-              <input
-                placeholder="password"
-                type="password"
-                name="pwd"
-                onChange={handlePwd}
-                value={pwd}
-              />
-              <S.SubmitButton>{isCreate ? "만들기" : "로그인"}</S.SubmitButton>
-              <S.SubmitButton onClick={handleClickCreate}>
-                {isCreate ? "취소" : "회원가입"}
-              </S.SubmitButton>
-            </S.UserForm>
-          </S.DialogBox>
-        </S.Backdrop>
+        <DialogBox>
+          <S.UserForm onSubmit={handleSubmit}>
+            <S.UserFormHead>
+              <div></div>
+              <div>{isCreate ? "회원가입" : "로그인"}</div>
+              <S.CloseLoginModalButton type="button" onClick={HandleLoginModal}>
+                &#10005;
+              </S.CloseLoginModalButton>
+            </S.UserFormHead>
+            <input
+              placeholder="email"
+              type="email"
+              name="email"
+              onChange={handleEmail}
+              value={email}
+            />
+            <input
+              placeholder="password"
+              type="password"
+              name="pwd"
+              onChange={handlePwd}
+              value={pwd}
+            />
+            <S.SubmitButton>{isCreate ? "만들기" : "로그인"}</S.SubmitButton>
+            <S.SubmitButton onClick={handleClickCreate}>
+              {isCreate ? "취소" : "회원가입"}
+            </S.SubmitButton>
+          </S.UserForm>
+        </DialogBox>
       ) : (
         <S.LoginButton
           type="button"
