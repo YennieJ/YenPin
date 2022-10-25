@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-interface LinkProps {
-  children?: React.ReactNode;
-}
-
 export const Header = styled.h1`
   background-color: black;
 `;

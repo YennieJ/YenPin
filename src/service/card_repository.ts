@@ -33,7 +33,7 @@ export const SyncCards = (userUid: string | undefined, onUpdate: any) => {
   const starCountRef = ref(db, `users/${userUid}`);
   onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
-    data && onUpdate(data);
+    onUpdate(data);
   });
 };
 

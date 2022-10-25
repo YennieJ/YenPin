@@ -1,11 +1,12 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "service/authContext";
-import { SyncCards, SaveCard, DeleteCard } from "service/card_repository";
-import { UploadImageFile, DeleteImageFile } from "service/img_uploader";
+import { SyncCards, DeleteCard } from "service/card_repository";
+import { DeleteImageFile } from "service/img_uploader";
 
 import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./my.styled";
+import CardForm from "./components/cardForm/cardForm";
 
 // import {Props as MyProps} from '../my.tsx'
 export interface CardType {
@@ -19,15 +20,12 @@ export interface CardType {
 // }
 
 const My = () => {
-  const formRef = useRef<HTMLFormElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
   const navigate = useNavigate();
 
-  const [cards, setCards] = useState<CardType[]>([]);
-  const [file, setFile] = useState<string>("");
-  const [id, setId] = useState<number>();
+  const [myCards, setMyCards] = useState<CardType[]>([]);
+  const [cardAddModal, setCardAddModal] = useState<boolean>(false);
 
   useEffect(() => {
     userInfo
@@ -38,48 +36,36 @@ const My = () => {
           // ))
           // setCards(temp);
           if (!dbCards) return null;
-          setCards(Object.values(dbCards).map((data) => data));
+          setMyCards(Object.values(dbCards).map((data) => data));
         })
       : navigate("/");
   }, [navigate, userInfo, userUid]);
 
-  function addCard(e: React.FormEvent) {
-    const card = {
-      id: id,
-      fileName: inputRef.current?.value,
-      fileURL: file,
-    };
-
-    e.preventDefault();
-    setCards([...cards, card]);
-    formRef.current?.reset();
-    SaveCard(userUid, card);
-  }
-
-  const handleUploadFile = (
-    e: React.ChangeEvent<EventTarget & HTMLInputElement>
-  ) => {
-    UploadImageFile(e, setFile, setId);
+  const closeCardAddModal = (id: number) => {
+    setCardAddModal(!cardAddModal);
+    id && DeleteImageFile(id);
   };
 
   const deleteCard = (id: number) => {
-    const filteredCard = cards.filter((card) => card.id !== id);
-    setCards(filteredCard);
+    const filteredCard = myCards.filter((card) => card.id !== id);
+    setMyCards(filteredCard);
     DeleteCard(userUid, id);
     DeleteImageFile(id);
   };
 
   return (
     <>
-      <div>
-        <form ref={formRef} onSubmit={addCard}>
-          <input ref={inputRef} type="text" />
-          <input type="file" accept="image/*" onChange={handleUploadFile} />
-          <button type="submit">등록</button>
-        </form>
-      </div>
+      {cardAddModal ? (
+        <CardForm
+          cards={myCards}
+          setCards={setMyCards}
+          closeCardAddModal={closeCardAddModal}
+        />
+      ) : (
+        <button onClick={() => setCardAddModal(!cardAddModal)}>Add</button>
+      )}
 
-      {cards.map((card) => (
+      {myCards.map((card) => (
         <div key={card.id}>
           {card.fileName}
           <img alt="" src={card.fileURL}></img>
