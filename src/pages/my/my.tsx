@@ -1,6 +1,6 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import { AuthContext } from "service/authContext";
-
+// import { AuthProps, OnAuthChange } from "service/auth_service";
 import { SyncCards, SaveCard, DeleteCard } from "service/card_repository";
 import { UploadImageFile, DeleteImageFile } from "service/img_uploader";
 
@@ -28,6 +28,15 @@ const My = () => {
   const [file, setFile] = useState<string>("");
   const [id, setId] = useState<number>();
 
+  // useEffect(() => {
+  //   OnAuthChange((user: any) => {
+  //     if (user) {
+  //       console.log(user);
+  //     } else {
+  //       console.log("뭐야");
+  //     }
+  //   });
+  // }, []);
   const addCard = (e: React.FormEvent) => {
     const card = {
       id: id,

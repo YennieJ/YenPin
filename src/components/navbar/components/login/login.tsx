@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "@firebase/auth";
-import { auth } from "service/firebase";
+import { AuthLogin, AuthSingup } from "service/auth_service";
 
 import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./login.styled";
@@ -40,21 +36,9 @@ const Login = () => {
     e.preventDefault();
 
     if (isCreate) {
-      createUserWithEmailAndPassword(auth, email, pwd)
-        .then(() => {
-          alert("회원가입 성공");
-        })
-        .catch((e) => {
-          alert(e);
-        });
+      AuthLogin({ email, pwd });
     } else {
-      signInWithEmailAndPassword(auth, email, pwd)
-        .then(() => {
-          alert("로그인 성공");
-        })
-        .catch((e) => {
-          alert(e);
-        });
+      AuthSingup({ email, pwd });
     }
   };
 

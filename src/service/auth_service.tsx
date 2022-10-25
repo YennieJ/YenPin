@@ -1,8 +1,14 @@
 //authProvider.tsx
-import { User } from "@firebase/auth";
+import {
+  User,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "@firebase/auth";
 import { useEffect, useState } from "react";
-import { AuthContext } from "./authContext";
 import { auth } from "./firebase";
+
+import { AuthContext } from "./authContext";
 
 type Props = {
   children: React.ReactNode;
@@ -19,4 +25,39 @@ export const AuthProvider = ({ children }: Props) => {
   }, []);
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+};
+// export interface AuthProps {
+//   onUserChanged: User;
+// }
+// export const OnAuthChange = ({ onUserChanged }: any) => {
+//   auth.onAuthStateChanged((user) => {
+//     onUserChanged(user);
+//   });
+// };
+interface LoginProps {
+  email: string;
+  pwd: string;
+}
+export const AuthLogin = ({ email, pwd }: LoginProps) => {
+  createUserWithEmailAndPassword(auth, email, pwd)
+    .then(() => {
+      alert("회원가입 성공");
+    })
+    .catch((e) => {
+      alert(e);
+    });
+};
+
+export const AuthSingup = ({ email, pwd }: LoginProps) => {
+  signInWithEmailAndPassword(auth, email, pwd)
+    .then(() => {
+      alert("로그인 성공");
+    })
+    .catch((e) => {
+      alert(e);
+    });
+};
+
+export const AuthSignOut = () => {
+  signOut(auth);
 };

@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { signOut } from "@firebase/auth";
-import { auth } from "service/firebase";
+import { useNavigate } from "react-router-dom";
+import { AuthSignOut } from "service/auth_service";
 
 import * as S from "./sidebar.styled";
-import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
   const [sidebarControl, setSidebarControl] = useState<boolean>(false);
   const handleLogout = () => {
-    signOut(auth);
+    AuthSignOut();
     navigate("/");
-    window.location.reload();
+    // window.location.reload();
   };
   return (
     <>
