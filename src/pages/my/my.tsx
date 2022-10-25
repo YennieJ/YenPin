@@ -1,6 +1,6 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "service/authContext";
-// import { AuthProps, OnAuthChange } from "service/auth_service";
 import { SyncCards, SaveCard, DeleteCard } from "service/card_repository";
 import { UploadImageFile, DeleteImageFile } from "service/img_uploader";
 
@@ -23,21 +23,27 @@ const My = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
+  const navigate = useNavigate();
 
   const [cards, setCards] = useState<CardType[]>([]);
   const [file, setFile] = useState<string>("");
   const [id, setId] = useState<number>();
 
-  // useEffect(() => {
-  //   OnAuthChange((user: any) => {
-  //     if (user) {
-  //       console.log(user);
-  //     } else {
-  //       console.log("뭐야");
-  //     }
-  //   });
-  // }, []);
-  const addCard = (e: React.FormEvent) => {
+  useEffect(() => {
+    userInfo
+      ? SyncCards(userUid, (dbCards: CardType[]) => {
+          // let temp = []
+          // Object.values(dbCards).map((data) => (
+          //   temp.push(data)
+          // ))
+          // setCards(temp);
+          if (!dbCards) return null;
+          setCards(Object.values(dbCards).map((data) => data));
+        })
+      : navigate("/");
+  }, [navigate, userInfo, userUid]);
+
+  function addCard(e: React.FormEvent) {
     const card = {
       id: id,
       fileName: inputRef.current?.value,
@@ -48,25 +54,13 @@ const My = () => {
     setCards([...cards, card]);
     formRef.current?.reset();
     SaveCard(userUid, card);
-  };
+  }
 
   const handleUploadFile = (
     e: React.ChangeEvent<EventTarget & HTMLInputElement>
   ) => {
     UploadImageFile(e, setFile, setId);
   };
-
-  useEffect(() => {
-    SyncCards(userUid, (dbCards: CardType[]) => {
-      // let temp = []
-      // Object.values(dbCards).map((data) => (
-      //   temp.push(data)
-      // ))
-      // setCards(temp);
-      if (!dbCards) return null;
-      setCards(Object.values(dbCards).map((data) => data));
-    });
-  }, [userUid]);
 
   const deleteCard = (id: number) => {
     const filteredCard = cards.filter((card) => card.id !== id);

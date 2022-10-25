@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import { AuthProps, OnAuthChange } from "service/auth_service";
 import { AuthProvider } from "service/auth_service";
-import { auth } from "service/firebase";
-import { User } from "@firebase/auth";
 
 import Home from "./pages/home/home";
 import Popular from "pages/popular";

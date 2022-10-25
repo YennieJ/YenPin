@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { AuthLogin, AuthSingup } from "service/auth_service";
+import { AuthLogIn, AuthSignUp } from "service/auth_service";
 
 import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./login.styled";
@@ -36,9 +36,9 @@ const Login = () => {
     e.preventDefault();
 
     if (isCreate) {
-      AuthLogin({ email, pwd });
+      AuthSignUp({ email, pwd });
     } else {
-      AuthSingup({ email, pwd });
+      AuthLogIn({ email, pwd });
     }
   };
 

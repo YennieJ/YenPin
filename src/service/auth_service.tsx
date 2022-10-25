@@ -26,19 +26,12 @@ export const AuthProvider = ({ children }: Props) => {
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
-// export interface AuthProps {
-//   onUserChanged: User;
-// }
-// export const OnAuthChange = ({ onUserChanged }: any) => {
-//   auth.onAuthStateChanged((user) => {
-//     onUserChanged(user);
-//   });
-// };
+
 interface LoginProps {
   email: string;
   pwd: string;
 }
-export const AuthLogin = ({ email, pwd }: LoginProps) => {
+export const AuthSignUp = ({ email, pwd }: LoginProps) => {
   createUserWithEmailAndPassword(auth, email, pwd)
     .then(() => {
       alert("회원가입 성공");
@@ -48,7 +41,7 @@ export const AuthLogin = ({ email, pwd }: LoginProps) => {
     });
 };
 
-export const AuthSingup = ({ email, pwd }: LoginProps) => {
+export const AuthLogIn = ({ email, pwd }: LoginProps) => {
   signInWithEmailAndPassword(auth, email, pwd)
     .then(() => {
       alert("로그인 성공");
