@@ -8,24 +8,20 @@ import {
 } from "firebase/storage";
 
 export const UploadImageFile = (
-  e: React.ChangeEvent<EventTarget & HTMLInputElement>,
+  file: FileList | null,
   setFile: React.Dispatch<React.SetStateAction<string>>,
   setId: React.Dispatch<React.SetStateAction<number | undefined>>
 ) => {
-  const file = e.target.files;
-  if (!file) return null;
-
   const name = new Date().getTime();
   setId(name);
 
   const storageRef = ref(storage, "images/" + name);
 
-  const uploadTask = uploadBytesResumable(storageRef, file[0]);
-
+  const uploadTask = uploadBytesResumable(storageRef, file![0]);
   uploadTask.on(
     "state_changed",
     (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      const progress = snapshot.bytesTransferred / snapshot.totalBytes;
       console.log("Upload is " + progress + "% done");
       switch (snapshot.state) {
         case "paused":

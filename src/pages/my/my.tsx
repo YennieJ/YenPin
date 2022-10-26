@@ -4,7 +4,6 @@ import { AuthContext } from "service/authContext";
 import { SyncCards, DeleteCard } from "service/card_repository";
 import { DeleteImageFile } from "service/img_uploader";
 
-import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./my.styled";
 import CardForm from "./components/cardForm/cardForm";
 
@@ -43,7 +42,7 @@ const My = () => {
 
   const closeCardAddModal = (id: number) => {
     setCardAddModal(!cardAddModal);
-    id && DeleteImageFile(id);
+    // id && DeleteImageFile(id);
   };
 
   const deleteCard = (id: number) => {
