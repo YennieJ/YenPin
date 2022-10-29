@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+//padding이 왜 있는지 모르겠음. 그치만 필요한거같아.
 export const Backdrop = styled.div`
   display: flex;
   place-items: center;

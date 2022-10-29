@@ -1,14 +1,17 @@
 //authProvider.tsx
+import { useEffect, useState } from "react";
+import { AuthContext } from "./authContext";
+
+import { auth } from "./firebase";
+
 import {
   User,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "@firebase/auth";
-import { useEffect, useState } from "react";
-import { auth } from "./firebase";
-
-import { AuthContext } from "./authContext";
 
 type Props = {
   children: React.ReactNode;
@@ -48,6 +51,29 @@ export const AuthLogIn = ({ email, pwd }: LoginProps) => {
     })
     .catch((e) => {
       alert(e);
+    });
+};
+
+export const GoogleProvider = () => {
+  const provider = new GoogleAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+
+      if (!credential) return null;
+      // const token = credential.accessToken;
+      // const user = result.user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      console.log(errorCode);
+      const errorMessage = error.message;
+      console.log(errorMessage);
+      const email = error.customData.email;
+      console.log(email);
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(credential);
     });
 };
 

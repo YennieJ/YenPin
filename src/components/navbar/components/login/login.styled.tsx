@@ -1,55 +1,27 @@
 import styled from "styled-components";
 
-export const Backdrop = styled.div`
-  display: flex;
-  place-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-
-  width: 100vw;
-  height: 100vh;
-
-  background-color: rgba(0, 0, 0, 0.2);
-`;
-
-export const DialogBox = styled.dialog`
-  display: flex;
-
-  width: 450px;
-  height: 450px;
-  border: none;
-  border-radius: 20px;
-
-  background-color: white;
-
-  box-sizing: border-box;
-  box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
-`;
-
 export const UserForm = styled.form`
   display: flex;
   flex-direction: column;
   place-items: center;
+  justify-content: space-between;
 
   width: 100%;
-  height: 100%;
-
+  padding: 10px 0;
+  // 여긴 마진을 쓰고 싶음.
   input {
-    width: 100%;
+    width: 80%;
     height: 3rem;
-    margin: 20px;
+    margin-bottom: 20px;
     padding: 0;
     border: none;
     border-bottom: 1px solid #9e9e9e;
 
     font-size: 20px;
-
     outline: none;
 
     &:nth-of-type(2) {
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
   }
 `;
@@ -59,7 +31,7 @@ export const UserFormHead = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
 
   width: 100%;
-  margin-top: 10px;
+  /* padding-top: 15px; */
 
   div {
     &:nth-of-type(2) {
@@ -87,7 +59,7 @@ export const CloseLoginModalButton = styled(ButtonBasic)`
 
 export const SubmitButton = styled(ButtonBasic)`
   width: 300px;
-  margin: 10px;
+  margin-bottom: 10px;
   border: 2px solid purple;
   border-radius: 24px;
 
@@ -104,4 +76,23 @@ export const LoginButton = styled(ButtonBasic)`
 
   color: white;
   font-size: x-large;
+`;
+
+export const GoogleLoginButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 1px solid gray;
+  border-radius: 50%;
+
+  background-color: #fff;
+`;
+
+export const GoogleButtonImage = styled.img`
+  width: 35px;
+  height: 35px;
 `;
