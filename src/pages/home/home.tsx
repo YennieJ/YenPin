@@ -34,6 +34,7 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
+
       {/* {allCards.map((card) => (
         <div key={card.id}>
           {card.fileName}

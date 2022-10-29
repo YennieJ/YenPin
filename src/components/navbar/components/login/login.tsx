@@ -14,6 +14,10 @@ const Login = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [loginModalcontrol, setLoginModalControl] = useState<boolean>(false);
 
+  loginModalcontrol
+    ? (document.body.style.overflow = "hidden")
+    : (document.body.style.overflow = "unset");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },

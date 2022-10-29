@@ -52,6 +52,8 @@ import {
 //   });
 // };
 
+// Create a reference under which you want to list
+
 export const UploadImageFile = (
   file: FileList | null,
   setFile: React.Dispatch<React.SetStateAction<string>>,

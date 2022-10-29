@@ -9,10 +9,13 @@ import * as S from "./navbar.styled";
 
 const Nav = () => {
   const userInfo = useContext(AuthContext);
+
   return (
     <>
       <S.Header>
-        <S.LinkTag to="/">HOME</S.LinkTag>
+        <S.LinkTag font={50} to="/">
+          HOME
+        </S.LinkTag>
       </S.Header>
       <S.Container>
         <S.LinkContainer>

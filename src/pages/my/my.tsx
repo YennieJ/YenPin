@@ -57,6 +57,10 @@ const My = () => {
     DeleteImageFile(id);
   };
 
+  cardAddModal
+    ? (document.body.style.overflow = "hidden")
+    : (document.body.style.overflow = "unset");
+
   return (
     <>
       {cardAddModal ? (

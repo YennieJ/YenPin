@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const SidebarContainer = styled.div`
-  width: 18rem;
-
+  width: 15rem;
   text-align: end;
 `;
 
@@ -10,10 +9,11 @@ export const SidebarBackground = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  position: absolute;
   z-index: 1;
 
-  height: 500px;
+  width: 15rem;
+  height: 400px;
 
   background-color: purple;
 `;
@@ -40,6 +40,6 @@ export const SidebarButton = styled.button<ButtonProps>`
   font-size: ${({ font }) => (font ? `${font}px` : "x-large")};
   ${({ close }) => css`
     text-align: ${close ? "end" : ""};
-    padding-right: ${close ? "30px" : ""};
+    padding: ${close ? "0 30px 0 0" : "0"};
   `}
 `;

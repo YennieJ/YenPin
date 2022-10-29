@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const Header = styled.h1`
+export const Header = styled.div`
+  display: flex;
+  justify-content: center;
+
+  padding: 50px;
+
   background-color: black;
 `;
 
@@ -9,7 +14,10 @@ export const Container = styled.nav`
   display: flex;
   justify-content: space-between;
 
-  width: 100%;
+  margin-top: 10px;
+  padding-left: 20px;
+  align-items: center;
+
   height: 50px;
 
   background-color: purple;
@@ -20,11 +28,13 @@ export const LinkContainer = styled.div`
   text-align: end;
 `;
 
-export const LinkTag = styled(Link)`
-  padding: 10px;
+interface FontProps {
+  font?: number;
+}
+export const LinkTag = styled(Link)<FontProps>`
+  margin-right: 20px;
 
   color: white;
-  font-size: x-large;
   text-decoration: none;
 
   &:hover,
@@ -35,4 +45,6 @@ export const LinkTag = styled(Link)`
   &:active {
     color: red;
   }
+
+  font-size: ${({ font }) => (font ? `${font}px` : "28px")};
 `;

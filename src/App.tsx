@@ -7,11 +7,14 @@ import Popular from "pages/popular";
 import My from "pages/my";
 import Nav from "components/navbar";
 
+import GlobalStyle from "grobal.styled";
+
 export interface Props {}
 
 const App = ({}: Props) => {
   return (
     <AuthProvider>
+      <GlobalStyle />
       <BrowserRouter>
         <Nav />
         <Routes>
