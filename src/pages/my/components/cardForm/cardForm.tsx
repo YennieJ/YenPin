@@ -1,11 +1,12 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useContext } from "react";
+
+import { AuthContext } from "service/authContext";
 import { SaveCard } from "service/card_repository";
 import { UploadImageFile } from "service/img_uploader";
 
-import { AuthContext } from "service/authContext";
+import DialogBox from "components/dialogBox/dialogBox";
 
 import * as S from "./cardForm.styled";
-import DialogBox from "components/dialogBox/dialogBox";
 
 interface CardsProps {
   cards: any;
@@ -42,16 +43,17 @@ const CardForm = ({ cards, setCards, closeCardAddModal }: CardsProps) => {
     }
   };
 
+  //UploadImageFile을 addCard할때 업로드 될 수 있게
   const handleUploadFile = (
     e: React.ChangeEvent<EventTarget & HTMLInputElement>
   ) => {
     const file: FileList | null = e.target.files;
+    // console.log(file![0]);
     setUserFileName(file![0].name);
     UploadImageFile(file, setFile, setId);
   };
 
-  const onButtonClick = (event: any) => {
-    event.preventDefault();
+  const onButtonClick = () => {
     fileRef.current?.click();
   };
 

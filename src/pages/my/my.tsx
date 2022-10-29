@@ -1,11 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
+
 import { AuthContext } from "service/authContext";
+
 import { SyncCards, DeleteCard } from "service/card_repository";
 import { DeleteImageFile } from "service/img_uploader";
 
+import CardForm from "./components/cardForm";
+
 import * as S from "./my.styled";
-import CardForm from "./components/cardForm/cardForm";
 
 // import {Props as MyProps} from '../my.tsx'
 export interface CardType {
@@ -40,6 +44,7 @@ const My = () => {
       : navigate("/");
   }, [navigate, userInfo, userUid]);
 
+  //promise 이용해서 addCard가 될때 사진 파일이 업로드 된다면, id는 안받아도돼
   const closeCardAddModal = (id: number) => {
     setCardAddModal(!cardAddModal);
     // id && DeleteImageFile(id);
@@ -67,6 +72,7 @@ const My = () => {
       {myCards.map((card) => (
         <div key={card.id}>
           {card.fileName}
+          {card.id}
           <img alt="" src={card.fileURL}></img>
           <button onClick={() => deleteCard(card.id!)}>삭제</button>
         </div>

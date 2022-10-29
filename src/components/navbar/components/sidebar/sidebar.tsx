@@ -8,10 +8,11 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const [sidebarControl, setSidebarControl] = useState<boolean>(false);
+
+  //로그아웃됐을때, 홈으로 돌아가기 위해서 navigate사용
   const handleLogout = () => {
     AuthSignOut();
     navigate("/");
-    // window.location.reload();
   };
   return (
     <>

@@ -3,13 +3,10 @@ import React, { useState } from "react";
 import { AuthLogIn, AuthSignUp } from "service/auth_service";
 
 import DialogBox from "components/dialogBox/dialogBox";
+
 import * as S from "./login.styled";
 
-// export interface Props {
-//   handleModal: () => void;
-// }
-// { handleModal }: Props
-
+//회원가입 페이지를 따로 만들어야 함////////////////////////////////////////////
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
@@ -17,17 +14,31 @@ const Login = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [loginModalcontrol, setLoginModalControl] = useState<boolean>(false);
 
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setEmail(e.target.value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { name, value },
+    } = e;
+
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "pwd") {
+      setPwd(value);
+    }
   };
 
-  const handlePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setPwd(e.target.value);
-  };
+  //아래 코드를 하나로 합친 것 handleInputChange
+  // const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setEmail(e.target.value);
+  // };
+
+  // const handlePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setPwd(e.target.value);
+  // };
 
   const handleClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
+    //submit되지 않기 위해 preventDefault 필요함
     e.preventDefault();
     setIsCreate((pre) => !pre);
   };
@@ -65,14 +76,14 @@ const Login = () => {
               placeholder="email"
               type="email"
               name="email"
-              onChange={handleEmail}
+              onChange={handleInputChange}
               value={email}
             />
             <input
               placeholder="password"
               type="password"
               name="pwd"
-              onChange={handlePwd}
+              onChange={handleInputChange}
               value={pwd}
             />
             <S.SubmitButton>{isCreate ? "만들기" : "로그인"}</S.SubmitButton>
