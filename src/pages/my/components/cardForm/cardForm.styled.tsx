@@ -4,18 +4,22 @@ export const CardForm = styled.form`
   display: flex;
   flex-direction: column;
   place-items: center;
+  justify-content: center;
 
   width: 100%;
-  height: 100%;
+  padding: 0 20px;
+
   input {
-    width: 90%;
+    width: 80%;
     height: 3rem;
-    margin: 20px;
-    padding: 0;
+    padding-top: 20px;
+    margin-bottom: 20px;
+
     border: none;
     border-bottom: 1px solid #9e9e9e;
 
     font-size: 20px;
+    text-align: center;
 
     outline: none;
     &:nth-of-type(2) {
@@ -32,8 +36,9 @@ const ButtonBasic = styled.button`
 `;
 
 export const AddFileButton = styled.button`
-  width: 90%;
+  width: 80%;
   height: 3rem;
+  margin-bottom: 30px;
   font-size: 25px;
   border: none;
   background-color: #fff;
@@ -42,9 +47,10 @@ export const AddFileButton = styled.button`
     background-color: #f1c7f1;
   }
 `;
+
 export const SubmitButton = styled(ButtonBasic)`
   width: 300px;
-  margin: 10px;
+  margin-bottom: 20px;
   border: 2px solid purple;
   border-radius: 24px;
 

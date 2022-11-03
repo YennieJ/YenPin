@@ -7,7 +7,7 @@ export const UserForm = styled.form`
   justify-content: space-between;
 
   width: 100%;
-  padding: 10px 0;
+  padding: 20px 20px;
   // 여긴 마진을 쓰고 싶음.
   input {
     width: 80%;
@@ -31,7 +31,6 @@ export const UserFormHead = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
 
   width: 100%;
-  /* padding-top: 15px; */
 
   div {
     &:nth-of-type(2) {

@@ -22,6 +22,7 @@ export const DialogBox = styled.dialog`
   height: 450px;
   border: none;
   border-radius: 20px;
+  padding: 0;
 
   background-color: white;
 

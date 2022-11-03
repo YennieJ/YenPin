@@ -74,12 +74,15 @@ const My = () => {
       )}
 
       {myCards.map((card) => (
-        <div key={card.id}>
-          {card.fileName}
-          {card.id}
-          <img alt="" src={card.fileURL}></img>
-          <button onClick={() => deleteCard(card.id!)}>삭제</button>
-        </div>
+        <S.Container key={card.id}>
+          <S.CardImage alt="" src={card.fileURL}></S.CardImage>
+          <S.CardDetail>
+            <S.CardName>{card.fileName}</S.CardName>
+            <S.CardDeleteButton onClick={() => deleteCard(card.id!)}>
+              삭제
+            </S.CardDeleteButton>
+          </S.CardDetail>
+        </S.Container>
       ))}
     </>
   );

@@ -60,7 +60,7 @@ const CardForm = ({ cards, setCards, closeCardAddModal }: CardsProps) => {
   return (
     <DialogBox>
       <S.CardForm ref={formRef} onSubmit={addCard}>
-        <input ref={inputRef} type="text" />
+        <input ref={inputRef} type="text" placeholder="카드 이름" />
         <input
           ref={fileRef}
           type="file"
