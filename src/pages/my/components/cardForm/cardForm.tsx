@@ -33,14 +33,14 @@ const CardForm = ({ cards, setCards, closeCardAddModal }: CardsProps) => {
       fileURL: file,
     };
     e.preventDefault();
-    if (card.fileName === "" || card.fileURL === "") {
-      alert("다 입력하렴");
-    } else {
-      setCards([...cards, card]);
-      formRef.current?.reset();
-      SaveCard(userUid, card);
-      closeCardAddModal();
-    }
+    // if (card.fileName === "" || card.fileURL === "") {
+    //   alert("다 입력하렴");
+    // } else {
+    setCards([...cards, card]);
+    formRef.current?.reset();
+    SaveCard(userUid, card);
+    closeCardAddModal();
+    // }
   };
 
   //UploadImageFile을 addCard할때 업로드 될 수 있게

@@ -30,6 +30,29 @@ const My = () => {
   const [myCards, setMyCards] = useState<CardType[]>([]);
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  //페이지 변경
+  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+
+  //페이지 수 구하기
+  const pages = [];
+  for (let i = 1; i < Math.ceil(myCards.length / itemsPerPage); i++)
+    pages.push(i);
+  const pageNumber = pages.map((number) => {
+    return (
+      <li key={number} onClick={() => paginate(number)}>
+        {number}
+      </li>
+    );
+  });
+
+  //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = myCards.slice(indexOfFirstItem, indexOfLastItem);
+
   useEffect(() => {
     userInfo
       ? SyncCards(userUid, (dbCards: CardType[]) => {
@@ -72,8 +95,8 @@ const My = () => {
       ) : (
         <button onClick={() => setCardAddModal(!cardAddModal)}>Add</button>
       )}
-
-      {myCards.map((card) => (
+      {pageNumber}
+      {currentItems.map((card) => (
         <S.Container key={card.id}>
           <S.CardImage alt="" src={card.fileURL}></S.CardImage>
           <S.CardDetail>
