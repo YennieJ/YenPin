@@ -19,7 +19,7 @@ const CardForm = ({ cards, setCards, closeCardAddModal }: CardsProps) => {
   const userUid = userInfo?.uid;
 
   const formRef = useRef<HTMLFormElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [file, setFile] = useState<string>("");
@@ -29,7 +29,7 @@ const CardForm = ({ cards, setCards, closeCardAddModal }: CardsProps) => {
   const addCard = (e: React.FormEvent) => {
     const card = {
       id: id,
-      fileName: inputRef.current?.value,
+      fileName: cardNameRef.current?.value,
       fileURL: file,
     };
     e.preventDefault();
@@ -60,7 +60,7 @@ const CardForm = ({ cards, setCards, closeCardAddModal }: CardsProps) => {
   return (
     <DialogBox>
       <S.CardForm ref={formRef} onSubmit={addCard}>
-        <input ref={inputRef} type="text" placeholder="카드 이름" />
+        <input ref={cardNameRef} type="text" placeholder="카드 이름" />
         <input
           ref={fileRef}
           type="file"

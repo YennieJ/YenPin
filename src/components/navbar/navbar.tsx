@@ -13,14 +13,20 @@ const Nav = () => {
   return (
     <>
       <S.Header>
-        <S.LinkTag font={50} to="/">
+        <S.LinkTag className="selected" font={50} to="/">
           HOME
         </S.LinkTag>
       </S.Header>
       <S.Container>
         <S.LinkContainer>
-          <S.LinkTag to="/popular">popular</S.LinkTag>
-          {userInfo && <S.LinkTag to="/my">my</S.LinkTag>}
+          <S.LinkTag className="selected" to="/popular">
+            popular
+          </S.LinkTag>
+          {userInfo && (
+            <S.LinkTag className="selected" to="/my">
+              my
+            </S.LinkTag>
+          )}
         </S.LinkContainer>
 
         {userInfo ? <Sidebar /> : <Login />}

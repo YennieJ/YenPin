@@ -22,12 +22,10 @@ export const Container = styled.nav`
 
   background-color: purple;
 `;
-
 export const LinkContainer = styled.div`
   display: flex;
   text-align: end;
 `;
-
 interface FontProps {
   font?: number;
 }

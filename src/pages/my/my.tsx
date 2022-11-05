@@ -30,23 +30,54 @@ const My = () => {
   const [myCards, setMyCards] = useState<CardType[]>([]);
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  //for page limit
+  const [pageNumberLimit, setPageNumberLimit] = useState<number>(5);
+  const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(5);
 
   //페이지 변경
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   //페이지 수 구하기
   const pages = [];
-  for (let i = 1; i < Math.ceil(myCards.length / itemsPerPage); i++)
+  for (let i = 1; i <= Math.ceil(myCards.length / itemsPerPage); i++)
     pages.push(i);
-  const pageNumber = pages.map((number) => {
-    return (
-      <li key={number} onClick={() => paginate(number)}>
-        {number}
-      </li>
-    );
+  const renderPageNumber = pages.map((number) => {
+    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+      return (
+        <S.PageButton
+          className={currentPage === number ? "active" : null}
+          key={number}
+          onClick={() => paginate(number)}
+        >
+          {number}
+        </S.PageButton>
+      );
+    } else {
+      return null;
+    }
   });
+
+  const handleNextButton = () => {
+    setCurrentPage(currentPage + 1);
+    if (currentPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+
+  const handlePrevButton = () => {
+    setCurrentPage(currentPage - 1);
+    if ((currentPage - 1) % pageNumberLimit === 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
 
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -73,13 +104,18 @@ const My = () => {
     // id && DeleteImageFile(id);
   };
 
+  //else null 오류뜸 와이!!!???!??!!?!!?!??!?!?!?!!?!?!?!??!
   const deleteCard = (id: number) => {
-    const filteredCard = myCards.filter((card) => card.id !== id);
-    setMyCards(filteredCard);
-    DeleteCard(userUid, id);
-    DeleteImageFile(id);
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("삭제하시겠습니까?") === true) {
+      const filteredCard = myCards.filter((card) => card.id !== id);
+      setMyCards(filteredCard);
+      DeleteCard(userUid, id);
+      DeleteImageFile(id);
+    }
   };
 
+  //배경 컨트롤
   cardAddModal
     ? (document.body.style.overflow = "hidden")
     : (document.body.style.overflow = "unset");
@@ -95,18 +131,34 @@ const My = () => {
       ) : (
         <button onClick={() => setCardAddModal(!cardAddModal)}>Add</button>
       )}
-      {pageNumber}
-      {currentItems.map((card) => (
-        <S.Container key={card.id}>
-          <S.CardImage alt="" src={card.fileURL}></S.CardImage>
-          <S.CardDetail>
-            <S.CardName>{card.fileName}</S.CardName>
-            <S.CardDeleteButton onClick={() => deleteCard(card.id!)}>
-              삭제
-            </S.CardDeleteButton>
-          </S.CardDetail>
-        </S.Container>
-      ))}
+      <S.Gridbox>
+        {currentItems.map((card) => (
+          <S.Container key={card.id}>
+            <S.CardImage alt="" src={card.fileURL}></S.CardImage>
+            <S.CardDetail>
+              <S.CardName>{card.fileName}</S.CardName>
+              <S.CardDeleteButton onClick={() => deleteCard(card.id!)}>
+                삭제
+              </S.CardDeleteButton>
+            </S.CardDetail>
+          </S.Container>
+        ))}
+      </S.Gridbox>
+      <S.Paginate>
+        <S.PageButton
+          onClick={handlePrevButton}
+          disabled={currentPage === pages[0] ? true : false}
+        >
+          prev
+        </S.PageButton>
+        {renderPageNumber}
+        <S.PageButton
+          onClick={handleNextButton}
+          disabled={currentPage === pages.length ? true : false}
+        >
+          next
+        </S.PageButton>
+      </S.Paginate>
     </>
   );
 };
