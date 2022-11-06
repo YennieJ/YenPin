@@ -3,7 +3,6 @@ import * as S from "./dialogBox.styled";
 
 interface ContainerProps {
   children: React.ReactNode;
-  card?: any;
 }
 const DialogBox = (props: ContainerProps) => {
   return (

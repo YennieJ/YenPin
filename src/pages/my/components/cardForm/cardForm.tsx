@@ -8,19 +8,21 @@ import DialogBox from "components/dialogBox/dialogBox";
 
 import * as S from "./cardForm.styled";
 
-interface CardsProps {
-  cards: any;
-  setCards: any;
-  closeCardAddModal: any;
-  handleLastPage?: any;
+import { CardType } from "../../my";
+
+interface CardProps {
+  myCards: CardType[];
+  setMyCards: React.Dispatch<React.SetStateAction<CardType[]>>;
+  closeCardAddModal: () => void;
+  handleLastPage: () => void;
 }
 
 const CardForm = ({
-  cards,
-  setCards,
+  myCards,
+  setMyCards,
   closeCardAddModal,
   handleLastPage,
-}: CardsProps) => {
+}: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -32,25 +34,26 @@ const CardForm = ({
   const fileRef = useRef<HTMLInputElement>(null);
 
   //firebase upload를 위한
-  const [file, setFile] = useState<string>("");
+  const [file, setFile] = useState<File>();
   const [fileURL, setFileURL] = useState<string>("");
-  const [id, setId] = useState<number | undefined>();
 
   // 파일 오리지널 네임을 표시하기 위해서
   const [userFileName, setUserFileName] = useState<string>("");
 
   const addCard = (e: React.FormEvent) => {
-    const card = {
+    const id = new Date().getTime();
+
+    const newCard = {
       id: id,
       fileName: cardNameRef.current?.value,
       fileURL: fileURL,
     };
     e.preventDefault();
-    if (card.fileName === "" || card.fileURL === "") {
+    if (newCard.fileName === "" || newCard.fileURL === "") {
       alert("다 입력하렴");
     } else {
-      setCards([...cards, card]);
-      SaveCard(userUid, card);
+      setMyCards([...myCards, newCard]);
+      SaveCard(userUid, newCard);
       UploadImageFile(file, id);
       formRef.current?.reset();
       closeCardAddModal();
@@ -58,25 +61,17 @@ const CardForm = ({
     }
   };
 
-  //UploadImageFile을 addCard할때 업로드 될 수 있게
-  // const handleUploadFile = (
-  //   e: React.ChangeEvent<EventTarget & HTMLInputElement>
-  // ) => {
-  //   const file: FileList | null = e.target.files;
-  //   setUserFileName(file![0].name);
-  //   UploadImageFile(file, setFile, setId);
-  // };
-
-  const onFileChange = (e: any) => {
-    const sid = new Date().getTime();
-    setId(sid);
-    const file = e.target.files[0];
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { files },
+    } = e;
+    const file = files![0];
     setFile(file);
     setUserFileName(file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = (event: any) => {
-      setFileURL(event.target.result);
+    reader.onloadend = (event: ProgressEvent<FileReader>) => {
+      setFileURL(event.target?.result as string);
     };
   };
 
@@ -98,7 +93,7 @@ const CardForm = ({
           {" "}
           {userFileName || "Add File"}
         </S.AddFileButton>
-        <S.SubmitButton type="button" onClick={() => closeCardAddModal(id)}>
+        <S.SubmitButton type="button" onClick={() => closeCardAddModal()}>
           돌아가기
         </S.SubmitButton>
         <S.SubmitButton type="submit">등록</S.SubmitButton>

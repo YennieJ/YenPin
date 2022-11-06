@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { AuthLogIn, AuthSignUp, GoogleProvider } from "service/auth_service";
 
