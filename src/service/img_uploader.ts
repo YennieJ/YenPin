@@ -2,7 +2,6 @@ import { storage } from "service/firebase";
 import {
   ref,
   uploadBytesResumable,
-  getDownloadURL,
   deleteObject,
   getStorage,
 } from "firebase/storage";
@@ -55,16 +54,15 @@ import {
 // Create a reference under which you want to list
 
 export const UploadImageFile = (
-  file: FileList | null,
-  setFile: React.Dispatch<React.SetStateAction<string>>,
-  setId: React.Dispatch<React.SetStateAction<number | undefined>>
+  file: any,
+  id: any
+  // file: FileList | null,
+  // setFile: React.Dispatch<React.SetStateAction<string>>,
+  // setId: React.Dispatch<React.SetStateAction<number | undefined>>
 ) => {
-  const name = new Date().getTime();
-  setId(name);
+  const storageRef = ref(storage, "images/" + id);
 
-  const storageRef = ref(storage, "images/" + name);
-
-  const uploadTask = uploadBytesResumable(storageRef, file![0]);
+  const uploadTask = uploadBytesResumable(storageRef, file);
   uploadTask.on(
     "state_changed",
     (snapshot) => {
@@ -81,11 +79,6 @@ export const UploadImageFile = (
     },
     (error) => {
       console.log(error);
-    },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        setFile(downloadURL);
-      });
     }
   );
 };
@@ -93,14 +86,11 @@ export const UploadImageFile = (
 export const DeleteImageFile = (id: number) => {
   const storage = getStorage();
 
-  // Create a reference to the file to delete
   const desertRef = ref(storage, "images/" + id);
 
   // Delete the file
   deleteObject(desertRef)
-    .then(() => {
-      // File deleted successfully
-    })
+    .then(() => {})
     .catch((error) => {
       console.log(error);
     });

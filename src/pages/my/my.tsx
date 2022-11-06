@@ -63,6 +63,7 @@ const My = () => {
     }
   });
 
+  //다음페이지
   const handleNextButton = () => {
     setCurrentPage(currentPage + 1);
     if (currentPage + 1 > maxPageNumberLimit) {
@@ -71,12 +72,18 @@ const My = () => {
     }
   };
 
+  //이전페이지
   const handlePrevButton = () => {
     setCurrentPage(currentPage - 1);
     if ((currentPage - 1) % pageNumberLimit === 0) {
       setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
+  };
+
+  //addCard하면 그 페이지로 이동
+  const handleLastPage = () => {
+    setCurrentPage(pages.length);
   };
 
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
@@ -127,6 +134,7 @@ const My = () => {
           cards={myCards}
           setCards={setMyCards}
           closeCardAddModal={closeCardAddModal}
+          handleLastPage={handleLastPage}
         />
       ) : (
         <button onClick={() => setCardAddModal(!cardAddModal)}>Add</button>
