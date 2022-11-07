@@ -1,22 +1,20 @@
 import React from "react";
 
-import { DeleteCard } from "service/card_repository";
-import { DeleteImageFile } from "service/img_uploader";
+import { FbDeleteCard } from "service/card_repository";
+import { FbDeleteImageFile } from "service/img_uploader";
 
 import * as S from "./preview.styled";
 
-import { CardType } from "pages/my/my";
+import { CardType } from "pages/my";
 
 interface PreviewProps {
   myCards: CardType[];
-  setMyCards: React.Dispatch<React.SetStateAction<CardType[]>>;
   userUid: string | undefined;
   currentPage: number;
   itemsPerPage: number;
 }
 const Preview = ({
   myCards,
-  setMyCards,
   userUid,
   currentPage,
   itemsPerPage,
@@ -26,16 +24,12 @@ const Preview = ({
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = myCards.slice(indexOfFirstItem, indexOfLastItem);
 
+  //여기 프로미스 사용해야 노란색 경고가 안뜬다는디
   //else null 오류뜸 와이!!!???!??!!?!!?!??!?!?!?!!?!?!?!??!
   const deleteCard = (cardId: number) => {
-    // eslint-disable-next-line no-restricted-globals
-    if (confirm("삭제하시겠습니까?") === true) {
-      const filteredCard = myCards.filter(
-        (card: CardType) => card.id !== cardId
-      );
-      setMyCards(filteredCard);
-      DeleteCard(userUid, cardId);
-      DeleteImageFile(cardId);
+    if (window.confirm("삭제하시겠습니까?") === true) {
+      FbDeleteCard(userUid, cardId);
+      FbDeleteImageFile(cardId);
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { GetAllCards } from "service/card_repository";
+import { FbGetAllCards } from "service/card_repository";
 
 // import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const Home = () => {
   const [allCards, setAllCards] = useState<CardType[]>([]);
 
   useEffect(() => {
-    GetAllCards((dbCards: CardType[]) => {
+    FbGetAllCards((dbCards: CardType[]) => {
       if (!dbCards) return null;
       const cards = Object.values(dbCards).map((data) => data);
     });

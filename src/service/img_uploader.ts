@@ -6,7 +6,7 @@ import {
   getStorage,
 } from "firebase/storage";
 
-export const UploadImageFile = (
+export const FbUploadImageFile = (
   file: any,
   id: any
   // file: FileList | null,
@@ -36,7 +36,7 @@ export const UploadImageFile = (
   );
 };
 
-export const DeleteImageFile = (id: number) => {
+export const FbDeleteImageFile = (id: number) => {
   const storage = getStorage();
 
   const desertRef = ref(storage, "images/" + id);

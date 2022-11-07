@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "service/authContext";
 
-import { SyncCards } from "service/card_repository";
+import { FbGetMyCards } from "service/card_repository";
 
 import CardForm from "./components/cardForm";
 import Preview from "./components/preview";
@@ -28,33 +28,36 @@ const My = () => {
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(4);
+  const itemsPerPage: number = 4;
 
   //페이지 수 구하기
-  const pages = [];
-  for (let i = 1; i <= Math.ceil(myCards.length / itemsPerPage); i++)
+  const pages: number[] = [];
+  for (let i = 1; i <= Math.ceil(myCards.length / itemsPerPage); i++) {
     pages.push(i);
+  }
 
-  //여기서 만들어서 넘겨도 괜찮????
-  //addCard하면 그 페이지로 이동
-  const handleLastPage = () => {
-    setCurrentPage(pages.length);
-  };
+  //카드를 추가하거나 삭제해서 페이지가 바뀔 때 동작하는 코드
+  useEffect(() => {
+    for (let i = 1; i <= pages.length; i++) {
+      setCurrentPage(i);
+    }
+  }, [pages.length]);
 
   useEffect(() => {
     userInfo
-      ? SyncCards(userUid, (dbCards: CardType[]) => {
+      ? FbGetMyCards(userUid, (dbCards: CardType[]) => {
           // let temp = []
           // Object.values(dbCards).map((data) => (
           //   temp.push(data)
           // ))
-          // setCards(temp);
+          // setMyCards(temp);
           if (!dbCards) return null;
           setMyCards(Object.values(dbCards).map((data) => data));
         })
       : navigate("/");
   }, [navigate, userInfo, userUid]);
 
+  //cardAddmodal이랑 합치던가, true false 값으러로 넘기던가
   const closeCardAddModal = () => {
     setCardAddModal(!cardAddModal);
   };
@@ -67,19 +70,13 @@ const My = () => {
   return (
     <>
       {cardAddModal ? (
-        <CardForm
-          myCards={myCards}
-          setMyCards={setMyCards}
-          closeCardAddModal={closeCardAddModal}
-          handleLastPage={handleLastPage}
-        />
+        <CardForm closeCardAddModal={closeCardAddModal} />
       ) : (
         <button onClick={() => closeCardAddModal()}>Add</button>
       )}
 
       <Preview
         myCards={myCards}
-        setMyCards={setMyCards}
         userUid={userUid}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

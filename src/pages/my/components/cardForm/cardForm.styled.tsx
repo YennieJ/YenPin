@@ -11,7 +11,8 @@ export const CardForm = styled.form`
 
   input {
     width: 80%;
-    height: 3rem;
+    height: 60px;
+    padding: 0;
     padding-top: 20px;
     margin-bottom: 20px;
 
@@ -22,9 +23,9 @@ export const CardForm = styled.form`
     text-align: center;
 
     outline: none;
-    &:nth-of-type(2) {
+    /* &:nth-of-type(2) {
       display: none;
-    }
+    } */
   }
 `;
 
@@ -37,9 +38,10 @@ const ButtonBasic = styled.button`
 
 export const AddFileButton = styled.button`
   width: 80%;
-  height: 3rem;
+  height: 90px;
+  padding: 0;
   margin-bottom: 30px;
-  font-size: 25px;
+  font-size: 20px;
   border: none;
   background-color: #fff;
   cursor: pointer;

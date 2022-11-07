@@ -29,6 +29,7 @@ export const PageButton = styled.button`
     background-color: purple;
   }
   &:disabled {
+    /* display: none; */
     color: gray;
     border-color: gray;
   }

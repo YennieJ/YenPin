@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Header = styled.div`
   display: flex;
   justify-content: center;
 
   padding: 50px;
+  margin-bottom: 10px;
 
   background-color: black;
 `;
@@ -14,7 +15,6 @@ export const Container = styled.nav`
   display: flex;
   justify-content: space-between;
 
-  margin-top: 10px;
   padding-left: 20px;
   align-items: center;
 
@@ -27,11 +27,9 @@ export const LinkContainer = styled.div`
   text-align: end;
 `;
 interface FontProps {
-  font?: number;
+  home?: boolean;
 }
 export const LinkTag = styled(Link)<FontProps>`
-  margin-right: 20px;
-
   color: white;
   text-decoration: none;
 
@@ -44,5 +42,8 @@ export const LinkTag = styled(Link)<FontProps>`
     color: red;
   }
 
-  font-size: ${({ font }) => (font ? `${font}px` : "28px")};
+  ${({ home }) => css`
+    font-size: ${home ? "50px" : "28px"};
+    margin-right: ${home ? "" : "20px"};
+  `}
 `;

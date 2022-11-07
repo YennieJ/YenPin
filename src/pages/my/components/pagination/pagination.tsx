@@ -18,10 +18,11 @@ const Pagination = ({
   const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(5);
 
+  //없어도 될듯
   //페이지 변경
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
+  // const paginate = (pageNumber: number) => {
+  //   setCurrentPage(pageNumber);
+  // };
 
   //페이지 갯수
   const renderPageNumber = pages.map((number: number) => {
@@ -30,7 +31,7 @@ const Pagination = ({
         <S.PageButton
           className={currentPage === number ? "active" : undefined}
           key={number}
-          onClick={() => paginate(number)}
+          onClick={() => setCurrentPage(number)}
         >
           {number}
         </S.PageButton>

@@ -1,28 +1,18 @@
 import React, { useState, useRef, useContext } from "react";
 
 import { AuthContext } from "service/authContext";
-import { SaveCard } from "service/card_repository";
-import { UploadImageFile } from "service/img_uploader";
+import { FbSaveCard } from "service/card_repository";
+import { FbUploadImageFile } from "service/img_uploader";
 
 import DialogBox from "components/dialogBox/dialogBox";
 
 import * as S from "./cardForm.styled";
 
-import { CardType } from "../../my";
-
 interface CardProps {
-  myCards: CardType[];
-  setMyCards: React.Dispatch<React.SetStateAction<CardType[]>>;
   closeCardAddModal: () => void;
-  handleLastPage: () => void;
 }
 
-const CardForm = ({
-  myCards,
-  setMyCards,
-  closeCardAddModal,
-  handleLastPage,
-}: CardProps) => {
+const CardForm = ({ closeCardAddModal }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -52,12 +42,10 @@ const CardForm = ({
     if (newCard.fileName === "" || newCard.fileURL === "") {
       alert("다 입력하렴");
     } else {
-      setMyCards([...myCards, newCard]);
-      SaveCard(userUid, newCard);
-      UploadImageFile(file, id);
+      FbSaveCard(userUid, newCard);
+      FbUploadImageFile(file, id);
       formRef.current?.reset();
       closeCardAddModal();
-      handleLastPage();
     }
   };
 
@@ -84,6 +72,7 @@ const CardForm = ({
       <S.CardForm ref={formRef} onSubmit={addCard}>
         <input ref={cardNameRef} type="text" placeholder="카드 이름" />
         <input
+          hidden
           ref={fileRef}
           type="file"
           accept="image/*"

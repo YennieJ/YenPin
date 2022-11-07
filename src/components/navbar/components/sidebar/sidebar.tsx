@@ -26,10 +26,8 @@ const Sidebar = () => {
               &#10005;
             </S.SidebarButton>
             <S.SidebarBackground>
-              <S.SidebarButton onClick={() => console.log("gg")}>
-                로그아웃
-              </S.SidebarButton>
-              <S.SidebarButton onClick={handleLogout}>로그아웃</S.SidebarButton>{" "}
+              <S.SidebarButton onClick={handleLogout}>로그아웃</S.SidebarButton>
+              <S.SidebarButton onClick={handleLogout}>로그아웃</S.SidebarButton>
               <S.SidebarButton onClick={handleLogout}>로그아웃</S.SidebarButton>
             </S.SidebarBackground>
           </>
