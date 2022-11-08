@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CardForm = styled.form`
   display: flex;
@@ -23,9 +23,6 @@ export const CardForm = styled.form`
     text-align: center;
 
     outline: none;
-    /* &:nth-of-type(2) {
-      display: none;
-    } */
   }
 `;
 
@@ -38,9 +35,9 @@ const ButtonBasic = styled.button`
 
 export const AddFileButton = styled.button`
   width: 80%;
-  height: 90px;
+  height: 70px;
   padding: 0;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 20px;
   border: none;
   background-color: #fff;
@@ -50,9 +47,12 @@ export const AddFileButton = styled.button`
   }
 `;
 
-export const SubmitButton = styled(ButtonBasic)`
+interface SubProps {
+  goback?: boolean;
+}
+export const SubmitButton = styled(ButtonBasic)<SubProps>`
   width: 300px;
-  margin-bottom: 20px;
+  padding: 0;
   border: 2px solid purple;
   border-radius: 24px;
 
@@ -60,12 +60,6 @@ export const SubmitButton = styled(ButtonBasic)`
   &:hover {
     background-color: #f1c7f1;
   }
-`;
 
-export const LoginButton = styled(ButtonBasic)`
-  width: 70px;
-  margin-right: 15px;
-
-  color: white;
-  font-size: x-large;
+  margin-bottom: ${({ goback }) => (goback ? "20px" : "")};
 `;

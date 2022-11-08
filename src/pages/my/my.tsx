@@ -6,9 +6,8 @@ import { AuthContext } from "service/authContext";
 
 import { FbGetMyCards } from "service/card_repository";
 
-import CardForm from "./components/cardForm";
+import CardAddForm from "./components/cardForm";
 import Preview from "./components/preview";
-import Pagination from "./components/pagination";
 
 import * as S from "./my.styled";
 
@@ -27,21 +26,12 @@ const My = () => {
   const [myCards, setMyCards] = useState<CardType[]>([]);
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage: number = 4;
-
-  //페이지 수 구하기
-  const pages: number[] = [];
-  for (let i = 1; i <= Math.ceil(myCards.length / itemsPerPage); i++) {
-    pages.push(i);
-  }
-
   //카드를 추가하거나 삭제해서 페이지가 바뀔 때 동작하는 코드
-  useEffect(() => {
-    for (let i = 1; i <= pages.length; i++) {
-      setCurrentPage(i);
-    }
-  }, [pages.length]);
+  // useEffect(() => {
+  //   for (let i = 1; i <= pages.length; i++) {
+  //     setCurrentPage(i);
+  //   }
+  // }, [pages.length]);
 
   useEffect(() => {
     userInfo
@@ -70,25 +60,14 @@ const My = () => {
   return (
     <>
       {cardAddModal ? (
-        <CardForm closeCardAddModal={closeCardAddModal} />
+        <CardAddForm closeCardAddModal={closeCardAddModal} />
       ) : (
         <button onClick={() => closeCardAddModal()}>Add</button>
       )}
 
-      <Preview
-        myCards={myCards}
-        userUid={userUid}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-      />
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pages={pages}
-      />
+      <Preview myCards={myCards} userUid={userUid} />
     </>
   );
 };
 
-// export type {Props as MyProps};
 export default My;

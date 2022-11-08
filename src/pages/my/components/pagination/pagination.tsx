@@ -14,15 +14,9 @@ const Pagination = ({
   pages,
 }: PaginationProps) => {
   //for page limit
-  const [pageNumberLimit, setPageNumberLimit] = useState<number>(5);
+  const pageNumberLimit: number = 5;
   const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(5);
-
-  //없어도 될듯
-  //페이지 변경
-  // const paginate = (pageNumber: number) => {
-  //   setCurrentPage(pageNumber);
-  // };
 
   //페이지 갯수
   const renderPageNumber = pages.map((number: number) => {

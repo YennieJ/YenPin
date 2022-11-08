@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const Gridbox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 40px 15px;
   place-items: center;
 
   height: 100%;
 
-  padding: 10px;
+  padding: 30px 10px 60px 10px;
 `;
 
 export const Container = styled.div`
@@ -21,7 +22,6 @@ export const Container = styled.div`
   border: none;
   border-radius: 20px;
   padding: 0;
-  margin: 15px;
 
   background-color: white;
 

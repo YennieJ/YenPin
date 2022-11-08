@@ -1,1 +1,1 @@
-export { default } from "./cardForm";
+export { default } from "./cardAddForm";

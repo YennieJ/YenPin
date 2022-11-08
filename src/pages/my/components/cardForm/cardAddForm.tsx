@@ -6,13 +6,13 @@ import { FbUploadImageFile } from "service/img_uploader";
 
 import DialogBox from "components/dialogBox/dialogBox";
 
-import * as S from "./cardForm.styled";
+import * as S from "./cardAddForm.styled";
 
 interface CardProps {
   closeCardAddModal: () => void;
 }
 
-const CardForm = ({ closeCardAddModal }: CardProps) => {
+const CardAddForm = ({ closeCardAddModal }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -82,7 +82,11 @@ const CardForm = ({ closeCardAddModal }: CardProps) => {
           {" "}
           {userFileName || "Add File"}
         </S.AddFileButton>
-        <S.SubmitButton type="button" onClick={() => closeCardAddModal()}>
+        <S.SubmitButton
+          goback
+          type="button"
+          onClick={() => closeCardAddModal()}
+        >
           돌아가기
         </S.SubmitButton>
         <S.SubmitButton type="submit">등록</S.SubmitButton>
@@ -91,4 +95,4 @@ const CardForm = ({ closeCardAddModal }: CardProps) => {
   );
 };
 
-export default CardForm;
+export default CardAddForm;
