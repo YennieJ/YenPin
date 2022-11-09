@@ -50,10 +50,10 @@ export const AuthLogIn = ({ email, pwd }: AuthProps) => {
       alert("로그인 성공");
     })
     .catch((e) => {
-      const wringId = "Firebase: Error (auth/user-not-found).";
+      const wrongId = "Firebase: Error (auth/user-not-found).";
       const wrongPassword = "Firebase: Error (auth/wrong-password).";
 
-      if (e.message === wringId) {
+      if (e.message === wrongId) {
         alert("아이디를 찾을 수 없습니다.");
       } else if (e.message === wrongPassword) {
         alert("비밀번호가 틀렸습니다.");

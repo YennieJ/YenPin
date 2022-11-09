@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { FbDeleteCard } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
@@ -16,7 +16,7 @@ interface PreviewProps {
 
 const Preview = ({ myCards, userUid }: PreviewProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage: number = 4;
+  const itemsPerPage: number = 1;
 
   //페이지 수 구하기
   const pages: number[] = [];
@@ -36,6 +36,17 @@ const Preview = ({ myCards, userUid }: PreviewProps) => {
       FbDeleteImageFile(cardId);
     } else return null;
   };
+
+  // 카드를 추가하거나 삭제해서 페이지가 바뀔 때 동작하는 코드
+  // useEffect(() => {
+  //   for (let i = pages.length; i > 1; i--) {
+  //     console.log("gg");
+  //   }
+  // }, [pages.length]);
+  // if (pages.length === pages.length - 1) {
+  //   console.log("gg");
+  // }
+  // console.log(pages);
 
   return (
     <>

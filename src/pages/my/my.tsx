@@ -42,7 +42,11 @@ const My = () => {
           // ))
           // setMyCards(temp);
           if (!dbCards) return null;
-          setMyCards(Object.values(dbCards).map((data) => data));
+          setMyCards(
+            Object.values(dbCards)
+              .reverse()
+              .map((data) => data)
+          );
         })
       : navigate("/");
   }, [navigate, userInfo, userUid]);
