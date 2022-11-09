@@ -47,22 +47,22 @@ const My = () => {
       : navigate("/");
   }, [navigate, userInfo, userUid]);
 
-  //cardAddmodal이랑 합치던가, true false 값으러로 넘기던가
-  const closeCardAddModal = () => {
-    setCardAddModal(!cardAddModal);
+  const handleCardModal = () => {
+    if (cardAddModal === false) {
+      document.body.style.overflow = "hidden";
+      setCardAddModal(true);
+    } else {
+      document.body.style.overflow = "unset";
+      setCardAddModal(false);
+    }
   };
-
-  //card add form modal창 열렸을 때 배경 사용 못하게
-  cardAddModal
-    ? (document.body.style.overflow = "hidden")
-    : (document.body.style.overflow = "unset");
 
   return (
     <>
       {cardAddModal ? (
-        <CardAddForm closeCardAddModal={closeCardAddModal} />
+        <CardAddForm handleCardModal={handleCardModal} />
       ) : (
-        <button onClick={() => closeCardAddModal()}>Add</button>
+        <button onClick={() => handleCardModal()}>Add</button>
       )}
 
       <Preview myCards={myCards} userUid={userUid} />

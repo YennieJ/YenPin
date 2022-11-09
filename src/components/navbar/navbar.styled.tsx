@@ -27,7 +27,7 @@ export const LinkContainer = styled.div`
   text-align: end;
 `;
 interface FontProps {
-  home?: boolean;
+  home?: string;
 }
 export const LinkTag = styled(Link)<FontProps>`
   color: white;

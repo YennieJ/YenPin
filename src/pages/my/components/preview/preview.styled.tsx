@@ -56,7 +56,7 @@ export const CardDeleteButton = styled.button`
   width: 45px;
   height: 45px;
   padding: 0;
-  margin-right: 5px;
+  margin-right: 3px;
   border: 1px solid gray;
   border-radius: 50%;
   cursor: pointer;

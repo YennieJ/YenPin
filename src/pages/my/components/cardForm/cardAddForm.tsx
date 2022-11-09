@@ -9,10 +9,10 @@ import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./cardAddForm.styled";
 
 interface CardProps {
-  closeCardAddModal: () => void;
+  handleCardModal: () => void;
 }
 
-const CardAddForm = ({ closeCardAddModal }: CardProps) => {
+const CardAddForm = ({ handleCardModal }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -45,7 +45,7 @@ const CardAddForm = ({ closeCardAddModal }: CardProps) => {
       FbSaveCard(userUid, newCard);
       FbUploadImageFile(file, id);
       formRef.current?.reset();
-      closeCardAddModal();
+      handleCardModal();
     }
   };
 
@@ -70,7 +70,12 @@ const CardAddForm = ({ closeCardAddModal }: CardProps) => {
   return (
     <DialogBox>
       <S.CardForm ref={formRef} onSubmit={addCard}>
-        <input ref={cardNameRef} type="text" placeholder="카드 이름" />
+        <input
+          ref={cardNameRef}
+          type="text"
+          placeholder="카드 이름"
+          maxLength={25}
+        />
         <input
           hidden
           ref={fileRef}
@@ -82,11 +87,7 @@ const CardAddForm = ({ closeCardAddModal }: CardProps) => {
           {" "}
           {userFileName || "Add File"}
         </S.AddFileButton>
-        <S.SubmitButton
-          goback
-          type="button"
-          onClick={() => closeCardAddModal()}
-        >
+        <S.SubmitButton goback type="button" onClick={() => handleCardModal()}>
           돌아가기
         </S.SubmitButton>
         <S.SubmitButton type="submit">등록</S.SubmitButton>

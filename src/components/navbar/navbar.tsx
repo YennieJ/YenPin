@@ -13,7 +13,7 @@ const Nav = () => {
   return (
     <>
       <S.Header>
-        <S.LinkTag className="selected" home to="/">
+        <S.LinkTag className="selected" home="true" to="/">
           HOME
         </S.LinkTag>
       </S.Header>

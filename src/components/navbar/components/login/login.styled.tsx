@@ -58,6 +58,7 @@ export const CloseLoginModalButton = styled(ButtonBasic)`
 
 export const SubmitButton = styled(ButtonBasic)`
   width: 300px;
+  padding: 0;
   margin-bottom: 10px;
   border: 2px solid purple;
   border-radius: 24px;
