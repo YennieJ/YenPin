@@ -20,20 +20,29 @@ const Pagination = ({
 
   //페이지 갯수
   const renderPageNumber = pages.map((number: number) => {
-    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
-      return (
-        <S.PageButton
-          className={currentPage === number ? "active" : undefined}
-          key={number}
-          onClick={() => setCurrentPage(number)}
-        >
-          {number}
-        </S.PageButton>
-      );
-    } else {
-      return null;
-    }
+    return number < maxPageNumberLimit + 1 && number > minPageNumberLimit ? (
+      <S.PageButton
+        className={currentPage === number ? "active" : undefined}
+        key={number}
+        onClick={() => setCurrentPage(number)}
+      >
+        {number}
+      </S.PageButton>
+    ) : null;
   });
+  // const renderPageNumber = pages.map((number: number) => {
+  //   if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+  //     return (
+  //       <S.PageButton
+  //         className={currentPage === number ? "active" : undefined}
+  //         key={number}
+  //         onClick={() => setCurrentPage(number)}
+  //       >
+  //         {number}
+  //       </S.PageButton>
+  //     );
+  //   }
+  // });
 
   //다음페이지
   const handleNextButton = () => {
@@ -57,14 +66,16 @@ const Pagination = ({
     <S.Paginate>
       <S.PageButton
         onClick={handlePrevButton}
-        disabled={currentPage === pages[0] ? true : false}
+        disabled={currentPage === pages[0] || pages.length === 0 ? true : false}
       >
         prev
       </S.PageButton>
       {renderPageNumber}
       <S.PageButton
         onClick={handleNextButton}
-        disabled={currentPage === pages.length ? true : false}
+        disabled={
+          currentPage === pages.length || pages.length === 0 ? true : false
+        }
       >
         next
       </S.PageButton>
