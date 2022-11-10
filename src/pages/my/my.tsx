@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { isTemplateLiteral } from "typescript";
 
 import CardAddForm from "./components/cardForm";
 import Preview from "./components/preview";
@@ -9,6 +8,8 @@ import * as S from "./my.styled";
 // import {Props as MyProps} from '../my.tsx'
 
 const My = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
 
   const handleCardModal = () => {
@@ -21,19 +22,14 @@ const My = () => {
     }
   };
 
-  //새로운 카드를 추가할때 첫 페이지로 가기위해서
-  const setNewPage = () => {
-    return 1;
-  };
-
   return (
     <>
       {cardAddModal ? (
-        <CardAddForm handleCardModal={handleCardModal} goNewCard={setNewPage} />
+        <CardAddForm handleCardModal={handleCardModal} />
       ) : (
         <button onClick={() => handleCardModal()}>Add</button>
       )}
-      <Preview goNewPage={setNewPage} />
+      <Preview />
     </>
   );
 };

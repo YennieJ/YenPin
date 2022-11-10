@@ -15,13 +15,11 @@ export interface CardType {
   fileURL: string;
 }
 
-interface PreviewProps {
-  goNewPage: () => number;
-}
+interface PreviewProps {}
 
-const itemsPerPage: number = 4;
+const itemsPerPage: number = 1;
 
-const Preview = ({ goNewPage }: PreviewProps) => {
+const Preview = ({}: PreviewProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
   const navigate = useNavigate();
@@ -74,9 +72,9 @@ const Preview = ({ goNewPage }: PreviewProps) => {
   }
 
   //새로운 카드를 추가할때 첫 페이지로 가기위해서
-  useEffect(() => {
-    setCurrentPage(goNewPage);
-  }, [goNewPage]);
+  // useEffect(() => {
+  //   setCurrentPage(goNewPage);
+  // }, [goNewPage]);
 
   return (
     <>

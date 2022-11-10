@@ -1,3 +1,4 @@
+import { timeEnd } from "console";
 import React, { useState } from "react";
 
 import * as S from "./pagination.styled";
@@ -20,29 +21,21 @@ const Pagination = ({
 
   //페이지 갯수
   const renderPageNumber = pages.map((number: number) => {
-    return number < maxPageNumberLimit + 1 && number > minPageNumberLimit ? (
-      <S.PageButton
-        className={currentPage === number ? "active" : undefined}
-        key={number}
-        onClick={() => setCurrentPage(number)}
-      >
-        {number}
-      </S.PageButton>
-    ) : null;
+    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+      return (
+        <S.PageButton
+          className={currentPage === number ? "active" : undefined}
+          key={number}
+          onClick={() => setCurrentPage(number)}
+        >
+          {number}
+        </S.PageButton>
+      );
+    } else if (number === currentPage && number === minPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
   });
-  // const renderPageNumber = pages.map((number: number) => {
-  //   if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
-  //     return (
-  //       <S.PageButton
-  //         className={currentPage === number ? "active" : undefined}
-  //         key={number}
-  //         onClick={() => setCurrentPage(number)}
-  //       >
-  //         {number}
-  //       </S.PageButton>
-  //     );
-  //   }
-  // });
 
   //다음페이지
   const handleNextButton = () => {
