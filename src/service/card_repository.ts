@@ -9,7 +9,7 @@ import {
 } from "firebase/database";
 import { auth } from "./firebase";
 
-import { CardType } from "pages/my";
+import { CardType } from "pages/my/components/preview";
 //여기서 임포트인가 여기서 만들어서 마이에서 임포트인가
 
 const db = getDatabase();

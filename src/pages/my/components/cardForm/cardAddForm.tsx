@@ -9,10 +9,11 @@ import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./cardAddForm.styled";
 
 interface CardProps {
+  goNewCard: () => void;
   handleCardModal: () => void;
 }
 
-const CardAddForm = ({ handleCardModal }: CardProps) => {
+const CardAddForm = ({ handleCardModal, goNewCard }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -46,6 +47,7 @@ const CardAddForm = ({ handleCardModal }: CardProps) => {
       FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
+      goNewCard();
     }
   };
 
