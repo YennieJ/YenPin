@@ -15,17 +15,19 @@ export interface CardType {
   fileURL: string;
 }
 
-interface PreviewProps {}
+interface PreviewProps {
+  currentPage: number;
+  setCurrentPage: any;
+}
 
 const itemsPerPage: number = 1;
 
-const Preview = ({}: PreviewProps) => {
+const Preview = ({ currentPage, setCurrentPage }: PreviewProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
   const navigate = useNavigate();
 
   const [myCards, setMyCards] = useState<CardType[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
 
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -65,16 +67,13 @@ const Preview = ({}: PreviewProps) => {
   };
 
   //카드 삭제 할때 페이지 변경
-  if (pages.length !== 0) {
-    for (let i = pages.length; i === currentPage - 1; i--) {
-      setCurrentPage(i);
+  useEffect(() => {
+    if (pages.length !== 0) {
+      for (let i = pages.length; i === currentPage - 1; i--) {
+        setCurrentPage(i);
+      }
     }
-  }
-
-  //새로운 카드를 추가할때 첫 페이지로 가기위해서
-  // useEffect(() => {
-  //   setCurrentPage(goNewPage);
-  // }, [goNewPage]);
+  }, [currentPage, pages.length, setCurrentPage]);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const UserForm = styled.form`
+export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -26,17 +26,22 @@ export const UserForm = styled.form`
   }
 `;
 
-export const UserFormHead = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-
+export const LoginFormHead = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   width: 100%;
+  height: 50px;
 
   div {
-    &:nth-of-type(2) {
-      place-self: center;
-      font-size: 30px;
-    }
+    display: flex;
+    align-items: center;
+    position: absolute;
+
+    height: 50px;
+
+    font-size: 30px;
   }
 `;
 
@@ -48,15 +53,18 @@ const ButtonBasic = styled.button`
 `;
 
 export const CloseLoginModalButton = styled(ButtonBasic)`
-  justify-self: right;
+  position: absolute;
+  top: -10px;
+  right: 0;
 
   width: 70px;
+  padding: 0px;
 
   color: black;
-  font-size: x-large;
+  font-size: 28px;
 `;
 
-export const SubmitButton = styled(ButtonBasic)`
+export const Button = styled(ButtonBasic)`
   width: 300px;
   padding: 0;
   margin-bottom: 10px;
@@ -68,14 +76,6 @@ export const SubmitButton = styled(ButtonBasic)`
   &:hover {
     background-color: #f1c7f1;
   }
-`;
-
-export const LoginButton = styled(ButtonBasic)`
-  width: 70px;
-  margin-right: 15px;
-
-  color: white;
-  font-size: x-large;
 `;
 
 export const GoogleLoginButton = styled.button`
@@ -90,6 +90,7 @@ export const GoogleLoginButton = styled.button`
   border-radius: 50%;
 
   background-color: #fff;
+  cursor: pointer;
 `;
 
 export const GoogleButtonImage = styled.img`

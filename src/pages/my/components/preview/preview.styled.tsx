@@ -46,7 +46,12 @@ export const CardDetail = styled.div`
   padding-top: 30px;
 `;
 export const CardName = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 300px;
+  height: 60px;
 
   font-size: 25px;
   text-align: center;

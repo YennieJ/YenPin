@@ -10,9 +10,10 @@ import * as S from "./cardAddForm.styled";
 
 interface CardProps {
   handleCardModal: () => void;
+  setCurrentPage: any;
 }
 
-const CardAddForm = ({ handleCardModal }: CardProps) => {
+const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -48,6 +49,7 @@ const CardAddForm = ({ handleCardModal }: CardProps) => {
       FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
+      setCurrentPage(1);
     }
   };
 
@@ -76,7 +78,7 @@ const CardAddForm = ({ handleCardModal }: CardProps) => {
           ref={cardNameRef}
           type="text"
           placeholder="카드 이름"
-          maxLength={25}
+          maxLength={20}
         />
         <input
           hidden

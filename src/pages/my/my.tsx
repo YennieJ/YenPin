@@ -8,9 +8,8 @@ import * as S from "./my.styled";
 // import {Props as MyProps} from '../my.tsx'
 
 const My = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleCardModal = () => {
     if (cardAddModal === false) {
@@ -25,11 +24,14 @@ const My = () => {
   return (
     <>
       {cardAddModal ? (
-        <CardAddForm handleCardModal={handleCardModal} />
+        <CardAddForm
+          handleCardModal={handleCardModal}
+          setCurrentPage={setCurrentPage}
+        />
       ) : (
         <button onClick={() => handleCardModal()}>Add</button>
       )}
-      <Preview />
+      <Preview currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </>
   );
 };
