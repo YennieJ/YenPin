@@ -38,6 +38,7 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
       id: id,
       fileName: cardNameRef.current?.value,
       fileURL: fileURL,
+      user: userUid,
     };
 
     e.preventDefault();

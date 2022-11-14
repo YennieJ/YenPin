@@ -13,6 +13,7 @@ export interface CardType {
   id: number | undefined;
   fileName: string | undefined;
   fileURL: string;
+  user: string | undefined;
 }
 
 interface PreviewProps {
@@ -61,7 +62,7 @@ const Preview = ({ currentPage, setCurrentPage }: PreviewProps) => {
   //여기 프로미스 사용해야 노란색 경고가 안뜬다는디
   const deleteCard = (cardId: number) => {
     if (window.confirm("삭제하시겠습니까?") === true) {
-      FbDeleteCard(userUid, cardId);
+      FbDeleteCard(cardId);
       FbDeleteImageFile(cardId);
     } else return null;
   };

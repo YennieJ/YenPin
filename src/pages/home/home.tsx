@@ -36,6 +36,7 @@ const Home = () => {
       //   temp.push(data)
       // ))
       // setMyCards(temp);
+
       if (!dbCards) return null;
       setMyCards(
         Object.values(dbCards)
@@ -48,24 +49,12 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
-      <h1>Home</h1>
+      {/* {myCards.map((card: any) => (
+        <div key={card.id}>
+          <img alt="" src={card.fileURL}></img>
+          <div>{card.fileName}</div>
+        </div>
+      ))} */}
 
       {/* <button onClick={move}>qwe</button> */}
     </>
