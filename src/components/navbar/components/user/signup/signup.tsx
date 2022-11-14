@@ -32,9 +32,16 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const reg = /^[A-Za-z0-9]{7,20}$/;
-    const regTest = reg.test(password);
-    if (regTest === false) {
+    const emailReg: RegExp =
+      /^([A-Za-z0-9]+){3}@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    const passwordReg: RegExp = /^[A-Za-z0-9]{7,20}$/;
+    const emailTest = emailReg.test(email);
+    const passwordTest = passwordReg.test(password);
+    if (email === "" || password === "" || confirmPassword === "") {
+      alert("칸을 비워둘수없습니다.");
+    } else if (emailTest === false) {
+      alert("이메일 형식에 맞게 입력하세요");
+    } else if (passwordTest === false) {
       alert("비밀번호는 영문,숫자 7-20자 사이로 입력해주세요");
     } else if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다");
@@ -63,6 +70,7 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
             <S.Input
               type="email"
               name="email"
+              placeholder="3자이상 이메일형식"
               onChange={handleInputChange}
               value={email}
               maxLength={25}

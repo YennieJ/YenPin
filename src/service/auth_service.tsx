@@ -39,15 +39,11 @@ export const AuthSignUp = ({ email, password }: AuthProps) => {
     .then(() => {
       alert("회원가입 성공");
     })
-    .catch((e) => {
-      const alreadyExists =
-        "FirebaseError: Firebase: Error (auth/email-already-in-use).";
-      const invaildEmail =
-        "FirebaseError: Firebase: Error (auth/invalid-email).";
-      if (e.message === alreadyExists) {
-        alert("이미 사용중인 아이디 입니다.");
-      } else if (e.message === invaildEmail) {
-        alert("이메일 형식이 유효하지 않습니다.");
+    .catch((error) => {
+      const alreadyEmail = "Firebase: Error (auth/email-already-in-use).";
+
+      if (error.message === alreadyEmail) {
+        alert("이미 사용중인 아이디입니다.");
       }
     });
 };
