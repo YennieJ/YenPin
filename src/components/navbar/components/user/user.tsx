@@ -15,6 +15,7 @@ const User = () => {
     if (userModal === false) {
       document.body.style.overflow = "hidden";
       setUserModal(true);
+      setIsCreate(false);
     } else {
       document.body.style.overflow = "unset";
       setUserModal(false);
@@ -30,11 +31,14 @@ const User = () => {
       {userModal ? (
         <DialogBox>
           {isCreate ? (
-            <Signup />
+            <Signup
+              handleUserModal={handleUserModal}
+              handleClickCreate={handleClickCreate}
+            />
           ) : (
             <Login
-              handleClickCreate={handleClickCreate}
               handleUserModal={handleUserModal}
+              handleClickCreate={handleClickCreate}
             />
           )}
         </DialogBox>

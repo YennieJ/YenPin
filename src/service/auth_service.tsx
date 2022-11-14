@@ -32,20 +32,28 @@ export const AuthProvider = ({ children }: Props) => {
 
 interface AuthProps {
   email: string;
-  pwd: string;
+  password: string;
 }
-export const AuthSignUp = ({ email, pwd }: AuthProps) => {
-  createUserWithEmailAndPassword(auth, email, pwd)
+export const AuthSignUp = ({ email, password }: AuthProps) => {
+  createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       alert("회원가입 성공");
     })
     .catch((e) => {
-      alert(e);
+      const alreadyExists =
+        "FirebaseError: Firebase: Error (auth/email-already-in-use).";
+      const invaildEmail =
+        "FirebaseError: Firebase: Error (auth/invalid-email).";
+      if (e.message === alreadyExists) {
+        alert("이미 사용중인 아이디 입니다.");
+      } else if (e.message === invaildEmail) {
+        alert("이메일 형식이 유효하지 않습니다.");
+      }
     });
 };
 
-export const AuthLogIn = ({ email, pwd }: AuthProps) => {
-  signInWithEmailAndPassword(auth, email, pwd)
+export const AuthLogIn = ({ email, password }: AuthProps) => {
+  signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       alert("로그인 성공");
     })
