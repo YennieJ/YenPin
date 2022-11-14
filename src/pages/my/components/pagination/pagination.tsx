@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import * as S from "./pagination.styled";
 
@@ -56,6 +56,14 @@ const Pagination = ({
     }
   };
 
+  //카드 삭제 할때 페이지 변경
+  useEffect(() => {
+    if (pages.length !== 0) {
+      for (let i = pages.length; i === currentPage - 1; i--) {
+        setCurrentPage(i);
+      }
+    }
+  }, [currentPage, pages.length, setCurrentPage]);
   return (
     <S.Paginate>
       <S.PageButton

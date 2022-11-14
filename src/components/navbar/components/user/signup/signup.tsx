@@ -33,7 +33,7 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const emailReg: RegExp =
-      /^([A-Za-z0-9]+){3}@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+      /^([A-Za-z0-9]+){3}@([a-zA-Z0-9]+)\.([a-zA-Z]{2,5})$/;
     const passwordReg: RegExp = /^[A-Za-z0-9]{7,20}$/;
     const emailTest = emailReg.test(email);
     const passwordTest = passwordReg.test(password);

@@ -1,43 +1,22 @@
-import React, { useContext, useState, useEffect } from "react";
-
-import { AuthContext } from "service/authContext";
+import React, { useState, useEffect } from "react";
 
 import { FbGetAllCards } from "service/card_repository";
 
-// import { useNavigate } from "react-router-dom";
+import Preview from "pages/my/components/preview";
 
-// import { Props as PopProps } from "../popular/popular";
-// const temp: PopProps = { name: "qwe" };
 export interface CardType {
   id: number | undefined;
   fileName?: string;
   fileURL: string;
 }
 const Home = () => {
-  // const navigate = useNavigate();
-  // const move = () => {
-  //   navigate("/my", {
-  //     state: {
-  //       cards: cards,
-  //     },
-  //   });
-  // };
-
-  const userInfo = useContext(AuthContext);
-  const userUid = userInfo?.uid;
-
+  const main = "main";
   const [myCards, setMyCards] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     FbGetAllCards((dbCards: CardType[]) => {
-      // let temp = []
-      // Object.values(dbCards).map((data) => (
-      //   temp.push(data)
-      // ))
-      // setMyCards(temp);
-
-      if (!dbCards) return null;
+      if (!dbCards) return setMyCards([]);
       setMyCards(
         Object.values(dbCards)
           .reverse()
@@ -49,14 +28,12 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      {/* {myCards.map((card: any) => (
-        <div key={card.id}>
-          <img alt="" src={card.fileURL}></img>
-          <div>{card.fileName}</div>
-        </div>
-      ))} */}
-
-      {/* <button onClick={move}>qwe</button> */}
+      <Preview
+        main={main}
+        myCards={myCards}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };
