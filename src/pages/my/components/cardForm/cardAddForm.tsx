@@ -28,16 +28,12 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
   const [file, setFile] = useState<File>();
   const [fileURL, setFileURL] = useState<string>("");
 
-  // 파일 오리지널 네임을 표시하기 위해서
-  const [userFileName, setUserFileName] = useState<string>("");
-
   const addCard = (e: React.FormEvent) => {
     const id = new Date().getTime();
 
     const newCard = {
       id: id,
       cardName: cardNameRef.current?.value,
-      fileName: userFileName,
       fileURL: fileURL,
       user: userUid,
     };
@@ -60,7 +56,6 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
     } = e;
     const file = files![0];
     setFile(file);
-    setUserFileName(file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = (event: ProgressEvent<FileReader>) => {
@@ -76,26 +71,36 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
     <DialogBox>
       <S.CardForm ref={formRef} onSubmit={addCard}>
         <input
-          ref={cardNameRef}
-          type="text"
-          placeholder="카드 이름"
-          maxLength={20}
-        />
-        <input
           hidden
           ref={fileRef}
           type="file"
           accept="image/*"
           onChange={onFileChange}
         />
-        <S.AddFileButton type="button" onClick={onButtonClick}>
-          {" "}
-          {userFileName || "Add File"}
-        </S.AddFileButton>
-        <S.SubmitButton goback type="button" onClick={() => handleCardModal()}>
-          돌아가기
-        </S.SubmitButton>
-        <S.SubmitButton type="submit">등록</S.SubmitButton>
+        {fileURL ? (
+          <S.ImgContainer onClick={onButtonClick}>
+            <S.Overlay>
+              <S.OverlayContent>Change File</S.OverlayContent>
+            </S.Overlay>
+            <img alt="" src={fileURL} />
+          </S.ImgContainer>
+        ) : (
+          <S.AddFileButton type="button" onClick={onButtonClick}>
+            Add File
+          </S.AddFileButton>
+        )}{" "}
+        <input
+          ref={cardNameRef}
+          type="text"
+          placeholder="카드 이름"
+          maxLength={20}
+        />
+        <S.ButtonContainer>
+          <S.Button type="button" onClick={() => handleCardModal()}>
+            취소
+          </S.Button>
+          <S.Button type="submit">등록</S.Button>
+        </S.ButtonContainer>
       </S.CardForm>
     </DialogBox>
   );

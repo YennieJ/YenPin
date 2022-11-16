@@ -10,7 +10,7 @@ interface Props {
   card: any;
 }
 const Edit = ({ setEditModal, card }: Props) => {
-  const { cardName, fileName, fileURL, id, user } = card;
+  const { cardName, fileURL, id, user } = card;
 
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -18,13 +18,9 @@ const Edit = ({ setEditModal, card }: Props) => {
   const [file, setFile] = useState<File>();
   const [newFileURL, setNewFileURL] = useState<string>("");
 
-  // 파일 오리지널 네임을 표시하기 위해서
-  const [userFileName, setUserFileName] = useState<string>("");
-
   const updateCard = (e: React.FormEvent) => {
     const card = {
       id: id,
-      fileName: userFileName,
       cardName: cardNameRef.current?.value,
       fileURL: newFileURL,
       user: user,
@@ -43,7 +39,6 @@ const Edit = ({ setEditModal, card }: Props) => {
     const file = files![0];
     console.log(file.name);
     setFile(file);
-    setUserFileName(file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = (event: ProgressEvent<FileReader>) => {
@@ -72,10 +67,13 @@ const Edit = ({ setEditModal, card }: Props) => {
           accept="image/*"
           onChange={onFileChange}
         />
-        <S.AddFileButton type="button" onClick={onButtonClick}>
-          {" "}
-          {fileName}
-        </S.AddFileButton>
+        {fileURL ? (
+          <img alt="" src={fileURL} onClick={onButtonClick} />
+        ) : (
+          <S.AddFileButton type="button" onClick={onButtonClick}>
+            {"Add File"}
+          </S.AddFileButton>
+        )}
         <S.SubmitButton
           goback
           type="button"

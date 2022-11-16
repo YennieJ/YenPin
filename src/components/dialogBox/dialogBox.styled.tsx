@@ -19,7 +19,7 @@ export const DialogBox = styled.dialog`
   display: flex;
 
   width: 450px;
-  height: 450px;
+  height: 550px;
   border: none;
   border-radius: 20px;
   padding: 0;

@@ -11,7 +11,6 @@ import * as S from "./preview.styled";
 export interface CardType {
   id: number | undefined;
   cardName: string | undefined;
-  fileName: string | undefined;
   fileURL: string;
   user: string | undefined;
 }

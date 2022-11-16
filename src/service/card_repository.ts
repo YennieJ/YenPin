@@ -39,7 +39,6 @@ export const FbSaveCard = (userUid: string | undefined, card: CardType) => {
   set(ref(db, `/card/${card.id}`), {
     id: card.id,
     cardName: card.cardName,
-    fileName: card.fileName,
     fileURL: card.fileURL,
     user: userUid,
   });
