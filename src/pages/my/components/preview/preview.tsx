@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { FbDeleteCard } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
+import Edit from "../edit";
 
 import Pagination from "../pagination";
 
@@ -9,6 +10,7 @@ import * as S from "./preview.styled";
 
 export interface CardType {
   id: number | undefined;
+  cardName: string | undefined;
   fileName: string | undefined;
   fileURL: string;
   user: string | undefined;
@@ -29,6 +31,8 @@ const Preview = ({
   setCurrentPage,
   main,
 }: PreviewProps) => {
+  const [editModal, setEditModal] = useState<boolean>(false);
+
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -55,11 +59,20 @@ const Preview = ({
           <S.Container key={card.id}>
             <S.CardImage alt="" src={card.fileURL}></S.CardImage>
             <S.CardDetail>
-              <S.CardName>{card.fileName}</S.CardName>
+              <S.CardName>{card.cardName}</S.CardName>
               {main ? null : (
-                <S.CardDeleteButton onClick={() => deleteCard(card.id!)}>
-                  삭제
-                </S.CardDeleteButton>
+                <>
+                  {editModal ? (
+                    <Edit card={card} setEditModal={setEditModal} />
+                  ) : (
+                    <button type="button" onClick={() => setEditModal(true)}>
+                      수정
+                    </button>
+                  )}
+                  <S.CardDeleteButton onClick={() => deleteCard(card.id!)}>
+                    삭제
+                  </S.CardDeleteButton>
+                </>
               )}
             </S.CardDetail>
           </S.Container>

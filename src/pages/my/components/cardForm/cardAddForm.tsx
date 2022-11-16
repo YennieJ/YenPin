@@ -36,14 +36,14 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
 
     const newCard = {
       id: id,
-      fileName: cardNameRef.current?.value,
+      cardName: cardNameRef.current?.value,
+      fileName: userFileName,
       fileURL: fileURL,
       user: userUid,
     };
-
     e.preventDefault();
 
-    if (newCard.fileName === "" || newCard.fileURL === "") {
+    if (newCard.cardName === "" || newCard.fileURL === "") {
       alert("다 입력하렴");
     } else {
       FbSaveCard(userUid, newCard);
