@@ -1,34 +1,31 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CardForm = styled.form`
   display: flex;
   flex-direction: column;
   place-items: center;
-  justify-content: center;
+  justify-content: space-around;
 
   width: 100%;
-  height: 100%;
-  padding: 0 20px;
+  padding: 20px;
+`;
 
-  input {
-    width: 300px;
-    height: 60px;
-    padding: 0;
-    margin-bottom: 20px;
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-around;
 
-    border: none;
-    border-bottom: 1px solid #9e9e9e;
+  width: 100%;
+  height: 370px;
 
-    font-size: 20px;
-    text-align: center;
-
-    outline: none;
-  }
+  padding: 10px;
 `;
 
 export const ImgContainer = styled.div`
   position: relative;
+  align-self: center;
 
+  width: 350px;
+  height: 350px;
   img {
     width: 350px;
     height: 350px;
@@ -39,6 +36,63 @@ export const ImgContainer = styled.div`
     cursor: pointer;
   }
 `;
+
+export const DetailContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  input,
+  textarea {
+    width: 400px;
+    padding: 0;
+    margin: 20px 0;
+
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+
+    text-align: left;
+
+    outline: none;
+
+    &:focus {
+      border-bottom: 1px solid #62abf8;
+    }
+  }
+
+  input {
+    height: 60px;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  textarea {
+    height: 28px;
+    padding-bottom: 5px;
+
+    font-size: 20px;
+    word-spacing: -8px;
+
+    overflow: hidden;
+    white-space: inherit;
+    resize: none;
+  }
+  div,
+  span {
+    font-size: 15px;
+    color: #606060;
+  }
+  span {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 5px;
+  }
+`;
+
 export const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -46,10 +100,14 @@ export const Overlay = styled.div`
   right: 0;
   bottom: 0;
   opacity: 0;
+
+  width: 350px;
+  height: 350px;
+  border: 1px solid gray;
   border-radius: 20px;
 
   transition: opacity 0.4s ease-in-out;
-  background: black;
+  background: #6f6f6f;
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -69,7 +127,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
 
-  width: 95%;
+  width: 100%;
 `;
 const ButtonBasic = styled.button`
   background: none;
@@ -79,20 +137,20 @@ const ButtonBasic = styled.button`
 export const AddFileButton = styled.button`
   width: 350px;
   height: 350px;
-  padding: 10px;
+  padding: 0;
   font-size: 20px;
   border: 1px solid gray;
   border-radius: 20px;
-  background-color: #fff;
+  background-color: #e7e6e6;
   cursor: pointer;
   &:hover {
-    background-color: #f1c7f1;
+    background-color: #888888;
   }
 `;
 
 export const Button = styled(ButtonBasic)`
-  width: 100px;
-  height: 50px;
+  width: 90px;
+  height: 45px;
   padding: 0;
   border: 2px solid purple;
   border-radius: 24px;

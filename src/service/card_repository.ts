@@ -40,6 +40,7 @@ export const FbSaveCard = (userUid: string | undefined, card: CardType) => {
     id: card.id,
     cardName: card.cardName,
     fileURL: card.fileURL,
+    message: card.message,
     user: userUid,
   });
 };

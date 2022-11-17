@@ -1,12 +1,11 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useCallback } from "react";
 
 import { AuthContext } from "service/authContext";
 import { FbSaveCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
 
-import DialogBox from "components/dialogBox/dialogBox";
-
 import * as S from "./cardAddForm.styled";
+import PreviewDialog from "components/previewDialogBox/previewDialog";
 
 interface CardProps {
   handleCardModal: () => void;
@@ -28,6 +27,10 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
   const [file, setFile] = useState<File>();
   const [fileURL, setFileURL] = useState<string>("");
 
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+  const [textLength, setTextLength] = useState<number>(200);
+  // const [message, setMessage] = useState<any>();
+
   const addCard = (e: React.FormEvent) => {
     const id = new Date().getTime();
 
@@ -35,12 +38,13 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
       id: id,
       cardName: cardNameRef.current?.value,
       fileURL: fileURL,
+      message: messageRef.current?.value,
       user: userUid,
     };
     e.preventDefault();
 
     if (newCard.cardName === "" || newCard.fileURL === "") {
-      alert("다 입력하렴");
+      alert("칸을 비울 수 없습니다.");
     } else {
       FbSaveCard(userUid, newCard);
       FbUploadImageFile(file, id);
@@ -67,34 +71,61 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
     fileRef.current?.click();
   };
 
+  // 이거.. 어떻게 넘길수 있을까.. styled component로.
+  const handleTextareaHeight = () => {
+    setTextLength(200 - messageRef.current!.value.length);
+    messageRef.current!.style.height = "auto"; //초기화를 위해
+    messageRef.current!.style.height = messageRef.current?.scrollHeight + "px";
+  };
+
   return (
-    <DialogBox>
+    <PreviewDialog>
       <S.CardForm ref={formRef} onSubmit={addCard}>
-        <input
-          hidden
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          onChange={onFileChange}
-        />
-        {fileURL ? (
-          <S.ImgContainer onClick={onButtonClick}>
-            <S.Overlay>
-              <S.OverlayContent>Change File</S.OverlayContent>
-            </S.Overlay>
-            <img alt="" src={fileURL} />
-          </S.ImgContainer>
-        ) : (
-          <S.AddFileButton type="button" onClick={onButtonClick}>
-            Add File
-          </S.AddFileButton>
-        )}{" "}
-        <input
-          ref={cardNameRef}
-          type="text"
-          placeholder="카드 이름"
-          maxLength={20}
-        />
+        <S.Header>
+          {fileURL ? (
+            <S.ImgContainer onClick={onButtonClick}>
+              <S.Overlay>
+                <S.OverlayContent>Change File</S.OverlayContent>
+              </S.Overlay>
+              <img alt="" src={fileURL} />
+            </S.ImgContainer>
+          ) : (
+            <S.AddFileButton type="button" onClick={onButtonClick}>
+              Add File
+            </S.AddFileButton>
+          )}
+          <S.DetailContainer>
+            <input
+              hidden
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={onFileChange}
+            />
+            <S.TextContainer>
+              <input
+                ref={cardNameRef}
+                type="text"
+                placeholder="카드 이름"
+                maxLength={15}
+              />
+              <div>최대 15글자</div>
+            </S.TextContainer>
+            <S.TextContainer>
+              <textarea
+                rows={1}
+                placeholder="사진에 대해 설명하세요"
+                maxLength={200}
+                ref={messageRef}
+                onChange={handleTextareaHeight}
+              />
+              <span>
+                <div>최대 200글자</div>
+                <div>{textLength}</div>
+              </span>
+            </S.TextContainer>
+          </S.DetailContainer>
+        </S.Header>
         <S.ButtonContainer>
           <S.Button type="button" onClick={() => handleCardModal()}>
             취소
@@ -102,7 +133,7 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
           <S.Button type="submit">등록</S.Button>
         </S.ButtonContainer>
       </S.CardForm>
-    </DialogBox>
+    </PreviewDialog>
   );
 };
 

@@ -2,13 +2,12 @@ import styled from "styled-components";
 
 export const Gridbox = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 40px 15px;
+  grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
 
   height: 100%;
 
-  padding: 30px 10px 60px 10px;
+  padding: 30px 30px 60px 30px;
 `;
 
 export const Container = styled.div`

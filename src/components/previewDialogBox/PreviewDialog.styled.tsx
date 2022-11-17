@@ -17,8 +17,8 @@ export const Backdrop = styled.div`
 export const DialogBox = styled.dialog`
   display: flex;
 
-  width: 450px;
-  height: 550px;
+  width: 880px;
+  height: 530px;
   border: none;
   border-radius: 20px;
   padding: 0;

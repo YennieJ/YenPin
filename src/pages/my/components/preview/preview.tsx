@@ -12,6 +12,7 @@ export interface CardType {
   id: number | undefined;
   cardName: string | undefined;
   fileURL: string;
+  message: string | undefined;
   user: string | undefined;
 }
 
@@ -22,7 +23,7 @@ interface PreviewProps {
   main?: string;
 }
 
-const itemsPerPage: number = 4;
+const itemsPerPage: number = 3;
 
 const Preview = ({
   myCards,
