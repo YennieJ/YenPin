@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 import { FbDeleteCard } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
-import Edit from "../edit";
 
 import Pagination from "../pagination";
 import Detail from "./components/detail";
+import Edit from "./components/edit";
 
 import * as S from "./preview.styled";
 
@@ -57,16 +57,29 @@ const Preview = ({
     } else return null;
   };
 
-  //수정
   const onDetailModal = (card: CardType) => {
-    setDetailCard(card);
-    setDetailModal(true);
+    if (detailModal === false) {
+      document.body.style.overflow = "hidden";
+      setDetailCard(card);
+      setDetailModal(true);
+    } else {
+      document.body.style.overflow = "unset";
+      setDetailModal(false);
+    }
   };
 
+  //수정
   const onEditModal = (card: CardType) => {
-    setDetailCard(card);
-    setEditModal(true);
+    if (editModal === false) {
+      document.body.style.overflow = "hidden";
+      setDetailCard(card);
+      setEditModal(true);
+    } else {
+      document.body.style.overflow = "unset";
+      setEditModal(false);
+    }
   };
+
   return (
     <>
       <S.Gridbox>
@@ -75,7 +88,15 @@ const Preview = ({
             <S.Overlay onClick={() => onDetailModal(card)}>
               {main ? null : (
                 <S.OverlayContent>
-                  <button onClick={() => onEditModal(card)}>Edit</button>
+                  <button
+                    onClick={(e: any) => {
+                      //현재 발생하는 이벤트 이후 모두 스탑
+                      e.stopPropagation();
+                      onEditModal(card);
+                    }}
+                  >
+                    Edit
+                  </button>
                   <button
                     onClick={() => {
                       deleteCard(card.id!);
@@ -101,7 +122,7 @@ const Preview = ({
         <Detail card={detailCard} onModalClose={() => setDetailModal(false)} />
       )}
       {editModal && (
-        <Edit card={detailCard} onModalClose={setEditModal(false)} />
+        <Edit card={detailCard} onModalClose={() => setEditModal(false)} />
       )}
     </>
   );

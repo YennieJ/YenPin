@@ -49,7 +49,10 @@ export const CardName = styled.div`
   font-size: 25px;
   text-align: center;
 `;
-
+interface Props {
+  name: string;
+  value: any;
+}
 export const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -72,11 +75,16 @@ export const Overlay = styled.div`
 `;
 export const OverlayContent = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
+  bottom: 0;
+  right: 0;
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 27px;
+
+  button {
+    background-color: #fff;
+    cursor: pointer;
+  }
 `;
 
 // export const CardDeleteButton = styled.button`
