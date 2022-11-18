@@ -9,6 +9,7 @@ export const Container = styled.div`
   padding: 30px 40px 40px 40px;
   h1 {
     margin: 0;
+    font-size: 30px;
   }
 `;
 
@@ -16,7 +17,7 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 10px 0;
+  padding: 5px 0;
 `;
 
 export const InputText = styled.div`

@@ -9,7 +9,7 @@ import {
   equalTo,
 } from "firebase/database";
 
-import { CardType } from "pages/my/components/preview";
+import { CardType } from "components/preview";
 
 const db = getDatabase();
 

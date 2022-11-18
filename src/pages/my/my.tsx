@@ -5,12 +5,8 @@ import { AuthContext } from "service/authContext";
 import { FbGetMyCards } from "service/card_repository";
 
 import CardAddForm from "./components/cardForm";
-import Preview, { CardType } from "./components/preview";
 
-// import * as S from "./my.styled";
-
-// import {Props as MyProps} from '../my.tsx'
-
+import Preview, { CardType } from "components/preview";
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
@@ -62,6 +58,7 @@ const My = () => {
         <CardAddForm
           handleCardModal={handleCardModal}
           onCurrentPage={() => setCurrentPage(1)}
+          userUid={userUid}
         />
       )}
     </>

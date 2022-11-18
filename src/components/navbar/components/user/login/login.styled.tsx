@@ -9,6 +9,7 @@ export const Container = styled.div`
   padding: 30px 40px 40px 40px;
   h1 {
     margin: 0;
+    font-size: 30px;
   }
 `;
 

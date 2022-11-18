@@ -37,7 +37,7 @@ export const SidebarButton = styled.button<ButtonProps>`
     background-color: rgba(0, 0, 0, 0.2);
   }
 
-  font-size: ${({ font }) => (font ? `${font}px` : "x-large")};
+  font-size: ${({ font }) => (font ? `${font}px` : "28px")};
   ${({ close }) => css`
     text-align: ${close ? "end" : ""};
     padding: ${close ? "0 30px 0 0" : "0"};

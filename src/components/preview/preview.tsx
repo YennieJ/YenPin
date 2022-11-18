@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { FbDeleteCard } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
 
-import Pagination from "../pagination";
+import Pagination from "./components/pagination";
 import Detail from "./components/detail";
 import Edit from "./components/edit";
 
 import * as S from "./preview.styled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export interface CardType {
   id: number | undefined;
@@ -19,8 +21,8 @@ export interface CardType {
 
 interface PreviewProps {
   currentPage: number;
-  setCurrentPage: any;
-  cards: any;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  cards: CardType[];
   main?: string;
 }
 
@@ -89,20 +91,21 @@ const Preview = ({
               {main ? null : (
                 <S.OverlayContent>
                   <button
-                    onClick={(e: any) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       //현재 발생하는 이벤트 이후 모두 스탑
                       e.stopPropagation();
                       onEditModal(card);
                     }}
                   >
-                    Edit
+                    <FontAwesomeIcon icon={faPen} />
                   </button>
                   <button
-                    onClick={() => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.stopPropagation();
                       deleteCard(card.id!);
                     }}
                   >
-                    Delete
+                    <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </S.OverlayContent>
               )}

@@ -1,6 +1,5 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 
-import { AuthContext } from "service/authContext";
 import { FbSaveCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
 
@@ -9,25 +8,24 @@ import PreviewDialog from "components/previewDialogBox/previewDialog";
 
 interface CardProps {
   handleCardModal: () => void;
-  onCurrentPage?: any;
+  onCurrentPage: () => void;
+  userUid: string | undefined;
 }
 
-const CardAddForm = ({ handleCardModal, onCurrentPage }: CardProps) => {
-  const userInfo = useContext(AuthContext);
-  const userUid = userInfo?.uid;
-
-  //form reset을 위해
+const CardAddForm = ({
+  handleCardModal,
+  onCurrentPage,
+  userUid,
+}: CardProps) => {
   const formRef = useRef<HTMLFormElement>(null);
-  //value 값을 위해
   const cardNameRef = useRef<HTMLInputElement>(null);
-  //UI를 위해서 버튼을 클릭했을 때 인풋클릭한것처럼
   const fileRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   //firebase upload를 위한
   const [file, setFile] = useState<File>();
   const [fileURL, setFileURL] = useState<string>("");
 
-  const messageRef = useRef<HTMLTextAreaElement>(null);
   const [textLength, setTextLength] = useState<number>(200);
 
   const addCard = (e: React.FormEvent) => {

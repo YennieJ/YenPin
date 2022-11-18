@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { AuthSignOut } from "service/auth_service";
 
 import * as S from "./sidebar.styled";
@@ -7,7 +8,7 @@ import * as S from "./sidebar.styled";
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  const [sidebarControl, setSidebarControl] = useState<boolean>(false);
+  const [onSidebar, setOnSidebar] = useState<boolean>(false);
 
   //로그아웃됐을때, 홈으로 돌아가기 위해서 navigate사용
   const handleLogout = () => {
@@ -17,12 +18,9 @@ const Sidebar = () => {
   return (
     <>
       <S.SidebarContainer>
-        {sidebarControl ? (
+        {onSidebar ? (
           <>
-            <S.SidebarButton
-              close
-              onClick={() => setSidebarControl(!sidebarControl)}
-            >
+            <S.SidebarButton close onClick={() => setOnSidebar(false)}>
               &#10005;
             </S.SidebarButton>
             <S.SidebarBackground>
@@ -32,11 +30,7 @@ const Sidebar = () => {
             </S.SidebarBackground>
           </>
         ) : (
-          <S.SidebarButton
-            close
-            font={45}
-            onClick={() => setSidebarControl(!sidebarControl)}
-          >
+          <S.SidebarButton close font={45} onClick={() => setOnSidebar(true)}>
             &#8801;
           </S.SidebarButton>
         )}

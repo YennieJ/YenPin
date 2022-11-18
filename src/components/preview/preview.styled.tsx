@@ -49,10 +49,7 @@ export const CardName = styled.div`
   font-size: 25px;
   text-align: center;
 `;
-interface Props {
-  name: string;
-  value: any;
-}
+
 export const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -77,24 +74,32 @@ export const OverlayContent = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  transform: translate(-50%, -50%);
+
+  transform: translate(-10%, -40%);
   text-align: center;
   font-size: 27px;
 
   button {
-    background-color: #fff;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    margin-right: 8px;
+    border: 1px solid gray;
+    border-radius: 50%;
     cursor: pointer;
+
+    background-color: #fff;
   }
 `;
 
 // export const CardDeleteButton = styled.button`
-//   width: 45px;
-//   height: 45px;
-//   padding: 0;
-//   margin-right: 3px;
-//   border: 1px solid gray;
-//   border-radius: 50%;
-//   cursor: pointer;
+// width: 45px;
+// height: 45px;
+// padding: 0;
+// margin-right: 3px;
+// border: 1px solid gray;
+// border-radius: 50%;
+// cursor: pointer;
 
-//   background-color: #fff;
+// background-color: #fff;
 // `;

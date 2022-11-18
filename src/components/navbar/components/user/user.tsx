@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import Login from "./login";
 import Signup from "./signup";
 
-import DialogBox from "components/dialogBox/dialogBox";
-
 import * as S from "./user.styled";
+import DialogBox from "components/dialogBox/dialogBox";
 
 const User = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
@@ -22,23 +21,19 @@ const User = () => {
     }
   };
 
-  const handleClickCreate = () => {
-    setIsCreate(!isCreate);
-  };
-
   return (
     <div>
       {userModal ? (
         <DialogBox>
           {isCreate ? (
             <Signup
-              handleUserModal={handleUserModal}
-              handleClickCreate={handleClickCreate}
+              closeUserModal={handleUserModal}
+              isLogin={() => setIsCreate(false)}
             />
           ) : (
             <Login
-              handleUserModal={handleUserModal}
-              handleClickCreate={handleClickCreate}
+              closeUserModal={handleUserModal}
+              isSignup={() => setIsCreate(true)}
             />
           )}
         </DialogBox>

@@ -2,15 +2,15 @@ import React, { useState } from "react";
 
 import { AuthSignUp } from "service/auth_service";
 
+import * as S from "./signup.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import * as S from "./signup.styled";
 
 interface SignupProps {
-  handleUserModal: any;
-  handleClickCreate: any;
+  closeUserModal: () => void;
+  isLogin: () => void;
 }
-const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
+const Signup = ({ closeUserModal, isLogin }: SignupProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -54,7 +54,7 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
     <>
       <S.Container>
         <h1>회원가입</h1>
-        <S.CloseLoginModalButton type="button" onClick={handleUserModal}>
+        <S.CloseLoginModalButton type="button" onClick={closeUserModal}>
           &#10005;
         </S.CloseLoginModalButton>
         <form>
@@ -63,10 +63,9 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
               <label>Email</label>
               <span>
                 Already have an account?
-                <S.Login onClick={handleClickCreate}>Log In</S.Login>
+                <S.Login onClick={isLogin}>Log In</S.Login>
               </span>
             </S.InputText>
-
             <S.Input
               type="email"
               name="email"
@@ -76,6 +75,7 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
               maxLength={25}
             />
           </S.InputContainer>
+
           <S.InputContainer>
             <S.InputText>
               <label>Password</label>
@@ -91,7 +91,6 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
                 </S.PasswordText>
               )}
             </S.InputText>
-
             <S.Input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -102,6 +101,7 @@ const Signup = ({ handleUserModal, handleClickCreate }: SignupProps) => {
               maxLength={20}
             />
           </S.InputContainer>
+
           <S.InputContainer>
             <S.InputText>
               <label>Confirm Password</label>

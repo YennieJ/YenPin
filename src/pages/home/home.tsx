@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import { FbGetAllCards } from "service/card_repository";
 
-import Preview from "pages/my/components/preview";
+import Preview from "components/preview";
 
-export interface CardType {
-  id: number | undefined;
-  fileName?: string;
-  fileURL: string;
-}
+import { CardType } from "components/preview";
+
 const Home = () => {
   const main = "main";
   const [allCards, setAllCard] = useState<CardType[]>([]);

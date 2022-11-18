@@ -9,9 +9,7 @@ import Nav from "components/navbar";
 
 import GlobalStyle from "grobal.styled";
 
-export interface Props {}
-
-const App = ({}: Props) => {
+const App = () => {
   return (
     <AuthProvider>
       <GlobalStyle />

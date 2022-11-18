@@ -2,18 +2,18 @@ import React, { useState } from "react";
 
 import { AuthLogIn, GoogleProvider } from "service/auth_service";
 
+import * as S from "./login.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import * as S from "./login.styled";
 
 const GOOGLE_IMAGE = "/image/google_logo.png";
 
 interface LoginProps {
-  handleClickCreate: any;
-  handleUserModal: any;
+  closeUserModal: () => void;
+  isSignup: () => void;
 }
 
-const Login = ({ handleClickCreate, handleUserModal }: LoginProps) => {
+const Login = ({ closeUserModal, isSignup }: LoginProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const Login = ({ handleClickCreate, handleUserModal }: LoginProps) => {
     <>
       <S.Container>
         <h1>로그인</h1>
-        <S.CloseLoginModalButton type="button" onClick={handleUserModal}>
+        <S.CloseLoginModalButton type="button" onClick={closeUserModal}>
           &#10005;
         </S.CloseLoginModalButton>
         <form>
@@ -67,10 +67,9 @@ const Login = ({ handleClickCreate, handleUserModal }: LoginProps) => {
               <label>Email</label>
               <span>
                 Need an account?
-                <S.SignUp onClick={handleClickCreate}>Sign up</S.SignUp>
+                <S.SignUp onClick={isSignup}>Sign up</S.SignUp>
               </span>
             </S.InputText>
-
             <S.Input
               type="email"
               name="email"
@@ -78,6 +77,7 @@ const Login = ({ handleClickCreate, handleUserModal }: LoginProps) => {
               value={email}
             />
           </S.InputContainer>
+
           <S.InputContainer>
             <S.InputText>
               <label>Password</label>
@@ -93,7 +93,6 @@ const Login = ({ handleClickCreate, handleUserModal }: LoginProps) => {
                 </S.PasswordText>
               )}
             </S.InputText>
-
             <S.Input
               type={showPassword ? "text" : "password"}
               name="password"

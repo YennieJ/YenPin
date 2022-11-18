@@ -6,21 +6,25 @@ import { FbUploadImageFile } from "service/img_uploader";
 import * as S from "./edit.styled";
 import PreviewDialog from "components/previewDialogBox/previewDialog";
 
+// import { CardType } from "components/preview";
 interface Props {
-  onModalClose: any;
   card: any;
+  onModalClose: () => void;
 }
 const Edit = ({ onModalClose, card }: Props) => {
+  // if (card === undefined) {
+  //   return null;
+  // }
   const { cardName, fileURL, message, id, user } = card;
 
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   //firebase upload를 위한
   const [file, setFile] = useState<File>();
   const [newFileURL, setNewFileURL] = useState<string>(fileURL);
 
-  const messageRef = useRef<HTMLTextAreaElement>(null);
   const [textLength, setTextLength] = useState<number>(200);
 
   const updateCard = (e: React.FormEvent) => {
@@ -116,6 +120,7 @@ const Edit = ({ onModalClose, card }: Props) => {
                 defaultValue={message}
               />
               <span>
+                {/* 히니민히끼? */}
                 <div>최대 200글자</div>
                 <div>{textLength}</div>
               </span>

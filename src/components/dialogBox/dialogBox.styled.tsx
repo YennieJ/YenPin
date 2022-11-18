@@ -18,7 +18,7 @@ export const DialogBox = styled.dialog`
   display: flex;
 
   width: 450px;
-  height: 550px;
+  height: 500px;
   border: none;
   border-radius: 20px;
   padding: 0;
