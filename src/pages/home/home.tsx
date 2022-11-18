@@ -11,13 +11,13 @@ export interface CardType {
 }
 const Home = () => {
   const main = "main";
-  const [myCards, setMyCards] = useState<CardType[]>([]);
+  const [allCards, setAllCard] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     FbGetAllCards((dbCards: CardType[]) => {
-      if (!dbCards) return setMyCards([]);
-      setMyCards(
+      if (!dbCards) return setAllCard([]);
+      setAllCard(
         Object.values(dbCards)
           .reverse()
           .map((data) => data)
@@ -30,7 +30,7 @@ const Home = () => {
       <h1>Home</h1>
       <Preview
         main={main}
-        myCards={myCards}
+        cards={allCards}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />

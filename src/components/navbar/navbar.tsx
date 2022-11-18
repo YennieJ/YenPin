@@ -21,9 +21,11 @@ const Nav = () => {
             popular
           </S.LinkTag>
           {userInfo && (
-            <S.LinkTag className="selected" to="/my">
-              my
-            </S.LinkTag>
+            <>
+              <S.LinkTag className="selected" to="/my">
+                my
+              </S.LinkTag>
+            </>
           )}
         </S.LinkContainer>
 

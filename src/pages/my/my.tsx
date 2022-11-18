@@ -45,19 +45,25 @@ const My = () => {
 
   return (
     <>
-      {cardAddModal ? (
+      {myCards.length === 0 ? (
+        <button onClick={() => handleCardModal()}>Add</button>
+      ) : (
+        <>
+          <button onClick={() => handleCardModal()}>추가</button>
+          <Preview
+            cards={myCards}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </>
+      )}
+
+      {cardAddModal && (
         <CardAddForm
           handleCardModal={handleCardModal}
-          setCurrentPage={setCurrentPage}
+          onCurrentPage={() => setCurrentPage(1)}
         />
-      ) : (
-        <button onClick={() => handleCardModal()}>Add</button>
       )}
-      <Preview
-        myCards={myCards}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
     </>
   );
 };

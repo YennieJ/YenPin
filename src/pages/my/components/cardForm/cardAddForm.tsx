@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useCallback } from "react";
+import React, { useState, useRef, useContext } from "react";
 
 import { AuthContext } from "service/authContext";
 import { FbSaveCard } from "service/card_repository";
@@ -9,10 +9,10 @@ import PreviewDialog from "components/previewDialogBox/previewDialog";
 
 interface CardProps {
   handleCardModal: () => void;
-  setCurrentPage: any;
+  onCurrentPage?: any;
 }
 
-const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
+const CardAddForm = ({ handleCardModal, onCurrentPage }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -29,7 +29,6 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
 
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const [textLength, setTextLength] = useState<number>(200);
-  // const [message, setMessage] = useState<any>();
 
   const addCard = (e: React.FormEvent) => {
     const id = new Date().getTime();
@@ -50,7 +49,7 @@ const CardAddForm = ({ handleCardModal, setCurrentPage }: CardProps) => {
       FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
-      setCurrentPage(1);
+      onCurrentPage();
     }
   };
 

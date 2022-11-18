@@ -3,22 +3,22 @@ import React, { useState, useRef } from "react";
 import { FbSaveCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
 
-import DialogBox from "components/dialogBox/dialogBox";
 import * as S from "./edit.styled";
+import PreviewDialog from "components/previewDialogBox/previewDialog";
 
 interface Props {
-  setEditModal: any;
+  onModalClose: any;
   card: any;
 }
-const Edit = ({ setEditModal, card }: Props) => {
-  const { cardName, fileURL, id, user } = card;
+const Edit = ({ onModalClose, card }: Props) => {
+  const { cardName, fileURL, message, id, user } = card;
 
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   //firebase upload를 위한
   const [file, setFile] = useState<File>();
-  const [newFileURL, setNewFileURL] = useState<string>("");
+  const [newFileURL, setNewFileURL] = useState<string>(fileURL);
 
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const [textLength, setTextLength] = useState<number>(200);
@@ -33,12 +33,12 @@ const Edit = ({ setEditModal, card }: Props) => {
     };
     e.preventDefault();
 
-    if (card.cardName === "" || card.fileURL === "") {
+    if (card.cardName === "") {
       alert("칸을 비울 수 없습니다.");
     } else {
       FbSaveCard(user, card);
       FbUploadImageFile(file, id);
-      setEditModal(false);
+      onModalClose();
     }
   };
 
@@ -47,7 +47,7 @@ const Edit = ({ setEditModal, card }: Props) => {
       target: { files },
     } = e;
     const file = files![0];
-    console.log(file.name);
+
     setFile(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -60,52 +60,78 @@ const Edit = ({ setEditModal, card }: Props) => {
     fileRef.current?.click();
   };
 
+  const handleTextareaHeight = () => {
+    setTextLength(200 - messageRef.current!.value.length);
+    messageRef.current!.style.height = "auto"; //초기화를 위해
+    messageRef.current!.style.height = messageRef.current?.scrollHeight + "px";
+  };
+
   return (
-    <DialogBox>
+    <PreviewDialog>
       <S.CardForm>
-        <input
-          hidden
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          onChange={onFileChange}
-        />
+        <S.Header>
+          <S.ImgContainer onClick={onButtonClick}>
+            {newFileURL ? (
+              <S.ImgContainer>
+                <S.Overlay>
+                  <S.OverlayContent>Change File</S.OverlayContent>
+                </S.Overlay>
+                <img alt="" src={newFileURL} />
+              </S.ImgContainer>
+            ) : (
+              <>
+                <S.Overlay>
+                  <S.OverlayContent>Change File</S.OverlayContent>
+                </S.Overlay>
+                <img alt="" src={fileURL} />
+              </>
+            )}
+          </S.ImgContainer>
+          <S.DetailContainer>
+            <input
+              hidden
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={onFileChange}
+            />
 
-        <S.ImgContainer onClick={onButtonClick}>
-          {newFileURL ? (
-            <>
-              <S.Overlay>
-                <S.OverlayContent>Change File</S.OverlayContent>
-              </S.Overlay>
-              <img alt="" src={newFileURL} />
-            </>
-          ) : (
-            <>
-              <S.Overlay>
-                <S.OverlayContent>Change File</S.OverlayContent>
-              </S.Overlay>
-              <img alt="" src={fileURL} />
-            </>
-          )}
-        </S.ImgContainer>
-
-        <input
-          ref={cardNameRef}
-          type="text"
-          placeholder="카드 이름"
-          maxLength={20}
-          defaultValue={cardName}
-        />
+            <S.TextContainer>
+              <input
+                ref={cardNameRef}
+                type="text"
+                placeholder="카드 이름"
+                maxLength={15}
+                defaultValue={cardName}
+              />
+              <div>최대 15글자</div>
+            </S.TextContainer>
+            <S.TextContainer>
+              <textarea
+                rows={1}
+                placeholder="사진에 대해 설명하세요"
+                maxLength={200}
+                ref={messageRef}
+                onChange={handleTextareaHeight}
+                defaultValue={message}
+              />
+              <span>
+                <div>최대 200글자</div>
+                <div>{textLength}</div>
+              </span>
+            </S.TextContainer>
+          </S.DetailContainer>
+        </S.Header>
         <S.ButtonContainer>
-          <S.Button type="button" onClick={() => setEditModal(false)}>
+          <S.Button type="button" onClick={() => onModalClose()}>
             취소
           </S.Button>
           <S.Button type="submit" onClick={updateCard}>
-            수정
+            완료
           </S.Button>
         </S.ButtonContainer>
       </S.CardForm>
-    </DialogBox>
+    </PreviewDialog>
   );
 };
 export default Edit;

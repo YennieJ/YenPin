@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const CardForm = styled.form`
   display: flex;
@@ -29,16 +29,15 @@ export const ImgContainer = styled.div`
   img {
     width: 350px;
     height: 350px;
-    font-size: 20px;
     border: 1px solid gray;
     border-radius: 20px;
-    cursor: pointer;
   }
 `;
 
 export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const TextContainer = styled.div`
@@ -46,50 +45,62 @@ export const TextContainer = styled.div`
   flex-direction: column;
   width: 100%;
 
-  input,
-  textarea {
-    width: 400px;
-    padding: 0;
-    margin: 20px 0;
+  div {
+    display: flex;
+    align-items: center;
 
+    width: 400px;
     border: none;
     border-bottom: 1px solid #9e9e9e;
+    padding: 0;
+    padding-bottom: 5px;
+    margin: 20px 0;
 
     text-align: left;
-
     outline: none;
 
-    &:focus {
-      border-bottom: 1px solid #62abf8;
+    &:nth-child(1) {
+      height: 60px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    &:nth-child(2) {
+      font-size: 20px;
+      word-break: break-all;
     }
   }
+`;
 
-  input {
-    height: 60px;
-    font-size: 28px;
-    font-weight: 700;
-  }
-  textarea {
-    height: 28px;
-    padding-bottom: 5px;
+export const CardName = styled.div`
+  width: 400px;
+  padding: 0;
+  margin: 20px 0;
 
-    font-size: 20px;
-    word-spacing: -8px;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
 
-    overflow: hidden;
-    white-space: inherit;
-    resize: none;
-  }
-  div,
-  span {
-    font-size: 15px;
-    color: #606060;
-  }
-  span {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 5px;
-  }
+  text-align: left;
+
+  outline: none;
+
+  height: 60px;
+  font-size: 28px;
+  font-weight: 700;
+`;
+
+export const CardMessage = styled.div`
+  width: 400px;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  padding: 0;
+  padding-bottom: 5px;
+  margin: 20px 0;
+
+  text-align: left;
+  outline: none;
+
+  font-size: 20px;
+  word-break: break-all;
 `;
 
 export const Overlay = styled.div`

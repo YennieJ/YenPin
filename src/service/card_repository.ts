@@ -14,8 +14,8 @@ import { CardType } from "pages/my/components/preview";
 const db = getDatabase();
 
 export const FbGetAllCards = (onUpdate: any) => {
-  const temp2 = ref(db, "card");
-  onValue(temp2, (snapshot) => {
+  const cards = ref(db, "card");
+  onValue(cards, (snapshot) => {
     const data = snapshot.val();
     onUpdate(data);
   });

@@ -5,6 +5,7 @@ import { FbDeleteImageFile } from "service/img_uploader";
 import Edit from "../edit";
 
 import Pagination from "../pagination";
+import Detail from "./components/detail";
 
 import * as S from "./preview.styled";
 
@@ -19,28 +20,32 @@ export interface CardType {
 interface PreviewProps {
   currentPage: number;
   setCurrentPage: any;
-  myCards: any;
+  cards: any;
   main?: string;
 }
 
 const itemsPerPage: number = 3;
 
 const Preview = ({
-  myCards,
+  cards,
   currentPage,
   setCurrentPage,
   main,
 }: PreviewProps) => {
+  //수정
+  const [detailModal, setDetailModal] = useState<boolean>(false);
+  const [detailCard, setDetailCard] = useState<CardType>();
+
   const [editModal, setEditModal] = useState<boolean>(false);
 
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = myCards.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = cards.slice(indexOfFirstItem, indexOfLastItem);
 
   //페이지 수 구하기
   const pages: number[] = [];
-  for (let i = 1; i <= Math.ceil(myCards.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(cards.length / itemsPerPage); i++) {
     pages.push(i);
   }
 
@@ -52,37 +57,52 @@ const Preview = ({
     } else return null;
   };
 
+  //수정
+  const onDetailModal = (card: CardType) => {
+    setDetailCard(card);
+    setDetailModal(true);
+  };
+
+  const onEditModal = (card: CardType) => {
+    setDetailCard(card);
+    setEditModal(true);
+  };
   return (
     <>
       <S.Gridbox>
         {currentItems.map((card: CardType) => (
           <S.Container key={card.id}>
-            <S.CardImage alt="" src={card.fileURL}></S.CardImage>
-            <S.CardDetail>
-              <S.CardName>{card.cardName}</S.CardName>
+            <S.Overlay onClick={() => onDetailModal(card)}>
               {main ? null : (
-                <>
-                  {editModal ? (
-                    <Edit card={card} setEditModal={setEditModal} />
-                  ) : (
-                    <button type="button" onClick={() => setEditModal(true)}>
-                      수정
-                    </button>
-                  )}
-                  <S.CardDeleteButton onClick={() => deleteCard(card.id!)}>
-                    삭제
-                  </S.CardDeleteButton>
-                </>
+                <S.OverlayContent>
+                  <button onClick={() => onEditModal(card)}>Edit</button>
+                  <button
+                    onClick={() => {
+                      deleteCard(card.id!);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </S.OverlayContent>
               )}
-            </S.CardDetail>
+            </S.Overlay>
+            <S.CardImage alt="" src={card.fileURL}></S.CardImage>
+            <S.CardName>{card.cardName}</S.CardName>
           </S.Container>
         ))}
       </S.Gridbox>
+
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         pages={pages}
       />
+      {detailModal && (
+        <Detail card={detailCard} onModalClose={() => setDetailModal(false)} />
+      )}
+      {editModal && (
+        <Edit card={detailCard} onModalClose={setEditModal(false)} />
+      )}
     </>
   );
 };
