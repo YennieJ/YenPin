@@ -11,6 +11,17 @@ const Home = () => {
   const [allCards, setAllCard] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  // useEffect(() => {
+  //   FbGetAllCards((dbCards: CardType[]) => {
+  //     if (!dbCards) return setAllCard([]);
+  //     setAllCard(
+  //       Object.values(dbCards)
+  //         .reverse()
+  //         .map((data) => data)
+  //     );
+  //   });
+  // }, []);
+
   useEffect(() => {
     FbGetAllCards((dbCards: CardType[]) => {
       if (!dbCards) return setAllCard([]);

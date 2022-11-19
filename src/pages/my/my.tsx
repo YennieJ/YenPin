@@ -6,7 +6,7 @@ import { FbGetMyCards } from "service/card_repository";
 
 import CardAddForm from "./components/cardForm";
 
-import Preview, { CardType } from "components/preview";
+import Preview, { CardType } from "../../components/preview";
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;

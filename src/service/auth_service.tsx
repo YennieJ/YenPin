@@ -20,11 +20,10 @@ type Props = {
 export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
-    const subscribe = auth.onAuthStateChanged((fbUser) => {
-      // console.log(`구독 실행`, fbUser);
+    const userInfo = auth.onAuthStateChanged((fbUser) => {
       setUser(fbUser);
     });
-    return subscribe;
+    return userInfo;
   }, []);
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
