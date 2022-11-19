@@ -56,50 +56,53 @@ export const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0;
-
-  width: 380px;
-  height: 430px;
-  border: 1px solid gray;
-  border-radius: 20px;
-
-  transition: opacity 0.4s ease-in-out;
-  background: black;
-  cursor: zoom-in;
-  &:hover {
-    opacity: 0.5;
-  }
-`;
-export const OverlayContent = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-
-  transform: translate(-10%, -40%);
-  text-align: center;
-  font-size: 27px;
 
   button {
-    width: 45px;
-    height: 45px;
-    padding: 0;
-    margin-right: 8px;
-    border: 1px solid gray;
-    border-radius: 50%;
-    cursor: pointer;
+    opacity: 0;
+  }
+  div {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    background: black;
+  }
+  &:hover {
+    div {
+      width: 100%;
+      height: 100%;
+      border: 1px solid gray;
+      border-radius: 20px;
 
-    background-color: #fff;
+      cursor: zoom-in;
+
+      opacity: 0.6;
+    }
+    button {
+      position: absolute;
+
+      width: 45px;
+      height: 45px;
+      padding: 0;
+      border: 1px solid gray;
+      border-radius: 50%;
+      cursor: pointer;
+
+      font-size: 17px;
+      background-color: #fff;
+
+      opacity: 1;
+
+      &:nth-child(2) {
+        bottom: 15px;
+        right: 70px;
+      }
+      &:nth-child(3) {
+        bottom: 15px;
+        right: 15px;
+      }
+      &:hover {
+        transition: opacity 0.4s ease-in-out;
+        background: #fff5f5;
+      }
+    }
   }
 `;
-
-// export const CardDeleteButton = styled.button`
-// width: 45px;
-// height: 45px;
-// padding: 0;
-// margin-right: 3px;
-// border: 1px solid gray;
-// border-radius: 50%;
-// cursor: pointer;
-
-// background-color: #fff;
-// `;

@@ -7,7 +7,7 @@ import Preview from "components/preview";
 import { CardType } from "components/preview";
 
 const Home = () => {
-  const main = "main";
+  const home = "home";
   const [allCards, setAllCard] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -37,7 +37,7 @@ const Home = () => {
     <>
       <h1>Home</h1>
       <Preview
-        main={main}
+        home={home}
         cards={allCards}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

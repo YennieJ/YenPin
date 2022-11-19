@@ -1,4 +1,4 @@
-import React, { EventHandler, useState } from "react";
+import React, { useState } from "react";
 
 import { FbDeleteCard } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
@@ -23,7 +23,7 @@ interface PreviewProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   cards: CardType[];
-  main?: string;
+  home?: string;
 }
 
 const itemsPerPage: number = 3;
@@ -32,7 +32,7 @@ const Preview = ({
   cards,
   currentPage,
   setCurrentPage,
-  main,
+  home,
 }: PreviewProps) => {
   //수정
   const [detailModal, setDetailModal] = useState<boolean>(false);
@@ -82,38 +82,24 @@ const Preview = ({
     }
   };
 
-  const temp = (card: CardType) => {
-    onEditModal(card);
-  };
-
   return (
     <>
       <S.Gridbox>
         {currentItems.map((card: CardType) => (
           <S.Container key={card.id}>
-            <S.Overlay onClick={() => onDetailModal(card)}></S.Overlay>
-            {!main && (
-              <S.OverlayContent>
-                <button
-                  onClick={() => temp(card)}
-                  // onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  //   //현재 발생하는 이벤트 이후 모두 스탑
-                  //   e.stopPropagation();
-                  //   onEditModal(card);
-                  // }}
-                >
-                  <FontAwesomeIcon icon={faPen} />
-                </button>
-                <button
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    e.stopPropagation();
-                    deleteCard(card.id!);
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </S.OverlayContent>
-            )}
+            <S.Overlay>
+              <div onClick={() => onDetailModal(card)}></div>
+              {!home && (
+                <>
+                  <button onClick={() => onEditModal(card)}>
+                    <FontAwesomeIcon icon={faPen} />
+                  </button>
+                  <button onClick={() => deleteCard(card.id!)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </>
+              )}
+            </S.Overlay>
             <S.CardImage alt="" src={card.fileURL}></S.CardImage>
             <S.CardName>{card.cardName}</S.CardName>
           </S.Container>
