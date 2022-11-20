@@ -9,7 +9,7 @@ import PreviewDialog from "components/previewDialogBox/previewDialog";
 interface CardProps {
   handleCardModal: () => void;
   onCurrentPage: () => void;
-  userUid: string | undefined;
+  userUid: string;
 }
 
 const CardAddForm = ({
@@ -33,7 +33,7 @@ const CardAddForm = ({
 
     const newCard = {
       id: id,
-      cardName: cardNameRef.current?.value,
+      cardName: cardNameRef.current!.value,
       fileURL: fileURL,
       message: messageRef.current?.value,
       user: userUid,

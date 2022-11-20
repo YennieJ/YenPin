@@ -14,17 +14,13 @@ const Nav = () => {
     <>
       <S.Container>
         <S.LinkContainer>
-          <S.LinkTag className="selected" home="true" to="/">
+          <S.LinkTag home="true" to="/">
             HOME
           </S.LinkTag>
-          <S.LinkTag className="selected" to="/popular">
-            popular
-          </S.LinkTag>
+          <S.LinkTag to="/popular">popular</S.LinkTag>
           {userInfo && (
             <>
-              <S.LinkTag className="selected" to="/my">
-                my
-              </S.LinkTag>
+              <S.LinkTag to="/my">my</S.LinkTag>
             </>
           )}
         </S.LinkContainer>

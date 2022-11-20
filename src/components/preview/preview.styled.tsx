@@ -50,6 +50,63 @@ export const CardName = styled.div`
   text-align: center;
 `;
 
+// export const Overlay = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+
+//   div {
+//     width: 100%;
+//     height: 100%;
+//     border: 1px solid gray;
+//     border-radius: 20px;
+
+//     opacity: 0;
+//     transition: opacity 0.4s ease-in-out;
+//     background: black;
+//   }
+
+//   button {
+//     position: absolute;
+//     width: 45px;
+//     height: 45px;
+//     padding: 0;
+//     border: 1px solid gray;
+//     border-radius: 50%;
+//     font-size: 17px;
+
+//     opacity: 0;
+//     &:nth-child(2) {
+//       bottom: 15px;
+//       right: 70px;
+//     }
+//     &:nth-child(3) {
+//       bottom: 15px;
+//       right: 15px;
+//     }
+//   }
+
+//   &:hover {
+//     div {
+//       cursor: zoom-in;
+//       opacity: 0.6;
+//     }
+//     button {
+//       cursor: pointer;
+
+//       background-color: #fff;
+
+//       opacity: 1;
+
+//       &:hover {
+//         background: #fff5f5;
+//       }
+//     }
+//   }
+// `;
+
 export const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -59,50 +116,46 @@ export const Overlay = styled.div`
 
   button {
     opacity: 0;
-  }
-  div {
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-    background: black;
-  }
-  &:hover {
-    div {
+    border: 1px solid gray;
+
+    :nth-child(1) {
       width: 100%;
       height: 100%;
-      border: 1px solid gray;
       border-radius: 20px;
 
-      cursor: zoom-in;
-
-      opacity: 0.6;
+      transition: opacity 0.4s ease-in-out;
+      background: black;
     }
+    /* 2,3 */
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 17px;
+
+    background-color: white;
+
+    position: absolute;
+    &:nth-child(2) {
+      bottom: 15px;
+      right: 70px;
+    }
+    &:nth-child(3) {
+      bottom: 15px;
+      right: 15px;
+    }
+  }
+
+  &:hover {
     button {
-      position: absolute;
+      :nth-child(1) {
+        cursor: zoom-in;
+        opacity: 0.6;
+      }
 
-      width: 45px;
-      height: 45px;
-      padding: 0;
-      border: 1px solid gray;
-      border-radius: 50%;
+      /* 2,3 */
       cursor: pointer;
-
-      font-size: 17px;
-      background-color: #fff;
-
       opacity: 1;
-
-      &:nth-child(2) {
-        bottom: 15px;
-        right: 70px;
-      }
-      &:nth-child(3) {
-        bottom: 15px;
-        right: 15px;
-      }
-      &:hover {
-        transition: opacity 0.4s ease-in-out;
-        background: #fff5f5;
-      }
     }
   }
 `;

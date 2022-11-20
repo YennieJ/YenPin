@@ -5,17 +5,14 @@ import { FbUploadImageFile } from "service/img_uploader";
 
 import * as S from "./edit.styled";
 import PreviewDialog from "components/previewDialogBox/previewDialog";
-import { CardType } from "components/preview/preview";
 
-// import { CardType } from "components/preview";
+import { CardType } from "types";
+
 interface Props {
-  card: any;
+  card: CardType;
   onModalClose: () => void;
 }
 const Edit = ({ onModalClose, card }: Props) => {
-  // if (card === undefined) {
-  //   return null;
-  // }
   const { cardName, fileURL, message, id, user } = card;
 
   const defaultLength = message ? message.length : 0;
@@ -33,7 +30,7 @@ const Edit = ({ onModalClose, card }: Props) => {
   const updateCard = (e: React.FormEvent) => {
     const card = {
       id: id,
-      cardName: cardNameRef.current?.value,
+      cardName: cardNameRef.current!.value,
       fileURL: newFileURL,
       message: messageRef.current?.value,
       user: user,

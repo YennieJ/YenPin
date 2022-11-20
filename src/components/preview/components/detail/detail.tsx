@@ -3,17 +3,14 @@ import React from "react";
 import * as S from "./detail.styled";
 import PreviewDialog from "components/previewDialogBox/previewDialog";
 
-import { CardType } from "components/preview";
+import { CardType } from "types";
 
 interface Props {
-  card: CardType | undefined;
+  card: CardType;
   onModalClose: () => void;
 }
 
 const Detail = ({ card, onModalClose }: Props) => {
-  if (card === undefined) {
-    return null;
-  }
   const { cardName, fileURL, message } = card;
 
   return (

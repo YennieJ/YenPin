@@ -5,11 +5,13 @@ import { AuthContext } from "service/authContext";
 import { FbGetMyCards } from "service/card_repository";
 
 import CardAddForm from "./components/cardForm";
+import Preview from "../../components/preview";
 
-import Preview, { CardType } from "../../components/preview";
+import { CardType } from "types";
+
 const My = () => {
   const userInfo = useContext(AuthContext);
-  const userUid = userInfo?.uid;
+  const userUid = userInfo!.uid;
   const navigate = useNavigate();
 
   const [myCards, setMyCards] = useState<CardType[]>([]);

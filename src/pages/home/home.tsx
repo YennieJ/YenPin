@@ -4,7 +4,7 @@ import { FbGetAllCards } from "service/card_repository";
 
 import Preview from "components/preview";
 
-import { CardType } from "components/preview";
+import { CardType } from "types";
 
 const Home = () => {
   const home = "home";

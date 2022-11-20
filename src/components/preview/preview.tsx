@@ -11,13 +11,7 @@ import * as S from "./preview.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export interface CardType {
-  id: number | undefined;
-  cardName: string | undefined;
-  fileURL: string;
-  message: string | undefined;
-  user: string | undefined;
-}
+import { CardType } from "types";
 
 interface PreviewProps {
   currentPage: number;
@@ -88,13 +82,14 @@ const Preview = ({
         {currentItems.map((card: CardType) => (
           <S.Container key={card.id}>
             <S.Overlay>
-              <div onClick={() => onDetailModal(card)}></div>
+              <button name="detail" onClick={() => onDetailModal(card)} />
+
               {!home && (
                 <>
-                  <button onClick={() => onEditModal(card)}>
+                  <button name="eidt" onClick={() => onEditModal(card)}>
                     <FontAwesomeIcon icon={faPen} />
                   </button>
-                  <button onClick={() => deleteCard(card.id!)}>
+                  <button name="delete" onClick={() => deleteCard(card.id!)}>
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </>
@@ -111,10 +106,10 @@ const Preview = ({
         setCurrentPage={setCurrentPage}
         pages={pages}
       />
-      {detailModal && (
+      {detailModal && detailCard && (
         <Detail card={detailCard} onModalClose={() => setDetailModal(false)} />
       )}
-      {editModal && (
+      {editModal && detailCard && (
         <Edit card={detailCard} onModalClose={() => setEditModal(false)} />
       )}
     </>
