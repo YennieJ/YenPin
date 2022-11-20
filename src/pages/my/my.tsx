@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "service/authContext";
 
 import { FbGetMyCards } from "service/card_repository";
@@ -12,24 +11,22 @@ import { CardType } from "types";
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
-  const navigate = useNavigate();
 
   const [myCards, setMyCards] = useState<CardType[]>([]);
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    userInfo
-      ? FbGetMyCards(userUid, (dbCards: CardType[]) => {
-          if (!dbCards) return setMyCards([]);
-          setMyCards(
-            Object.values(dbCards)
-              .reverse()
-              .map((data) => data)
-          );
-        })
-      : navigate("/");
-  }, [navigate, userInfo, userUid]);
+    FbGetMyCards(userUid, (dbCards: CardType[]) => {
+      if (!userUid) return console.log("my");
+      if (!dbCards) return setMyCards([]);
+      setMyCards(
+        Object.values(dbCards)
+          .reverse()
+          .map((data) => data)
+      );
+    });
+  }, [userInfo, userUid]);
 
   const handleCardModal = () => {
     if (cardAddModal === false) {

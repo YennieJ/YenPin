@@ -22,7 +22,7 @@ export const FbGetAllCards = (onUpdate: any) => {
 };
 
 //any로 받음
-export const FbGetMyCards = (userUid: any, onUpdate: any) => {
+export const FbGetMyCards = (userUid: string, onUpdate: any) => {
   const mostViewedPosts = query(
     ref(db, "card"),
     orderByChild("user"),
@@ -35,7 +35,7 @@ export const FbGetMyCards = (userUid: any, onUpdate: any) => {
   });
 };
 
-export const FbSaveCard = (userUid: string | undefined, card: CardType) => {
+export const FbSaveCard = (userUid: string, card: CardType) => {
   set(ref(db, `/card/${card.id}`), {
     id: card.id,
     cardName: card.cardName,

@@ -44,7 +44,7 @@ const CardAddForm = ({
       alert("칸을 비울 수 없습니다.");
     } else {
       FbSaveCard(userUid, newCard);
-      FbUploadImageFile(file, id);
+      // FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
       onCurrentPage();

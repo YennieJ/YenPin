@@ -8,6 +8,7 @@ import My from "pages/my";
 import Nav from "components/navbar";
 
 import GlobalStyle from "grobal.styled";
+import ProtectRoute from "components/protectRoute";
 
 const App = () => {
   return (
@@ -18,7 +19,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="popular" element={<Popular />} />
-          <Route path="my" element={<My />} />
+          <Route
+            path="my"
+            element={
+              <ProtectRoute>
+                <My />
+              </ProtectRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
