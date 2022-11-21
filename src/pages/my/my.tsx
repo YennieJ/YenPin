@@ -6,6 +6,8 @@ import { FbGetMyCards } from "service/card_repository";
 import CardAddForm from "./components/cardForm";
 import Preview from "../../components/preview";
 
+import * as S from "./my.styled";
+
 import { CardType } from "types";
 
 const My = () => {
@@ -41,7 +43,10 @@ const My = () => {
   return (
     <>
       {myCards.length === 0 ? (
-        <button onClick={() => handleCardModal()}>Add</button>
+        <S.Container>
+          <div>내가 만든 카드가 여기에 보관됩니다.</div>
+          <button onClick={() => handleCardModal()}>새로운 카드 만들기</button>
+        </S.Container>
       ) : (
         <>
           <button onClick={() => handleCardModal()}>추가</button>
