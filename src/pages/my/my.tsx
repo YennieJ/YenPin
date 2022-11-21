@@ -49,11 +49,11 @@ const My = () => {
         </S.Container>
       ) : (
         <>
-          <button onClick={() => handleCardModal()}>추가</button>
           <Preview
             cards={myCards}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            handleCardModal={handleCardModal}
           />
         </>
       )}

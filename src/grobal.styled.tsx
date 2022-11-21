@@ -6,18 +6,18 @@ const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
 }
 html{
-height: 100vh;
+height: 95vh;
 padding:0;
 margin:0;
 }
 body {
-height: 100vh;
+height: 95vh;
 padding:0;
 margin: 0;
   }
 
   #root{
-height: 100vh;
+height: 95vh;
 padding: 20px 10px;
   }
 

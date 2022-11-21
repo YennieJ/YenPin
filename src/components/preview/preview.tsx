@@ -3,6 +3,8 @@ import React from "react";
 import Pagination from "./components/pagination";
 
 import * as S from "./preview.styled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
 import Card from "./components/card";
@@ -12,6 +14,7 @@ interface PreviewProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   cards: CardType[];
   home?: string;
+  handleCardModal?: any;
 }
 
 const itemsPerPage: number = 3;
@@ -21,6 +24,7 @@ const Preview = ({
   currentPage,
   setCurrentPage,
   home,
+  handleCardModal,
 }: PreviewProps) => {
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -35,17 +39,27 @@ const Preview = ({
 
   return (
     <S.PreviewContainer>
-      <S.Gridbox>
+      <S.Content>
         {currentItems.map((card: CardType) => (
-          <Card card={card} home={home} />
+          <Card key={card.id} card={card} home={home} />
         ))}
-      </S.Gridbox>
+        {!home && (
+          <S.NewCardButton onClick={() => handleCardModal()}>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>새로운 카드</div>
+          </S.NewCardButton>
+        )}
+      </S.Content>
 
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pages={pages}
-      />
+      <S.Footer>
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pages={pages}
+        />
+      </S.Footer>
     </S.PreviewContainer>
   );
 };

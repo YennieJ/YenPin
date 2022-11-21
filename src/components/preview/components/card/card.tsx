@@ -54,10 +54,9 @@ const Card = ({ card, home }: CardProps) => {
   };
 
   return (
-    <S.Container key={card.id}>
+    <S.Container>
       <S.Overlay>
         <button name="detail" onClick={() => onDetailModal(card)} />
-
         {!home && (
           <>
             <button name="eidt" onClick={() => onEditModal(card)}>
