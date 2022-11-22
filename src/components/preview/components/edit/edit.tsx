@@ -21,34 +21,36 @@ const Edit = ({ onModalClose, card }: Props) => {
 
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const messageRef = useRef<HTMLTextAreaElement>(null);
+  const messageRef = useRef<HTMLPreElement>(null);
+  const newMessageRef = useRef<HTMLTextAreaElement>(null);
 
   //firebase upload를 위한
   const [file, setFile] = useState<File>();
   const [newFileURL, setNewFileURL] = useState<string>(fileURL);
 
+  //textarea
   const [textLength, setTextLength] = useState<number>(defaultLength);
-
-  const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // messageRef.current!.style.height = "auto"; //초기화를 위해
-    // messageRef.current!.style.height = messageRef.current?.scrollHeight + "px";
-    // setNewMessage(e.target.value);
-    setTextLength(e.target.value.length);
-  };
-  //////////////////////////////////////////////////////////////
-
+  const [onEditMode, setOnEditMode] = useState<boolean>(false);
   const [newMessage, setNewMessage] = useState<string | undefined>(message);
-  const basicHeight = newMessage!.split("\n").length * 27;
+  const basicHeight = messageRef.current?.scrollHeight;
 
-  const [textareaHeight, setTextareaHeight] = useState(basicHeight);
+  const temp = (e: any) => {
+    setOnEditMode(true);
+  };
+  const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewMessage(e.target.value);
+    setTextLength(e.target.value.length);
+    newMessageRef.current!.style.height = "auto"; //초기화를 위해
+    newMessageRef.current!.style.height =
+      newMessageRef.current?.scrollHeight + "px";
+  };
 
-  ////////////////////////////////////////////////////////////////////////////
   const updateCard = (e: React.FormEvent) => {
     const card = {
       id: id,
       cardName: cardNameRef.current!.value,
       fileURL: newFileURL,
-      message: messageRef.current!.value,
+      message: newMessage,
       user: user,
     };
     e.preventDefault();
@@ -129,15 +131,22 @@ const Edit = ({ onModalClose, card }: Props) => {
               <span>최대 15글자</span>
             </S.TextContainer>
             <S.TextContainer>
-              <textarea
-                ref={messageRef}
-                placeholder="사진에 대해 설명하세요"
-                maxLength={70}
-                onChange={textHeightHandler}
-                defaultValue={message}
-                // rows={1}
-                // style={{ height: textareaHeight + "px" }}
-              />
+              {onEditMode ? (
+                <textarea
+                  autoFocus={true}
+                  ref={newMessageRef}
+                  placeholder="사진에 대해 설명하세요"
+                  maxLength={70}
+                  onChange={textHeightHandler}
+                  defaultValue={message}
+                  rows={1}
+                  style={{ height: basicHeight + "px" }}
+                />
+              ) : (
+                <pre ref={messageRef} onClick={(e) => temp(e)}>
+                  {message}
+                </pre>
+              )}
 
               <span>{textLength}/70</span>
             </S.TextContainer>

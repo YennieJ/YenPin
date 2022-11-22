@@ -72,16 +72,18 @@ export const TextContainer = styled.div<TextProps>`
     font-weight: 700;
   }
   textarea {
-    height: 150px;
+    /* height: (textareaHeight + 1) * 28px; */
     padding-bottom: 5px;
+    /* max-height: 150px; */
     font-size: 20px;
     word-spacing: -8px;
 
-    /* overflow: hidden; */
+    overflow: hidden;
     white-space: inherit;
     resize: none;
   }
-  div {
+  pre {
+    white-space: pre-wrap;
     word-break: break-all;
     width: 400px;
     border-bottom: 1px solid #606060;
