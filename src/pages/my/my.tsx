@@ -35,7 +35,7 @@ const My = () => {
       document.body.style.overflow = "hidden";
       setCardAddModal(true);
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "auto";
       setCardAddModal(false);
     }
   };

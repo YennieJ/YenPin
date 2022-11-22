@@ -41,14 +41,16 @@ export const DetailContainer = styled.div`
   flex-direction: column;
 `;
 
-export const TextContainer = styled.div`
+interface TextProps {
+  textareaHeight?: number;
+}
+export const TextContainer = styled.div<TextProps>`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 400px;
 
   input,
   textarea {
-    width: 400px;
     padding: 0;
     margin: 20px 0;
 
@@ -70,25 +72,33 @@ export const TextContainer = styled.div`
     font-weight: 700;
   }
   textarea {
-    height: 28px;
+    height: 150px;
     padding-bottom: 5px;
-
     font-size: 20px;
     word-spacing: -8px;
 
-    overflow: hidden;
+    /* overflow: hidden; */
     white-space: inherit;
     resize: none;
   }
-  div,
-  span {
-    font-size: 15px;
-    color: #606060;
+  div {
+    word-break: break-all;
+    width: 400px;
+    border-bottom: 1px solid #606060;
+    padding-bottom: 5px;
+    font-size: 20px;
+    cursor: text;
+
+    :hover {
+      border-bottom: 1px solid #62abf8;
+    }
   }
   span {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     padding-right: 5px;
+    font-size: 15px;
+    color: #606060;
   }
 `;
 

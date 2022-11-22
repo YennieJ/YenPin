@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import { FbSaveCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
 
+import imageCompression from "browser-image-compression";
+
 import * as S from "./edit.styled";
 import PreviewDialog from "components/previewDialogBox/previewDialog";
 
@@ -25,14 +27,28 @@ const Edit = ({ onModalClose, card }: Props) => {
   const [file, setFile] = useState<File>();
   const [newFileURL, setNewFileURL] = useState<string>(fileURL);
 
-  const [textLength, setTextLength] = useState<number>(200 - defaultLength);
+  const [textLength, setTextLength] = useState<number>(defaultLength);
 
+  const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // messageRef.current!.style.height = "auto"; //초기화를 위해
+    // messageRef.current!.style.height = messageRef.current?.scrollHeight + "px";
+    // setNewMessage(e.target.value);
+    setTextLength(e.target.value.length);
+  };
+  //////////////////////////////////////////////////////////////
+
+  const [newMessage, setNewMessage] = useState<string | undefined>(message);
+  const basicHeight = newMessage!.split("\n").length * 27;
+
+  const [textareaHeight, setTextareaHeight] = useState(basicHeight);
+
+  ////////////////////////////////////////////////////////////////////////////
   const updateCard = (e: React.FormEvent) => {
     const card = {
       id: id,
       cardName: cardNameRef.current!.value,
       fileURL: newFileURL,
-      message: messageRef.current?.value,
+      message: messageRef.current!.value,
       user: user,
     };
     e.preventDefault();
@@ -45,29 +61,31 @@ const Edit = ({ onModalClose, card }: Props) => {
       onModalClose();
     }
   };
-
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
     } = e;
     const file = files![0];
 
-    setFile(file);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = (event: ProgressEvent<FileReader>) => {
-      setNewFileURL(event.target?.result as string);
+    const options = {
+      maxSizeMB: 2,
+      maxWidthOrHeight: 1920,
     };
+    try {
+      const compressedFile = await imageCompression(file, options);
+      setFile(compressedFile);
+      // resize된 이미지의 url을 받아 fileUrl에 저장
+      const promise = imageCompression.getDataUrlFromFile(compressedFile);
+      promise.then((result) => {
+        setNewFileURL(result);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onButtonClick = () => {
     fileRef.current?.click();
-  };
-
-  const handleTextareaHeight = () => {
-    setTextLength(200 - messageRef.current!.value.length);
-    messageRef.current!.style.height = "auto"; //초기화를 위해
-    messageRef.current!.style.height = messageRef.current?.scrollHeight + "px";
   };
 
   return (
@@ -108,22 +126,20 @@ const Edit = ({ onModalClose, card }: Props) => {
                 maxLength={15}
                 defaultValue={cardName}
               />
-              <div>최대 15글자</div>
+              <span>최대 15글자</span>
             </S.TextContainer>
             <S.TextContainer>
               <textarea
-                rows={1}
-                placeholder="사진에 대해 설명하세요"
-                maxLength={200}
                 ref={messageRef}
-                onChange={handleTextareaHeight}
+                placeholder="사진에 대해 설명하세요"
+                maxLength={70}
+                onChange={textHeightHandler}
                 defaultValue={message}
+                // rows={1}
+                // style={{ height: textareaHeight + "px" }}
               />
-              <span>
-                {/* 히니민히끼? */}
-                <div>최대 200글자</div>
-                <div>{textLength}</div>
-              </span>
+
+              <span>{textLength}/70</span>
             </S.TextContainer>
           </S.DetailContainer>
         </S.Header>

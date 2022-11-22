@@ -16,7 +16,7 @@ const User = () => {
       setUserModal(true);
       setIsCreate(false);
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "visible";
       setUserModal(false);
     }
   };

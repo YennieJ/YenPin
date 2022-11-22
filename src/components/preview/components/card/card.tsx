@@ -28,7 +28,7 @@ const Card = ({ card, home }: CardProps) => {
       setDetailCard(card);
       setDetailModal(true);
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "auto";
       setDetailModal(false);
     }
   };
@@ -40,7 +40,7 @@ const Card = ({ card, home }: CardProps) => {
       setDetailCard(card);
       setEditModal(true);
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "auto";
       setEditModal(false);
     }
   };
@@ -54,29 +54,31 @@ const Card = ({ card, home }: CardProps) => {
   };
 
   return (
-    <S.Container>
-      <S.Overlay>
-        <button name="detail" onClick={() => onDetailModal(card)} />
-        {!home && (
-          <>
-            <button name="eidt" onClick={() => onEditModal(card)}>
-              <FontAwesomeIcon icon={faPen} />
-            </button>
-            <button name="delete" onClick={() => deleteCard(card.id!)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-          </>
+    <>
+      <S.Container>
+        <S.Overlay>
+          <button name="detail" onClick={() => onDetailModal(card)} />
+          {!home && (
+            <>
+              <button name="eidt" onClick={() => onEditModal(card)}>
+                <FontAwesomeIcon icon={faPen} />
+              </button>
+              <button name="delete" onClick={() => deleteCard(card.id!)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </>
+          )}
+        </S.Overlay>
+        <S.CardImage alt="" src={card.fileURL}></S.CardImage>
+        <S.CardName>{card.cardName}</S.CardName>
+        {detailModal && detailCard && (
+          <Detail card={detailCard} onModalClose={() => onDetailModal(card)} />
         )}
-      </S.Overlay>
-      <S.CardImage alt="" src={card.fileURL}></S.CardImage>
-      <S.CardName>{card.cardName}</S.CardName>
-      {detailModal && detailCard && (
-        <Detail card={detailCard} onModalClose={() => setDetailModal(false)} />
-      )}
-      {editModal && detailCard && (
-        <Edit card={detailCard} onModalClose={() => setEditModal(false)} />
-      )}
-    </S.Container>
+        {editModal && detailCard && (
+          <Edit card={detailCard} onModalClose={() => onEditModal(card)} />
+        )}
+      </S.Container>
+    </>
   );
 };
 

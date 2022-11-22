@@ -88,7 +88,7 @@ export const TextContainer = styled.div`
   }
   span {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     padding-right: 5px;
   }
 `;

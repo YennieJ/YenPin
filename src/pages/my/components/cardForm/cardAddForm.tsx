@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import { FbSaveCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
 
+import imageCompression from "browser-image-compression";
+
 import * as S from "./cardAddForm.styled";
 import PreviewDialog from "components/previewDialogBox/previewDialog";
 
@@ -26,7 +28,7 @@ const CardAddForm = ({
   const [file, setFile] = useState<File>();
   const [fileURL, setFileURL] = useState<string>("");
 
-  const [textLength, setTextLength] = useState<number>(200);
+  const [textLength, setTextLength] = useState<number>(0);
 
   const addCard = (e: React.FormEvent) => {
     const id = new Date().getTime();
@@ -51,17 +53,45 @@ const CardAddForm = ({
     }
   };
 
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
     } = e;
     const file = files![0];
-    setFile(file);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = (event: ProgressEvent<FileReader>) => {
-      setFileURL(event.target?.result as string);
+    // setFile(file);
+    const options = {
+      maxSizeMB: 2,
+      maxWidthOrHeight: 1920,
     };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      setFile(compressedFile);
+
+      // resize된 이미지의 url을 받아 fileUrl에 저장
+      const promise = imageCompression.getDataUrlFromFile(compressedFile);
+      promise.then((result) => {
+        setFileURL(result);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    // imageCompression(file, {
+    //   maxSizeMB: 1,
+    //   maxWidthOrHeight: 1920,
+    // }).then((compressedFile) => {
+    //   const newFile = new File([compressedFile], file.name, {
+    //     type: file.type,
+    //   });
+    //   console.log(newFile);
+    // });
+
+    // const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onloadend = (event: ProgressEvent<FileReader>) => {
+    //   setFileURL(event.target!.result as string);
+    // };
   };
 
   const onButtonClick = () => {
@@ -70,7 +100,7 @@ const CardAddForm = ({
 
   // 이거.. 어떻게 넘길수 있을까.. styled component로.
   const handleTextareaHeight = () => {
-    setTextLength(200 - messageRef.current!.value.length);
+    setTextLength(messageRef.current!.value.length);
     messageRef.current!.style.height = "auto"; //초기화를 위해
     messageRef.current!.style.height = messageRef.current?.scrollHeight + "px";
   };
@@ -116,10 +146,7 @@ const CardAddForm = ({
                 ref={messageRef}
                 onChange={handleTextareaHeight}
               />
-              <span>
-                <div>최대 200글자</div>
-                <div>{textLength}</div>
-              </span>
+              <span>{textLength}/200</span>
             </S.TextContainer>
           </S.DetailContainer>
         </S.Header>
