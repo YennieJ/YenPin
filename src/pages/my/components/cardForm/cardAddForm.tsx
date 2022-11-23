@@ -25,22 +25,22 @@ const CardAddForm = ({
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
   //firebase upload를 위한
-  // const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File>();
   const [fileURL, setFileURL] = useState<string>("");
 
   const [textLength, setTextLength] = useState<number>(0);
 
-  const [message, setMessage] = useState<string>();
+  const [message, setMessage] = useState<string>("");
   const basicHeight = message ? messageRef.current?.offsetHeight : 30;
 
   const addCard = (e: React.FormEvent) => {
     const id = new Date().getTime();
-
+    const trim = message!.trim();
     const newCard = {
       id: id,
       cardName: cardNameRef.current!.value,
       fileURL: fileURL,
-      message: message,
+      message: trim,
       user: userUid,
     };
     e.preventDefault();
@@ -69,7 +69,7 @@ const CardAddForm = ({
 
     try {
       const compressedFile = await imageCompression(file, options);
-      // setFile(compressedFile);
+      setFile(compressedFile);
 
       // resize된 이미지의 url을 받아 fileUrl에 저장
       const promise = imageCompression.getDataUrlFromFile(compressedFile);

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { FbSaveCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
@@ -47,11 +47,13 @@ const Edit = ({ onModalClose, card }: Props) => {
   };
 
   const updateCard = (e: React.FormEvent) => {
+    const trim = newMessage!.trim();
+
     const card = {
       id: id,
       cardName: newCardName,
       fileURL: newFileURL,
-      message: newMessage,
+      message: trim,
       user: user,
     };
     e.preventDefault();
@@ -91,6 +93,15 @@ const Edit = ({ onModalClose, card }: Props) => {
   const onButtonClick = () => {
     fileRef.current?.click();
   };
+
+  useEffect(() => {
+    if (onEditMode) {
+      setTimeout(() => {
+        newMessageRef.current!.focus();
+        newMessageRef.current!.scrollTop = newMessageRef.current!.offsetHeight;
+      });
+    }
+  }, [onEditMode]);
 
   return (
     <PreviewDialog>
@@ -142,7 +153,6 @@ const Edit = ({ onModalClose, card }: Props) => {
                     maxLength={200}
                     onChange={textHeightHandler}
                     value={newMessage}
-                    autoFocus
                     onFocus={(e) =>
                       e.currentTarget.setSelectionRange(
                         e.currentTarget.value.length,
@@ -154,8 +164,9 @@ const Edit = ({ onModalClose, card }: Props) => {
                 ) : (
                   <pre
                     ref={messageRef}
+                    // onClick={() => temp()}
                     onClick={() => setOnEditMode(true)}
-                    style={{ height: basicHeight + "px" }}
+                    // style={{ height: basicHeight + "px" }}
                   >
                     {newMessage}
                   </pre>
