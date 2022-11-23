@@ -25,10 +25,13 @@ const CardAddForm = ({
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
   //firebase upload를 위한
-  const [file, setFile] = useState<File>();
+  // const [file, setFile] = useState<File>();
   const [fileURL, setFileURL] = useState<string>("");
 
   const [textLength, setTextLength] = useState<number>(0);
+
+  const [message, setMessage] = useState<string>();
+  const basicHeight = message ? messageRef.current?.offsetHeight : 30;
 
   const addCard = (e: React.FormEvent) => {
     const id = new Date().getTime();
@@ -37,7 +40,7 @@ const CardAddForm = ({
       id: id,
       cardName: cardNameRef.current!.value,
       fileURL: fileURL,
-      message: messageRef.current?.value,
+      message: message,
       user: userUid,
     };
     e.preventDefault();
@@ -66,7 +69,7 @@ const CardAddForm = ({
 
     try {
       const compressedFile = await imageCompression(file, options);
-      setFile(compressedFile);
+      // setFile(compressedFile);
 
       // resize된 이미지의 url을 받아 fileUrl에 저장
       const promise = imageCompression.getDataUrlFromFile(compressedFile);
@@ -98,11 +101,12 @@ const CardAddForm = ({
     fileRef.current?.click();
   };
 
-  // 이거.. 어떻게 넘길수 있을까.. styled component로.
-  const handleTextareaHeight = () => {
+  const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
     setTextLength(messageRef.current!.value.length);
     messageRef.current!.style.height = "auto"; //초기화를 위해
-    messageRef.current!.style.height = messageRef.current?.scrollHeight + "px";
+    messageRef.current!.style.height =
+      messageRef.current!.scrollHeight + 2 + "px";
   };
 
   return (
@@ -144,7 +148,8 @@ const CardAddForm = ({
                 placeholder="사진에 대해 설명하세요"
                 maxLength={200}
                 ref={messageRef}
-                onChange={handleTextareaHeight}
+                onChange={textHeightHandler}
+                style={{ height: basicHeight + "px" }}
               />
               <span>{textLength}/200</span>
             </S.TextContainer>

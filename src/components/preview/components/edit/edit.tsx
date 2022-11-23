@@ -61,8 +61,8 @@ const Edit = ({ onModalClose, card }: Props) => {
     } else {
       FbSaveCard(user, card);
       FbUploadImageFile(file, id);
-      // onModalClose();
-      setOnEditMode(false);
+      onModalClose();
+      // setOnEditMode(false);
     }
   };
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

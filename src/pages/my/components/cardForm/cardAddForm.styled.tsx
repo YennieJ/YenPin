@@ -71,13 +71,13 @@ export const TextContainer = styled.div`
     font-weight: 700;
   }
   textarea {
-    height: 28px;
+    max-height: 200px;
     padding-bottom: 5px;
 
     font-size: 20px;
     word-spacing: -8px;
 
-    overflow: hidden;
+    overflow: auto;
     white-space: inherit;
     resize: none;
   }
