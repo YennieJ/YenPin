@@ -41,10 +41,7 @@ export const DetailContainer = styled.div`
   flex-direction: column;
 `;
 
-interface TextProps {
-  textareaHeight?: number;
-}
-export const TextContainer = styled.div<TextProps>`
+export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -72,13 +69,12 @@ export const TextContainer = styled.div<TextProps>`
     font-weight: 700;
   }
   textarea {
-    /* height: (textareaHeight + 1) * 28px; */
     padding-bottom: 5px;
-    /* max-height: 150px; */
+    max-height: 200px;
     font-size: 20px;
     word-spacing: -8px;
 
-    overflow: hidden;
+    overflow: auto;
     white-space: inherit;
     resize: none;
   }
@@ -86,6 +82,9 @@ export const TextContainer = styled.div<TextProps>`
     white-space: pre-wrap;
     word-break: break-all;
     width: 400px;
+    max-height: 200px;
+    overflow: auto;
+
     border-bottom: 1px solid #606060;
     padding-bottom: 5px;
     font-size: 20px;

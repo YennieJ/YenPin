@@ -19,36 +19,37 @@ const Edit = ({ onModalClose, card }: Props) => {
 
   const defaultLength = message ? message.length : 0;
 
-  const cardNameRef = useRef<HTMLInputElement>(null);
+  // const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLPreElement>(null);
   const newMessageRef = useRef<HTMLTextAreaElement>(null);
+  //////////
+  const [newCardName, setNewCardName] = useState<string>(cardName);
+  const [newMessage, setNewMessage] = useState<string | undefined>(message);
 
+  //////////
   //firebase upload를 위한
   const [file, setFile] = useState<File>();
   const [newFileURL, setNewFileURL] = useState<string>(fileURL);
 
   //textarea
+  const basicHeight = message ? messageRef.current?.offsetHeight : 30;
+
   const [textLength, setTextLength] = useState<number>(defaultLength);
   const [onEditMode, setOnEditMode] = useState<boolean>(false);
-  const [newMessage, setNewMessage] = useState<string | undefined>(message);
-  const basicHeight = messageRef.current?.scrollHeight;
 
-  const temp = (e: any) => {
-    setOnEditMode(true);
-  };
   const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewMessage(e.target.value);
     setTextLength(e.target.value.length);
     newMessageRef.current!.style.height = "auto"; //초기화를 위해
     newMessageRef.current!.style.height =
-      newMessageRef.current?.scrollHeight + "px";
+      newMessageRef.current!.scrollHeight + 2 + "px";
   };
 
   const updateCard = (e: React.FormEvent) => {
     const card = {
       id: id,
-      cardName: cardNameRef.current!.value,
+      cardName: newCardName,
       fileURL: newFileURL,
       message: newMessage,
       user: user,
@@ -60,7 +61,8 @@ const Edit = ({ onModalClose, card }: Props) => {
     } else {
       FbSaveCard(user, card);
       FbUploadImageFile(file, id);
-      onModalClose();
+      // onModalClose();
+      setOnEditMode(false);
     }
   };
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,33 +124,53 @@ const Edit = ({ onModalClose, card }: Props) => {
 
             <S.TextContainer>
               <input
-                ref={cardNameRef}
                 type="text"
                 placeholder="카드 이름"
                 maxLength={15}
-                defaultValue={cardName}
+                value={newCardName}
+                onChange={(e) => setNewCardName(e.target.value)}
               />
               <span>최대 15글자</span>
             </S.TextContainer>
             <S.TextContainer>
-              {onEditMode ? (
+              {newMessage ? (
+                onEditMode ? (
+                  <textarea
+                    rows={1}
+                    ref={newMessageRef}
+                    placeholder="사진에 대해 설명하세요"
+                    maxLength={200}
+                    onChange={textHeightHandler}
+                    value={newMessage}
+                    autoFocus
+                    onFocus={(e) =>
+                      e.currentTarget.setSelectionRange(
+                        e.currentTarget.value.length,
+                        e.currentTarget.value.length
+                      )
+                    }
+                    style={{ height: basicHeight + "px" }}
+                  />
+                ) : (
+                  <pre
+                    ref={messageRef}
+                    onClick={() => setOnEditMode(true)}
+                    style={{ height: basicHeight + "px" }}
+                  >
+                    {newMessage}
+                  </pre>
+                )
+              ) : (
                 <textarea
-                  autoFocus={true}
+                  rows={1}
                   ref={newMessageRef}
                   placeholder="사진에 대해 설명하세요"
-                  maxLength={70}
                   onChange={textHeightHandler}
-                  defaultValue={message}
-                  rows={1}
                   style={{ height: basicHeight + "px" }}
+                  onClick={() => setOnEditMode(true)}
                 />
-              ) : (
-                <pre ref={messageRef} onClick={(e) => temp(e)}>
-                  {message}
-                </pre>
               )}
-
-              <span>{textLength}/70</span>
+              <span>{textLength}/200</span>
             </S.TextContainer>
           </S.DetailContainer>
         </S.Header>
