@@ -8,7 +8,7 @@ import { CardType } from "types";
 
 const Home = () => {
   const home = "home";
-  const [allCards, setAllCard] = useState<CardType[]>([]);
+  const [allCards, setAllCard] = useState<CardType[] | null>();
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
@@ -22,14 +22,25 @@ const Home = () => {
     });
   }, []);
 
+  // useEffect(() => {
+  //   FbGetAllCards().then((resolve: any) => {
+  //     // const dbCards = Object.values(resolve).reverse().map((data)=>data)
+  //     return setAllCard(Object.values(resolve).map((data) => data));
+  //   });
+  // }, []);
+
   return (
     <>
-      <Preview
-        home={home}
-        cards={allCards}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {allCards ? (
+        <Preview
+          home={home}
+          cards={allCards}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      ) : (
+        <h1>LODING</h1>
+      )}
     </>
   );
 };

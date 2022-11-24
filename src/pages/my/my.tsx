@@ -20,7 +20,6 @@ const My = () => {
 
   useEffect(() => {
     FbGetMyCards(userUid, (dbCards: CardType[]) => {
-      if (!userUid) return console.log("my");
       if (!dbCards) return setMyCards([]);
       setMyCards(
         Object.values(dbCards)

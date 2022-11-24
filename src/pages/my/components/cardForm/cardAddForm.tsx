@@ -35,12 +35,12 @@ const CardAddForm = ({
 
   const addCard = (e: React.FormEvent) => {
     const id = new Date().getTime();
-    const trim = message!.trim();
+    const messageTrim = message!.trim();
     const newCard = {
       id: id,
       cardName: cardNameRef.current!.value,
       fileURL: fileURL,
-      message: trim,
+      message: messageTrim,
       user: userUid,
     };
     e.preventDefault();

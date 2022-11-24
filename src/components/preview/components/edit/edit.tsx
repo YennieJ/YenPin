@@ -47,13 +47,13 @@ const Edit = ({ onModalClose, card }: Props) => {
   };
 
   const updateCard = (e: React.FormEvent) => {
-    const trim = newMessage!.trim();
+    const newMessageTrim = newMessage!.trim();
 
     const card = {
       id: id,
       cardName: newCardName,
       fileURL: newFileURL,
-      message: trim,
+      message: newMessageTrim,
       user: user,
     };
     e.preventDefault();

@@ -21,6 +21,16 @@ export const FbGetAllCards = (onUpdate: any) => {
   });
 };
 
+// export const FbGetAllCards = () => {
+//   return new Promise((resolve) => {
+//     const cards = ref(db, "card");
+//     onValue(cards, (snapshot) => {
+//       const data = snapshot.val();
+//       resolve(data);
+//     });
+//   });
+// };
+
 //any로 받음
 export const FbGetMyCards = (userUid: string, onUpdate: any) => {
   const mostViewedPosts = query(
