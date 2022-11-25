@@ -13,11 +13,21 @@ import { CardType } from "types";
 
 const db = getDatabase();
 
-export const FbGetAllCards = (onUpdate: any) => {
-  const cards = ref(db, "card");
-  onValue(cards, (snapshot) => {
-    const data = snapshot.val();
-    onUpdate(data);
+// export const FbGetAllCards = (onUpdate: any) => {
+//   const cards = ref(db, "card");
+//   onValue(cards, (snapshot) => {
+//     const data = snapshot.val();
+//     onUpdate(data);
+//   });
+// };
+
+export const FbGetAllCards = () => {
+  return new Promise((resolve) => {
+    const cards = ref(db, "card");
+    onValue(cards, (snapshot) => {
+      const data = snapshot.val();
+      resolve(data);
+    });
   });
 };
 

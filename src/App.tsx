@@ -10,6 +10,8 @@ import Nav from "components/navbar";
 import GlobalStyle from "grobal.styled";
 import ProtectRoute from "components/protectRoute";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const App = () => {
   return (
     <AuthProvider>

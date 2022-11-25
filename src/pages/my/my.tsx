@@ -20,7 +20,7 @@ const My = () => {
 
   useEffect(() => {
     FbGetMyCards(userUid, (dbCards: CardType[]) => {
-      if (!dbCards) return setMyCards([]);
+      if (!dbCards) return;
       setMyCards(
         Object.values(dbCards)
           .reverse()
@@ -41,7 +41,7 @@ const My = () => {
 
   return (
     <>
-      {myCards.length === 0 ? (
+      {myCards!.length === 0 ? (
         <S.Container>
           <div>내가 만든 카드가 여기에 보관됩니다.</div>
           <button onClick={() => handleCardModal()}>새로운 카드 만들기</button>

@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from "react";
+import Spinner from "react-bootstrap/Spinner";
 
 import { FbGetAllCards } from "service/card_repository";
 
 import Preview from "components/preview";
 
+import * as S from "./home.styled";
+
 import { CardType } from "types";
 
 const Home = () => {
   const home = "home";
-  const [allCards, setAllCard] = useState<CardType[] | null>();
+  const [allCards, setAllCard] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  useEffect(() => {
-    FbGetAllCards((dbCards: CardType[]) => {
-      if (!dbCards) return setAllCard([]);
-      setAllCard(
-        Object.values(dbCards)
-          .reverse()
-          .map((data) => data)
-      );
-    });
-  }, []);
+  const [loading, setLoding] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   FbGetAllCards().then((resolve: any) => {
-  //     // const dbCards = Object.values(resolve).reverse().map((data)=>data)
-  //     return setAllCard(Object.values(resolve).map((data) => data));
-  //   });
-  // }, []);
+  const lodingCard = async () => {
+    await FbGetAllCards().then((card: unknown) => {
+      const dbCards = Object.values(card as CardType)
+        .reverse()
+        .map((data) => data);
+      setAllCard(dbCards);
+    });
+    setLoding(true);
+  };
+
+  useEffect(() => {
+    lodingCard();
+  }, []);
 
   return (
     <>
-      {allCards ? (
+      {loading ? (
         <Preview
           home={home}
           cards={allCards}
@@ -39,7 +40,14 @@ const Home = () => {
           setCurrentPage={setCurrentPage}
         />
       ) : (
-        <h1>LODING</h1>
+        <S.temp>
+          <Spinner
+            as="span"
+            animation="border"
+            role="status"
+            aria-hidden="true"
+          />
+        </S.temp>
       )}
     </>
   );
