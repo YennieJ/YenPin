@@ -21,7 +21,6 @@
     "firebase": "^9.10.0",
     "font-awesome": "^4.7.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",

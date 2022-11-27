@@ -63,7 +63,7 @@ const My = () => {
           />
         )
       ) : (
-        <h1>loadgin</h1>
+        <S.Spinner />
       )}
 
       {cardAddModal && (

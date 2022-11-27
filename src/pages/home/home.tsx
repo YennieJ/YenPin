@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Spinner from "react-bootstrap/Spinner";
 
 import { FbGetAllCards } from "service/card_repository";
 
@@ -40,14 +39,7 @@ const Home = () => {
           setCurrentPage={setCurrentPage}
         />
       ) : (
-        <S.temp>
-          <Spinner
-            as="span"
-            animation="border"
-            role="status"
-            aria-hidden="true"
-          />
-        </S.temp>
+        <S.Spinner />
       )}
     </>
   );

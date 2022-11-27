@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 export const Container = styled.nav`
+  position: relative;
   display: flex;
   justify-content: space-between;
 
@@ -22,7 +23,7 @@ export const LinkTag = styled(Link)<FontProps>`
 
   color: white;
   text-decoration: none;
-  height: 50px;
+  height: 100%;
 
   &:hover,
   &:focus {
