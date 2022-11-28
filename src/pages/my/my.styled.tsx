@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div`
+export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,20 +31,39 @@ export const Container = styled.div`
   }
 `;
 
+export const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
 export const Spinner = styled.span`
-  width: 48px;
-  height: 48px;
-  border: 5px dotted black;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  display: inline-block;
+  display: block;
+  margin: 15px auto;
   position: relative;
-  animation: rotation 2s linear infinite;
-  @keyframes rotation {
+  color: black;
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+
+  @keyframes animloader {
     0% {
-      transform: rotate(0deg);
+      box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
+    }
+    25% {
+      box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 2px;
+    }
+    50% {
+      box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 2px, -38px 0 0 -2px;
+    }
+    75% {
+      box-shadow: 14px 0 0 2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
     }
     100% {
-      transform: rotate(360deg);
+      box-shadow: 14px 0 0 -2px, 38px 0 0 2px, -14px 0 0 -2px, -38px 0 0 -2px;
     }
   }
 `;

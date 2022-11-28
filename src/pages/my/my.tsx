@@ -48,12 +48,12 @@ const My = () => {
     <>
       {loading ? (
         myCards.length === 0 ? (
-          <S.Container>
+          <S.CardContainer>
             <div>내가 만든 카드가 여기에 보관됩니다.</div>
             <button onClick={() => handleCardModal()}>
               새로운 카드 만들기
             </button>
-          </S.Container>
+          </S.CardContainer>
         ) : (
           <Preview
             cards={myCards}
@@ -63,7 +63,9 @@ const My = () => {
           />
         )
       ) : (
-        <S.Spinner />
+        <S.SpinnerContainer>
+          <S.Spinner />
+        </S.SpinnerContainer>
       )}
 
       {cardAddModal && (

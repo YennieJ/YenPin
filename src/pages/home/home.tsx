@@ -39,7 +39,9 @@ const Home = () => {
           setCurrentPage={setCurrentPage}
         />
       ) : (
-        <S.Spinner />
+        <S.SpinnerContainer>
+          <S.Spinner />
+        </S.SpinnerContainer>
       )}
     </>
   );
