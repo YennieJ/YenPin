@@ -14,7 +14,7 @@ export const Spinner = styled.span`
   display: block;
   margin: 15px auto;
   position: relative;
-  color: black;
+  color: purple;
   box-sizing: border-box;
   animation: animloader 2s linear infinite;
 
