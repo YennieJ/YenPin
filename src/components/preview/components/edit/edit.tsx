@@ -13,8 +13,9 @@ import { CardType } from "types";
 interface Props {
   card: CardType;
   onModalClose: () => void;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Edit = ({ onModalClose, card }: Props) => {
+const Edit = ({ onModalClose, card, setLoading }: Props) => {
   const { cardName, fileURL, message, id, user } = card;
 
   const defaultLength = message ? message.length : 0;
@@ -27,6 +28,7 @@ const Edit = ({ onModalClose, card }: Props) => {
   const [newCardName, setNewCardName] = useState<string>(cardName);
   const [newMessage, setNewMessage] = useState<string | undefined>(message);
 
+  console.log(newCardName);
   //////////
   //firebase upload를 위한
   const [file, setFile] = useState<File>();
@@ -46,7 +48,13 @@ const Edit = ({ onModalClose, card }: Props) => {
       newMessageRef.current!.scrollHeight + 2 + "px";
   };
 
+  const onNewCardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewCardName(e.target.value);
+  };
+
   const updateCard = (e: React.FormEvent) => {
+    e.preventDefault();
+
     const newMessageTrim = newMessage!.trim();
 
     const card = {
@@ -56,14 +64,14 @@ const Edit = ({ onModalClose, card }: Props) => {
       message: newMessageTrim,
       user: user,
     };
-    e.preventDefault();
 
     if (card.cardName === "") {
-      alert("칸을 비울 수 없습니다.");
+      alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
       FbSaveCard(user, card);
       file && FbUploadImageFile(file, id);
       onModalClose();
+      setLoading(false);
       // setOnEditMode(false);
     }
   };
@@ -139,7 +147,7 @@ const Edit = ({ onModalClose, card }: Props) => {
                 placeholder="카드 이름"
                 maxLength={15}
                 value={newCardName}
-                onChange={(e) => setNewCardName(e.target.value)}
+                onChange={onNewCardNameChange}
               />
               <span>최대 15글자</span>
             </S.TextContainer>

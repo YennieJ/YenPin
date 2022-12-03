@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FbGetAllCards } from "service/card_repository";
 
@@ -10,34 +11,51 @@ import { CardType } from "types";
 
 const Home = () => {
   const home = "home";
+
+  const navigate = useNavigate();
+
   const [allCards, setAllCard] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const [loading, setLoding] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const lodingCard = async () => {
-    await FbGetAllCards().then((card: unknown) => {
-      const dbCards = Object.values(card as CardType)
-        .reverse()
-        .map((data) => data);
-      setAllCard(dbCards);
-    });
-    setLoding(true);
+    await FbGetAllCards()
+      .then((card: unknown) => {
+        const dbCards = Object.values(card as CardType)
+          .reverse()
+          .map((data) => data);
+        setAllCard(dbCards);
+      })
+      .catch(() => setAllCard([]));
+
+    setLoading(true);
   };
 
   useEffect(() => {
     lodingCard();
   }, []);
 
+  const gotoMyPage = () => {
+    navigate("/my");
+  };
   return (
     <>
       {loading ? (
-        <Preview
-          home={home}
-          cards={allCards}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        allCards.length === 0 ? (
+          <S.CardContainer>
+            <div>첫 카드를 만들어보세요</div>
+            <button onClick={() => gotoMyPage()}>ㅇㅅㅇ</button>
+          </S.CardContainer>
+        ) : (
+          <Preview
+            home={home}
+            cards={allCards}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            setLoading={setLoading}
+          />
+        )
       ) : (
         <S.SpinnerContainer>
           <S.Spinner />

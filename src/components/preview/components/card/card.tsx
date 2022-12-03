@@ -11,11 +11,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
+
 interface CardProps {
   card: CardType;
   home?: string;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Card = ({ card, home }: CardProps) => {
+const Card = ({ card, home, setLoading }: CardProps) => {
   //수정
   const [detailModal, setDetailModal] = useState<boolean>(false);
   const [detailCard, setDetailCard] = useState<CardType>();
@@ -45,11 +47,12 @@ const Card = ({ card, home }: CardProps) => {
     }
   };
 
-  //여기 프로미스 사용해야 노란색 경고가 안뜬다는디
+  //삭제
   const deleteCard = (cardId: number) => {
     if (window.confirm("삭제하시겠습니까?") === true) {
       FbDeleteCard(cardId);
       FbDeleteImageFile(cardId);
+      setLoading(false);
     } else return null;
   };
 
@@ -75,7 +78,11 @@ const Card = ({ card, home }: CardProps) => {
           <Detail card={detailCard} onModalClose={() => onDetailModal(card)} />
         )}
         {editModal && detailCard && (
-          <Edit card={detailCard} onModalClose={() => onEditModal(card)} />
+          <Edit
+            card={detailCard}
+            setLoading={setLoading}
+            onModalClose={() => onEditModal(card)}
+          />
         )}
       </S.Container>
     </>

@@ -22,12 +22,15 @@ const My = () => {
 
   useEffect(() => {
     const loadingCard = async () => {
-      await FbGetMyCards(userUid).then((card: unknown) => {
-        const dbCard = Object.values(card as CardType)
-          .reverse()
-          .map((data) => data);
-        setMyCards(dbCard);
-      });
+      await FbGetMyCards(userUid)
+        .then((card: unknown) => {
+          const dbCard = Object.values(card as CardType)
+            .reverse()
+            .map((data) => data);
+          setMyCards(dbCard);
+        })
+        .catch(() => setMyCards([]));
+
       setLoading(true);
     };
     loadingCard();
@@ -59,6 +62,7 @@ const My = () => {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             handleCardModal={handleCardModal}
+            setLoading={setLoading}
           />
         )
       ) : (

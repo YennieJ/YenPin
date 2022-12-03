@@ -15,6 +15,7 @@ interface PreviewProps {
   cards: CardType[];
   home?: string;
   handleCardModal?: () => void;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const itemsPerPage: number = 3;
@@ -25,6 +26,7 @@ const Preview = ({
   setCurrentPage,
   home,
   handleCardModal,
+  setLoading,
 }: PreviewProps) => {
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -41,9 +43,9 @@ const Preview = ({
     <S.PreviewContainer>
       <S.Content>
         {currentItems.map((card: CardType) => (
-          <Card key={card.id} card={card} home={home} />
+          <Card key={card.id} card={card} home={home} setLoading={setLoading} />
         ))}
-        {handleCardModal && (
+        {!home && handleCardModal && (
           <S.NewCardButton onClick={() => handleCardModal()}>
             <div>
               <FontAwesomeIcon icon={faPlus} />
