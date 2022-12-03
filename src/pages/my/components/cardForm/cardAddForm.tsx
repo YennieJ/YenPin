@@ -12,12 +12,14 @@ interface CardProps {
   handleCardModal: () => void;
   onCurrentPage: () => void;
   userUid: string;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CardAddForm = ({
   handleCardModal,
   onCurrentPage,
   userUid,
+  setLoading,
 }: CardProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const cardNameRef = useRef<HTMLInputElement>(null);
@@ -33,26 +35,28 @@ const CardAddForm = ({
   const [message, setMessage] = useState<string>("");
   const basicHeight = message ? messageRef.current?.offsetHeight : 30;
 
-  const addCard = (e: React.FormEvent) => {
-    const id = new Date().getTime();
-    const messageTrim = message!.trim();
-    const newCard = {
-      id: id,
-      cardName: cardNameRef.current!.value,
-      fileURL: fileURL,
-      message: messageTrim,
-      user: userUid,
-    };
+  const onCardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (newCard.cardName === "" || newCard.fileURL === "") {
-      alert("칸을 비울 수 없습니다.");
+    if (cardNameRef.current!.value === "" || fileRef.current!.value === "") {
+      alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
+      const id = new Date().getTime();
+      const messageTrim = message!.trim();
+      const newCard = {
+        id: id,
+        cardName: cardNameRef.current!.value,
+        fileURL: fileURL,
+        message: messageTrim,
+        user: userUid,
+      };
+
       FbSaveCard(userUid, newCard);
-      FbUploadImageFile(file, id);
+      file && FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
       onCurrentPage();
+      setLoading(false);
     }
   };
 
@@ -111,7 +115,7 @@ const CardAddForm = ({
 
   return (
     <PreviewDialog>
-      <S.CardForm ref={formRef} onSubmit={addCard}>
+      <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
         <S.Header>
           {fileURL ? (
             <S.ImgContainer onClick={onButtonClick}>

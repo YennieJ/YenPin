@@ -6,7 +6,7 @@ import {
   getStorage,
 } from "firebase/storage";
 
-export const FbUploadImageFile = (file: any, id: any) => {
+export const FbUploadImageFile = (file: File, id: number) => {
   const storageRef = ref(storage, "images/" + id);
 
   const uploadTask = uploadBytesResumable(storageRef, file);

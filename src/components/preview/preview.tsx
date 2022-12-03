@@ -14,7 +14,7 @@ interface PreviewProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   cards: CardType[];
   home?: string;
-  handleCardModal?: any;
+  handleCardModal?: () => void;
 }
 
 const itemsPerPage: number = 3;
@@ -43,7 +43,7 @@ const Preview = ({
         {currentItems.map((card: CardType) => (
           <Card key={card.id} card={card} home={home} />
         ))}
-        {!home && (
+        {handleCardModal && (
           <S.NewCardButton onClick={() => handleCardModal()}>
             <div>
               <FontAwesomeIcon icon={faPlus} />

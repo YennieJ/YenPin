@@ -20,19 +20,18 @@ const My = () => {
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const loadingCard = useCallback(async () => {
-    await FbGetMyCards(userUid).then((card: unknown) => {
-      const dbCard = Object.values(card as CardType)
-        .reverse()
-        .map((data) => data);
-      setMyCards(dbCard);
-    });
-    setLoading(true);
-  }, [userUid]);
-
   useEffect(() => {
+    const loadingCard = async () => {
+      await FbGetMyCards(userUid).then((card: unknown) => {
+        const dbCard = Object.values(card as CardType)
+          .reverse()
+          .map((data) => data);
+        setMyCards(dbCard);
+      });
+      setLoading(true);
+    };
     loadingCard();
-  }, [loadingCard]);
+  }, [userUid, loading]);
 
   const handleCardModal = () => {
     if (cardAddModal === false) {
@@ -73,6 +72,7 @@ const My = () => {
           handleCardModal={handleCardModal}
           onCurrentPage={() => setCurrentPage(1)}
           userUid={userUid}
+          setLoading={setLoading}
         />
       )}
     </>

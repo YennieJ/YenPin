@@ -62,7 +62,7 @@ const Edit = ({ onModalClose, card }: Props) => {
       alert("칸을 비울 수 없습니다.");
     } else {
       FbSaveCard(user, card);
-      FbUploadImageFile(file, id);
+      file && FbUploadImageFile(file, id);
       onModalClose();
       // setOnEditMode(false);
     }

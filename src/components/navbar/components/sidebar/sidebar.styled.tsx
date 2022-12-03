@@ -12,6 +12,7 @@ export const SidebarContents = styled.ul`
   width: 200px;
   height: 400px;
   padding: 0;
+  margin: 0;
 
   z-index: 10;
   background-color: purple;
