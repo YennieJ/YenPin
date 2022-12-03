@@ -11,6 +11,7 @@ import {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
 } from "@firebase/auth";
 
 type Props = {
@@ -90,4 +91,27 @@ export const GoogleProvider = () => {
 
 export const AuthSignOut = () => {
   signOut(auth);
+};
+
+interface ProfileProps {
+  newDisplayName: string;
+  newUserPhoto: string;
+}
+
+export const UpdateProfile = ({
+  newDisplayName,
+  newUserPhoto,
+}: ProfileProps) => {
+  updateProfile(auth.currentUser!, {
+    displayName: newDisplayName,
+    photoURL: newUserPhoto,
+  })
+    .then(() => {
+      // Profile updated!
+      // ...
+    })
+    .catch((error) => {
+      // An error occurred
+      // ...
+    });
 };

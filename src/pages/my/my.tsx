@@ -3,8 +3,9 @@ import { AuthContext } from "service/authContext";
 
 import { FbGetMyCards } from "service/card_repository";
 
-import CardAddForm from "./components/cardForm";
+import Profile from "./components/profile/profile";
 import Preview from "../../components/preview";
+import CardAddForm from "./components/cardForm";
 
 import * as S from "./my.styled";
 
@@ -49,22 +50,25 @@ const My = () => {
   return (
     <>
       {loading ? (
-        myCards.length === 0 ? (
-          <S.CardContainer>
-            <div>내가 만든 카드가 여기에 보관됩니다.</div>
-            <button onClick={() => handleCardModal()}>
-              새로운 카드 만들기
-            </button>
-          </S.CardContainer>
-        ) : (
-          <Preview
-            cards={myCards}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            handleCardModal={handleCardModal}
-            setLoading={setLoading}
-          />
-        )
+        <>
+          <Profile />
+          {myCards.length === 0 ? (
+            <S.CardContainer>
+              <div>내가 만든 카드가 여기에 보관됩니다.</div>
+              <button onClick={() => handleCardModal()}>
+                새로운 카드 만들기
+              </button>
+            </S.CardContainer>
+          ) : (
+            <Preview
+              cards={myCards}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              handleCardModal={handleCardModal}
+              setLoading={setLoading}
+            />
+          )}
+        </>
       ) : (
         <S.SpinnerContainer>
           <S.Spinner />

@@ -1,13 +1,13 @@
 import React from "react";
 
 import Pagination from "./components/pagination";
+import Card from "./components/card";
 
 import * as S from "./preview.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
-import Card from "./components/card";
 
 interface PreviewProps {
   currentPage: number;
