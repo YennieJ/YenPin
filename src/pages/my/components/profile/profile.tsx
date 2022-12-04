@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "service/authContext";
 import imageCompression from "browser-image-compression";
 
@@ -6,6 +6,10 @@ import { UpdateProfile } from "service/auth_service";
 
 const Profile = () => {
   const userInfo = useContext(AuthContext);
+
+  const photoRef = useRef<HTMLInputElement>(null);
+
+  const [editing, setEditing] = useState<boolean>(false);
 
   const [newDisplayName, setNewDisplayName] = useState<string>(
     userInfo!.displayName || ""
@@ -43,6 +47,7 @@ const Profile = () => {
 
   const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (
       userInfo!.displayName !== newDisplayName ||
       userInfo!.photoURL !== newUserPhoto
@@ -50,28 +55,40 @@ const Profile = () => {
       UpdateProfile({ newDisplayName, newUserPhoto });
     }
   };
+
+  const onPhotoClick = () => {
+    editing && photoRef.current?.click();
+  };
+
   return (
     <div>
       <h1>PROFILE</h1>
-      <img alt="" src={newUserPhoto} />
-      <h2>{newDisplayName}</h2>
-      <h2>Edit Profile</h2>
       <form onSubmit={onSubmit}>
-        <input
-          // ref={fileRef}
-          type="file"
-          accept="image/*"
-          onChange={onFileChange}
-        />
+        <div onClick={onPhotoClick}>
+          <img alt="" src={newUserPhoto} />
+          <input
+            hidden
+            ref={photoRef}
+            type="file"
+            accept="image/*"
+            onChange={onFileChange}
+          />
+        </div>
 
         <input
           onChange={onChange}
           type="text"
+          readOnly={editing ? false : true}
           name="userName"
           placeholder="User Name"
           value={newDisplayName}
         />
-        <button type="submit">Update Profile</button>
+        <button
+          type={editing ? "button" : "submit"}
+          onClick={() => setEditing(!editing)}
+        >
+          {editing ? "프로필 저장" : "프로필 수정"}
+        </button>
       </form>
     </div>
   );
