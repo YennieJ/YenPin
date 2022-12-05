@@ -13,7 +13,14 @@ export const Form = styled.form`
   align-items: center;
 
   height: 100%;
+  div {
+    &:nth-child(3) {
+      display: flex;
+      justify-content: space-around;
 
+      width: 250px;
+    }
+  }
   button {
     padding: 8px 16px;
     border: none;
@@ -26,20 +33,46 @@ export const Form = styled.form`
   }
 `;
 
-interface ImgStyleProps {
-  editing: boolean;
-}
-
-export const ImgContainer = styled.div<ImgStyleProps>`
+export const ImgContainer = styled.div`
   width: 96px;
   height: 96px;
+
+  position: relative;
+
   img {
     width: 96px;
     height: 96px;
     border-radius: 50px;
-
-    cursor: ${(props) => props.editing && " pointer"};
   }
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+
+  width: 96px;
+  height: 96px;
+  border-radius: 50px;
+
+  transition: opacity 0.4s ease-in-out;
+  background: #1a1a1afa;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+export const OverlayContent = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  font-size: 27px;
 `;
 
 interface UserNameStyleProps {
@@ -59,12 +92,15 @@ export const UserNameEdit = styled.div<UserNameStyleProps>`
     width: 250px;
     padding: 8px 16px;
     border: 1px solid gray;
-    border-radius: 50px;
+    border-radius: 15px;
     border-color: ${(props) => props.warningMsg() && "#ff0000bb"};
 
     font-size: 25px;
 
     overflow: hidden;
+    &:focus {
+      border: 1px solid #62abf8;
+    }
   }
   span {
     padding: 10px 0;

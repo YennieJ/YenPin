@@ -115,23 +115,10 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
       <S.CardForm>
         <S.Header>
           <S.ImgContainer onClick={onButtonClick}>
-            {newFileURL ? (
-              <S.ImgContainer>
-                <S.Overlay>
-                  <S.OverlayContent>Change File</S.OverlayContent>
-                </S.Overlay>
-                <img alt="" src={newFileURL} />
-              </S.ImgContainer>
-            ) : (
-              <>
-                <S.Overlay>
-                  <S.OverlayContent>Change File</S.OverlayContent>
-                </S.Overlay>
-                <img alt="" src={fileURL} />
-              </>
-            )}
-          </S.ImgContainer>
-          <S.DetailContainer>
+            <S.Overlay>
+              <S.OverlayContent>Change File</S.OverlayContent>
+            </S.Overlay>
+            <img alt="" src={newFileURL} />
             <input
               hidden
               ref={fileRef}
@@ -139,58 +126,55 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
               accept="image/*"
               onChange={onFileChange}
             />
-
-            <S.TextContainer>
-              <input
-                type="text"
-                placeholder="카드 이름"
-                maxLength={15}
-                value={newCardName}
-                onChange={onNewCardNameChange}
-              />
-              <span>최대 15글자</span>
-            </S.TextContainer>
-            <S.TextContainer>
-              {newMessage ? (
-                onEditMode ? (
-                  <textarea
-                    rows={1}
-                    ref={newMessageRef}
-                    placeholder="사진에 대해 설명하세요"
-                    maxLength={200}
-                    onChange={textHeightHandler}
-                    value={newMessage}
-                    onFocus={(e) =>
-                      e.currentTarget.setSelectionRange(
-                        e.currentTarget.value.length,
-                        e.currentTarget.value.length
-                      )
-                    }
-                    style={{ height: basicHeight + "px" }}
-                  />
-                ) : (
-                  <pre
-                    ref={messageRef}
-                    // onClick={() => temp()}
-                    onClick={() => setOnEditMode(true)}
-                    // style={{ height: basicHeight + "px" }}
-                  >
-                    {newMessage}
-                  </pre>
-                )
-              ) : (
+          </S.ImgContainer>
+          <S.TextContainer>
+            <input
+              type="text"
+              placeholder="카드 이름"
+              maxLength={15}
+              value={newCardName}
+              onChange={onNewCardNameChange}
+            />
+            <span>최대 15글자</span>
+            {newMessage ? (
+              onEditMode ? (
                 <textarea
                   rows={1}
                   ref={newMessageRef}
                   placeholder="사진에 대해 설명하세요"
+                  maxLength={200}
                   onChange={textHeightHandler}
+                  value={newMessage}
+                  onFocus={(e) =>
+                    e.currentTarget.setSelectionRange(
+                      e.currentTarget.value.length,
+                      e.currentTarget.value.length
+                    )
+                  }
                   style={{ height: basicHeight + "px" }}
-                  onClick={() => setOnEditMode(true)}
                 />
-              )}
-              <span>{textLength}/200</span>
-            </S.TextContainer>
-          </S.DetailContainer>
+              ) : (
+                <pre
+                  ref={messageRef}
+                  // onClick={() => temp()}
+                  onClick={() => setOnEditMode(true)}
+                  // style={{ height: basicHeight + "px" }}
+                >
+                  {newMessage}
+                </pre>
+              )
+            ) : (
+              <textarea
+                rows={1}
+                ref={newMessageRef}
+                placeholder="사진에 대해 설명하세요"
+                onChange={textHeightHandler}
+                style={{ height: basicHeight + "px" }}
+                onClick={() => setOnEditMode(true)}
+              />
+            )}
+            <span>{textLength}/200</span>
+          </S.TextContainer>
         </S.Header>
         <S.ButtonContainer>
           <S.Button type="button" onClick={() => onModalClose()}>

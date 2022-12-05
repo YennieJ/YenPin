@@ -4,6 +4,7 @@ import { AuthSignOut } from "service/auth_service";
 
 import * as S from "./sidebar.styled";
 import Burger from "./components/buger";
+
 const Sidebar = () => {
   const [open, setOpen] = useState<boolean>(false);
 

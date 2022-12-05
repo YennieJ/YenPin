@@ -20,8 +20,6 @@ interface DialogBoxProps {
 export const DialogBox = styled.dialog<DialogBoxProps>`
   display: flex;
 
-  /* width: 450px;
-  height: 500px; */
   border: none;
   border-radius: 20px;
   padding: 0;

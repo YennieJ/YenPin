@@ -5,31 +5,23 @@ import { UpdateProfile } from "service/auth_service";
 import imageCompression from "browser-image-compression";
 
 import * as S from "./profile.styled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const PROFILE_IMAGE = "/image/profile.jpeg";
 
 const Profile = () => {
   const userInfo = useContext(AuthContext);
+
   const photoRef = useRef<HTMLInputElement>(null);
 
   const [editing, setEditing] = useState<boolean>(false);
   const [newDisplayName, setNewDisplayName] = useState<string>(
     userInfo!.displayName || "User Name"
   );
-
   const [newUserPhoto, setUserPhoto] = useState<string>(
     userInfo!.photoURL || PROFILE_IMAGE
   );
-
-  const warningMsg = () => {
-    let text = "";
-    if (newDisplayName.length === 0) {
-      text = "프로필 이름을 입력하세요.";
-    } else if (newDisplayName.length >= 11) {
-      text = "10자 이하로 입력하세요";
-    }
-    return text;
-  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -66,26 +58,51 @@ const Profile = () => {
     } else if (
       userInfo!.displayName !== newDisplayName ||
       userInfo!.photoURL !== newUserPhoto
-    ) {
-      UpdateProfile({ newDisplayName, newUserPhoto });
-      setEditing(false);
-    } else if (
+    )
+      if (window.confirm("변경하시겠습니까?")) {
+        UpdateProfile({ newDisplayName, newUserPhoto });
+        setEditing(false);
+      } else return;
+    else if (
       userInfo!.displayName === newDisplayName &&
       userInfo!.photoURL === newUserPhoto
     )
       if (window.confirm("변경사항이 없습니다. 그대로 진행 하시겠습니까?")) {
         setEditing(false);
-      }
+      } else return;
+  };
+
+  const onCancle = () => {
+    setNewDisplayName(userInfo!.displayName as string);
+    setUserPhoto(userInfo!.photoURL as string);
+    setEditing(false);
   };
 
   const onPhotoClick = () => {
     editing && photoRef.current?.click();
   };
 
+  const warningMsg = () => {
+    let text = "";
+    if (newDisplayName.length === 0) {
+      text = "프로필 이름을 입력하세요.";
+    } else if (newDisplayName.length > 10) {
+      text = "10자 이하로 입력하세요";
+    }
+    return text;
+  };
+
   return (
     <S.Container>
       <S.Form>
-        <S.ImgContainer editing={editing} onClick={onPhotoClick}>
+        <S.ImgContainer onClick={onPhotoClick}>
+          {editing && (
+            <S.Overlay>
+              <S.OverlayContent>
+                <FontAwesomeIcon icon={faCamera} />
+              </S.OverlayContent>
+            </S.Overlay>
+          )}
           <img alt="" src={newUserPhoto} />
           <input
             hidden
@@ -107,10 +124,14 @@ const Profile = () => {
               />
               <span>{warningMsg()}</span>
             </S.UserNameEdit>
-
-            <button type="button" onClick={onSubmit}>
-              프로필 저장
-            </button>
+            <div>
+              <button type="button" onClick={onCancle}>
+                돌아가기
+              </button>
+              <button type="button" onClick={onSubmit}>
+                프로필 저장
+              </button>
+            </div>
           </>
         ) : (
           <>

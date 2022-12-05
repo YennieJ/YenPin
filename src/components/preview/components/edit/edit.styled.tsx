@@ -36,11 +36,6 @@ export const ImgContainer = styled.div`
   }
 `;
 
-export const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
