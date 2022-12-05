@@ -37,6 +37,7 @@ const Signup = ({ closeUserModal, isLogin }: SignupProps) => {
     const passwordReg: RegExp = /^[A-Za-z0-9]{7,20}$/;
     const emailTest = emailReg.test(email);
     const passwordTest = passwordReg.test(password);
+
     if (email === "" || password === "" || confirmPassword === "") {
       alert("칸을 비워둘수없습니다.");
     } else if (emailTest === false) {

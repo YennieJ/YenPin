@@ -13,6 +13,7 @@ export const Form = styled.form`
   align-items: center;
 
   height: 100%;
+
   button {
     padding: 8px 16px;
     border: none;
