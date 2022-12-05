@@ -1,8 +1,12 @@
 import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "service/authContext";
+import { UpdateProfile } from "service/auth_service";
+
 import imageCompression from "browser-image-compression";
 
-import { UpdateProfile } from "service/auth_service";
+import * as S from "./profile.styled";
+
+const PROFILE_IMAGE = "/image/profile.jpeg";
 
 const Profile = () => {
   const userInfo = useContext(AuthContext);
@@ -12,11 +16,26 @@ const Profile = () => {
   const [editing, setEditing] = useState<boolean>(false);
 
   const [newDisplayName, setNewDisplayName] = useState<string>(
-    userInfo!.displayName || ""
+    userInfo!.displayName || "User Name"
   );
+
   const [newUserPhoto, setUserPhoto] = useState<string>(
-    userInfo!.photoURL || ""
+    userInfo!.photoURL || PROFILE_IMAGE
   );
+
+  const userNameMaxLength = newDisplayName.length >= 31;
+
+  const warningMsg = () => {
+    let text = "";
+    if (newDisplayName.length === 0) {
+      text = "프로필 이름을 입력하세요.";
+    } else if (newDisplayName.length >= 31) {
+      text = "30자 이하로 입력하세요";
+    }
+
+    return text;
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -47,8 +66,9 @@ const Profile = () => {
 
   const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (
+    if (userNameMaxLength) {
+      alert("이름을 30자 이하로 입력해세요.");
+    } else if (
       userInfo!.displayName !== newDisplayName ||
       userInfo!.photoURL !== newUserPhoto
     ) {
@@ -61,10 +81,9 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <h1>PROFILE</h1>
-      <form onSubmit={onSubmit}>
-        <div onClick={onPhotoClick}>
+    <S.Container>
+      <S.Form onSubmit={onSubmit}>
+        <S.ImgContainer editing={editing} onClick={onPhotoClick}>
           <img alt="" src={newUserPhoto} />
           <input
             hidden
@@ -73,24 +92,33 @@ const Profile = () => {
             accept="image/*"
             onChange={onFileChange}
           />
-        </div>
+        </S.ImgContainer>
+        {editing ? (
+          <S.UserNameEdit warningMsg={warningMsg}>
+            <input
+              onChange={onChange}
+              type="text"
+              name="userName"
+              placeholder="User Name"
+              value={newDisplayName}
+            />
+            <span>{warningMsg()}</span>
+          </S.UserNameEdit>
+        ) : (
+          <S.DisplayName>
+            <span>{newDisplayName}</span>
+            <span>{userInfo!.email}</span>
+          </S.DisplayName>
+        )}
 
-        <input
-          onChange={onChange}
-          type="text"
-          readOnly={editing ? false : true}
-          name="userName"
-          placeholder="User Name"
-          value={newDisplayName}
-        />
         <button
           type={editing ? "button" : "submit"}
           onClick={() => setEditing(!editing)}
         >
           {editing ? "프로필 저장" : "프로필 수정"}
         </button>
-      </form>
-    </div>
+      </S.Form>
+    </S.Container>
   );
 };
 

@@ -28,7 +28,6 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
   const [newCardName, setNewCardName] = useState<string>(cardName);
   const [newMessage, setNewMessage] = useState<string | undefined>(message);
 
-  console.log(newCardName);
   //////////
   //firebase upload를 위한
   const [file, setFile] = useState<File>();

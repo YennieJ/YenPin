@@ -1,12 +1,18 @@
 import styled, { css } from "styled-components";
 
+export const Contennt = styled.div`
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  height: 100%;
+`;
+
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  height: 80%;
 
   div {
     font-size: 15px;

@@ -102,7 +102,6 @@ const CardAddForm = ({
   };
 
   const onButtonClick = () => {
-    console.log(fileRef.current);
     fileRef.current?.click();
   };
 

@@ -50,7 +50,7 @@ const My = () => {
   return (
     <>
       {loading ? (
-        <>
+        <S.Contennt>
           <Profile />
           {myCards.length === 0 ? (
             <S.CardContainer>
@@ -68,7 +68,7 @@ const My = () => {
               setLoading={setLoading}
             />
           )}
-        </>
+        </S.Contennt>
       ) : (
         <S.SpinnerContainer>
           <S.Spinner />

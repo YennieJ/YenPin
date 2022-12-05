@@ -35,7 +35,7 @@ export const LinkTag = styled(Link)<FontProps>`
   }
 
   ${({ home }) => css`
-    font-size: ${home ? "28px" : "28px"};
+    font-size: ${home ? "20px" : "28px"};
     padding: ${home ? "0 20px" : " 0 10px "};
     border-right: ${home ? " 3px solid white" : ""};
   `}
