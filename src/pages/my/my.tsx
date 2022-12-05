@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "service/authContext";
 
 import { FbGetMyCards } from "service/card_repository";

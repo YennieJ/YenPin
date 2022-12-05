@@ -1,7 +1,7 @@
 import React from "react";
 
 import * as S from "./detail.styled";
-import PreviewDialog from "components/previewDialogBox/previewDialog";
+import DialogBox from "components/dialogBox/dialogBox";
 
 import { CardType } from "types";
 
@@ -14,7 +14,7 @@ const Detail = ({ card, onModalClose }: Props) => {
   const { cardName, fileURL, message } = card;
 
   return (
-    <PreviewDialog>
+    <DialogBox preview>
       <S.CardForm>
         <S.Header>
           <S.ImgContainer>
@@ -36,7 +36,7 @@ const Detail = ({ card, onModalClose }: Props) => {
           </S.Button> */}
         </S.ButtonContainer>
       </S.CardForm>
-    </PreviewDialog>
+    </DialogBox>
   );
 };
 

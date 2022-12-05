@@ -3,11 +3,12 @@ import * as S from "./dialogBox.styled";
 
 interface ContainerProps {
   children: React.ReactNode;
+  preview?: boolean;
 }
-const DialogBox = (props: ContainerProps) => {
+const DialogBox = ({ children, preview }: ContainerProps) => {
   return (
     <S.Backdrop>
-      <S.DialogBox>{props.children}</S.DialogBox>
+      <S.DialogBox preview={preview}>{children}</S.DialogBox>
     </S.Backdrop>
   );
 };

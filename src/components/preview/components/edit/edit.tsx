@@ -6,7 +6,7 @@ import { FbUploadImageFile } from "service/img_uploader";
 import imageCompression from "browser-image-compression";
 
 import * as S from "./edit.styled";
-import PreviewDialog from "components/previewDialogBox/previewDialog";
+import DialogBox from "components/dialogBox/dialogBox";
 
 import { CardType } from "types";
 
@@ -111,7 +111,7 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
   }, [onEditMode]);
 
   return (
-    <PreviewDialog>
+    <DialogBox preview>
       <S.CardForm>
         <S.Header>
           <S.ImgContainer onClick={onButtonClick}>
@@ -201,7 +201,7 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
           </S.Button>
         </S.ButtonContainer>
       </S.CardForm>
-    </PreviewDialog>
+    </DialogBox>
   );
 };
 export default Edit;

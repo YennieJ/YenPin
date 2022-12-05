@@ -65,7 +65,7 @@ export const NewCardButton = styled.button`
       opacity: 0;
     }
   }
-  :hover {
+  &:hover {
     width: 130px;
     transition: width 0.3s ease-out;
     div {

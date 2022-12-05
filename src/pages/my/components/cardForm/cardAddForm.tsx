@@ -6,7 +6,7 @@ import { FbUploadImageFile } from "service/img_uploader";
 import imageCompression from "browser-image-compression";
 
 import * as S from "./cardAddForm.styled";
-import PreviewDialog from "components/previewDialogBox/previewDialog";
+import DialogBox from "components/dialogBox/dialogBox";
 
 interface CardProps {
   handleCardModal: () => void;
@@ -114,7 +114,7 @@ const CardAddForm = ({
   };
 
   return (
-    <PreviewDialog>
+    <DialogBox preview>
       <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
         <S.Header>
           {fileURL ? (
@@ -166,7 +166,7 @@ const CardAddForm = ({
           <S.Button type="submit">등록</S.Button>
         </S.ButtonContainer>
       </S.CardForm>
-    </PreviewDialog>
+    </DialogBox>
   );
 };
 
