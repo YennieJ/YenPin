@@ -18,6 +18,3 @@ const Burger = ({ onClick, open }: BurgerProps) => {
 };
 
 export default Burger;
-
-{
-}
