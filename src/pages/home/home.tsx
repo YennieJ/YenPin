@@ -17,7 +17,7 @@ const Home = () => {
   const [allCards, setAllCard] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const lodingCard = async () => {
     await FbGetAllCards()
@@ -29,7 +29,7 @@ const Home = () => {
       })
       .catch(() => setAllCard([]));
 
-    setLoading(true);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -39,27 +39,26 @@ const Home = () => {
   const gotoMyPage = () => {
     navigate("/my");
   };
+
   return (
     <>
       {loading ? (
-        allCards.length === 0 ? (
-          <S.CardContainer>
-            <div>첫 카드를 만들어보세요</div>
-            <button onClick={() => gotoMyPage()}>ㅇㅅㅇ</button>
-          </S.CardContainer>
-        ) : (
-          <Preview
-            home={home}
-            cards={allCards}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            setLoading={setLoading}
-          />
-        )
-      ) : (
         <S.SpinnerContainer>
           <S.Spinner />
         </S.SpinnerContainer>
+      ) : allCards.length === 0 ? (
+        <S.CardContainer>
+          <div>첫 카드를 만들어보세요</div>
+          <button onClick={() => gotoMyPage()}>ㅇㅅㅇ</button>
+        </S.CardContainer>
+      ) : (
+        <Preview
+          home={home}
+          cards={allCards}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          setLoading={setLoading}
+        />
       )}
     </>
   );

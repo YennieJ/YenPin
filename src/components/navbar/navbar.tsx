@@ -6,22 +6,29 @@ import User from "./components/user/";
 import Sidebar from "./components/sidebar";
 
 import * as S from "./navbar.styled";
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const userInfo = useContext(AuthContext);
+
+  const { pathname } = useLocation();
 
   return (
     <>
       <S.Container>
         <S.LinkContainer>
-          <S.LinkTag home="true" to="/">
-            HOME
-          </S.LinkTag>
-          <S.LinkTag to="/popular">popular</S.LinkTag>
+          <S.LinkBox isActive={pathname === "/"} home="true">
+            <Link to="/">HOME</Link>
+          </S.LinkBox>
+          <S.LinkBox isActive={pathname === "/popular"}>
+            <Link to="/popular">popular</Link>
+          </S.LinkBox>
+
           {userInfo && (
-            <>
-              <S.LinkTag to="/my">my</S.LinkTag>
-            </>
+            <S.LinkBox isActive={pathname === "/my"}>
+              <Link to="/my">my</Link>
+            </S.LinkBox>
           )}
         </S.LinkContainer>
 

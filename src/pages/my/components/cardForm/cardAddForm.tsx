@@ -56,7 +56,7 @@ const CardAddForm = ({
       formRef.current?.reset();
       handleCardModal();
       onCurrentPage();
-      setLoading(false);
+      setLoading(true);
     }
   };
 

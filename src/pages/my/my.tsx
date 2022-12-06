@@ -15,7 +15,7 @@ const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [myCards, setMyCards] = useState<CardType[]>([]);
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
@@ -32,7 +32,7 @@ const My = () => {
         })
         .catch(() => setMyCards([]));
 
-      setLoading(true);
+      setLoading(false);
     };
     loadingCard();
   }, [userUid, loading]);
@@ -50,6 +50,10 @@ const My = () => {
   return (
     <>
       {loading ? (
+        <S.SpinnerContainer>
+          <S.Spinner />
+        </S.SpinnerContainer>
+      ) : (
         <S.Content>
           <Profile />
           {myCards.length === 0 ? (
@@ -69,10 +73,6 @@ const My = () => {
             />
           )}
         </S.Content>
-      ) : (
-        <S.SpinnerContainer>
-          <S.Spinner />
-        </S.SpinnerContainer>
       )}
 
       {cardAddModal && (

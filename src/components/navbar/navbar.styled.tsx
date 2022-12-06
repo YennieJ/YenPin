@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 export const Container = styled.nav`
@@ -14,29 +13,25 @@ export const LinkContainer = styled.div`
   display: flex;
 `;
 
-interface FontProps {
+interface LinkBoxProps {
   home?: string;
+  isActive: boolean;
 }
-export const LinkTag = styled(Link)<FontProps>`
+
+export const LinkBox = styled.span<LinkBoxProps>`
   display: flex;
   align-items: center;
+  border-right: ${(props) => (props.home ? " 3px solid white" : "")};
 
-  color: white;
-  text-decoration: none;
-  height: 100%;
-
-  &:hover,
-  &:focus {
-    color: blue;
+  a {
+    display: block;
+    color: ${(props) => (props.isActive ? "blue" : "white")};
+    ${({ home }) => css`
+      font-size: ${home ? "40px" : "28px"};
+      padding: ${home ? "0 20px" : " 0 10px "};
+    `}
+    &:hover {
+      color: blue;
+    }
   }
-
-  &:active {
-    color: red;
-  }
-
-  ${({ home }) => css`
-    font-size: ${home ? "20px" : "28px"};
-    padding: ${home ? "0 20px" : " 0 10px "};
-    border-right: ${home ? " 3px solid white" : ""};
-  `}
 `;

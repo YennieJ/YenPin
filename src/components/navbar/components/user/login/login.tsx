@@ -76,18 +76,16 @@ const Login = ({ closeUserModal, isSignup }: LoginProps) => {
               onChange={handleInputChange}
               value={email}
             />
-          </S.InputContainer>
 
-          <S.InputContainer>
             <S.InputText>
               <label>Password</label>
               {showPassword ? (
-                <S.PasswordText onClick={() => setShowPassword(!showPassword)}>
+                <S.PasswordText onClick={() => setShowPassword(false)}>
                   <FontAwesomeIcon icon={faEyeSlash} />
                   Hide
                 </S.PasswordText>
               ) : (
-                <S.PasswordText onClick={() => setShowPassword(!showPassword)}>
+                <S.PasswordText onClick={() => setShowPassword(true)}>
                   <FontAwesomeIcon icon={faEye} />
                   Show
                 </S.PasswordText>

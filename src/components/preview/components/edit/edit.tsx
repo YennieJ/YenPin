@@ -70,7 +70,7 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
       FbSaveCard(user, card);
       file && FbUploadImageFile(file, id);
       onModalClose();
-      setLoading(false);
+      setLoading(true);
       // setOnEditMode(false);
     }
   };

@@ -52,7 +52,7 @@ const Card = ({ card, home, setLoading }: CardProps) => {
     if (window.confirm("삭제하시겠습니까?") === true) {
       FbDeleteCard(cardId);
       FbDeleteImageFile(cardId);
-      setLoading(false);
+      setLoading(true);
     } else return null;
   };
 

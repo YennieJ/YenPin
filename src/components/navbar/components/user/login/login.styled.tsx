@@ -16,8 +16,9 @@ export const Container = styled.div`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
-  padding: 5px 0;
+  height: 170px;
 `;
 
 export const InputText = styled.div`

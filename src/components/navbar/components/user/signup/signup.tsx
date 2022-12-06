@@ -75,9 +75,7 @@ const Signup = ({ closeUserModal, isLogin }: SignupProps) => {
               value={email}
               maxLength={25}
             />
-          </S.InputContainer>
 
-          <S.InputContainer>
             <S.InputText>
               <label>Password</label>
               {showPassword ? (
@@ -101,9 +99,7 @@ const Signup = ({ closeUserModal, isLogin }: SignupProps) => {
               autoComplete="on"
               maxLength={20}
             />
-          </S.InputContainer>
 
-          <S.InputContainer>
             <S.InputText>
               <label>Confirm Password</label>
             </S.InputText>
@@ -118,9 +114,9 @@ const Signup = ({ closeUserModal, isLogin }: SignupProps) => {
             />
           </S.InputContainer>
         </form>
-        <S.Button type="submit" onClick={handleSubmit}>
+        <S.SignupButton type="submit" onClick={handleSubmit}>
           Sign up
-        </S.Button>
+        </S.SignupButton>
       </S.Container>
     </>
   );

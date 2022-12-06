@@ -6,7 +6,7 @@ export const Container = styled.div`
   justify-content: space-between;
 
   width: 100%;
-  padding: 30px 40px 40px 40px;
+  padding: 30px 40px 50px 40px;
   h1 {
     margin: 0;
     font-size: 30px;
@@ -16,8 +16,9 @@ export const Container = styled.div`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
-  padding: 5px 0;
+  height: 250px;
 `;
 
 export const InputText = styled.div`
@@ -97,7 +98,7 @@ export const CloseLoginModalButton = styled(ButtonBasic)`
   font-size: 28px;
 `;
 
-export const Button = styled(ButtonBasic)`
+export const SignupButton = styled(ButtonBasic)`
   width: 100%;
   padding: 0;
   border: 2px solid purple;
