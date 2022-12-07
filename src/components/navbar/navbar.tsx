@@ -5,9 +5,10 @@ import { AuthContext } from "service/authContext";
 import User from "./components/user/";
 import Sidebar from "./components/sidebar";
 
-import * as S from "./navbar.styled";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+
+import * as S from "./navbar.styled";
 
 const Nav = () => {
   const userInfo = useContext(AuthContext);

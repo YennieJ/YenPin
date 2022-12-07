@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
+
 import { AuthContext } from "service/authContext";
 
 import { FbGetMyCards } from "service/card_repository";
@@ -49,13 +51,16 @@ const My = () => {
 
   return (
     <>
+      <Helmet>
+        <title>my</title>
+      </Helmet>
+      <Profile />
       {loading ? (
         <S.SpinnerContainer>
           <S.Spinner />
         </S.SpinnerContainer>
       ) : (
         <S.Content>
-          <Profile />
           {myCards.length === 0 ? (
             <S.CardContainer>
               <div>내가 만든 카드가 여기에 보관됩니다.</div>

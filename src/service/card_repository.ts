@@ -23,6 +23,23 @@ export const FbGetAllCards = () => {
   });
 };
 
+export async function Temp() {
+  return new Promise<CardType[]>((resolve) => {
+    const cards = ref(db, "card");
+    onValue(cards, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) {
+        resolve([]);
+      } else {
+        const dbCards = Object.values(data)
+          .reverse()
+          .map((data) => data);
+        resolve(dbCards as CardType[]);
+      }
+    });
+  });
+}
+
 //any로 받음
 export const FbGetMyCards = (userUid: string) => {
   return new Promise((resolve) => {

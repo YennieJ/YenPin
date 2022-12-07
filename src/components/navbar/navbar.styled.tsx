@@ -24,7 +24,6 @@ export const LinkBox = styled.span<LinkBoxProps>`
   border-right: ${(props) => (props.home ? " 3px solid white" : "")};
 
   a {
-    display: block;
     color: ${(props) => (props.isActive ? "blue" : "white")};
     ${({ home }) => css`
       font-size: ${home ? "40px" : "28px"};

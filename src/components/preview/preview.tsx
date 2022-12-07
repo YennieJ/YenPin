@@ -12,7 +12,7 @@ import { CardType } from "types";
 interface PreviewProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  cards: CardType[];
+  cards?: CardType[];
   home?: string;
   handleCardModal?: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,11 +31,11 @@ const Preview = ({
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = cards.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = cards!.slice(indexOfFirstItem, indexOfLastItem);
 
   //페이지 수 구하기
   const pages: number[] = [];
-  for (let i = 1; i <= Math.ceil(cards.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(cards!.length / itemsPerPage); i++) {
     pages.push(i);
   }
 
