@@ -18,10 +18,10 @@ const Home = () => {
 
   const { isLoading, data } = useQuery<CardType[]>("allCards", Temp);
 
-  const [allCards, setAllCard] = useState<CardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [loading, setLoading] = useState<boolean>(true);
+  const [allCards, setAllCard] = useState<CardType[]>([]);
 
   const lodingCard = async () => {
     await FbGetAllCards()

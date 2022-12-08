@@ -56,6 +56,28 @@ export const FbGetMyCards = (userUid: string) => {
   });
 };
 
+export async function gg(userUid: string) {
+  return new Promise<CardType[]>((resolve) => {
+    const mostViewedPosts = query(
+      ref(db, "card"),
+      orderByChild("user"),
+      equalTo(userUid)
+    );
+
+    onValue(mostViewedPosts, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) {
+        resolve([]);
+      } else {
+        const dbCards = Object.values(data)
+          .reverse()
+          .map((data) => data);
+        resolve(dbCards as CardType[]);
+      }
+    });
+  });
+}
+
 export const FbSaveCard = (userUid: string, card: CardType) => {
   set(ref(db, `/card/${card.id}`), {
     id: card.id,
