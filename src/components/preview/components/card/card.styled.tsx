@@ -10,14 +10,13 @@ export const Container = styled.div`
 
   width: 380px;
   height: 430px;
-  border: none;
+  border: 1px solid black;
   border-radius: 20px;
   padding: 10px 0;
 
   background-color: white;
 
   box-sizing: border-box;
-  box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
 `;
 
 export const Overlay = styled.div`
@@ -34,10 +33,11 @@ export const Overlay = styled.div`
     :nth-child(1) {
       width: 100%;
       height: 100%;
+      border: 1px solid black;
       border-radius: 20px;
 
       transition: opacity 0.4s ease-in-out;
-      background: black;
+      background-color: black;
     }
     /* 2,3 */
     width: 45px;
@@ -46,7 +46,8 @@ export const Overlay = styled.div`
     border-radius: 50%;
     font-size: 17px;
 
-    background-color: white;
+    color: white;
+    background-color: black;
 
     position: absolute;
     &:nth-child(2) {
@@ -90,4 +91,5 @@ export const CardName = styled.div`
 
   font-size: 25px;
   text-align: center;
+  color: black;
 `;

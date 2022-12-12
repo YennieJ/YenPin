@@ -28,18 +28,16 @@ export const InputText = styled.div`
 
   position: relative;
 
+  font-size: 14px;
+
   label {
     font-size: 16px;
     font-weight: 600;
   }
-
-  span {
-    font-size: 14px;
-  }
 `;
 
 export const Login = styled.span`
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
 
   padding-left: 10px;
@@ -48,16 +46,17 @@ export const Login = styled.span`
 `;
 
 export const Input = styled.input`
-  background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 4px;
   margin: 6px 0;
   padding: 14px;
   outline: none;
 
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.inputBgColor};
+
   &:focus {
     border: 1px solid #80bdff;
-    box-shadow: 0 0 0 3.2px rgb(0 123 255 / 25%);
   }
 `;
 
@@ -68,7 +67,7 @@ export const PasswordText = styled.span`
   width: 50px;
   text-align: end;
 
-  color: #282a35;
+  color: #606060;
   font-weight: 600;
   cursor: pointer;
   svg {
@@ -83,30 +82,32 @@ const ButtonBasic = styled.button`
   height: 50px;
   border: none;
   background: none;
-  cursor: pointer;
 `;
 
 export const CloseLoginModalButton = styled(ButtonBasic)`
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 15px;
 
-  width: 70px;
+  width: 50px;
   padding: 0px;
 
-  color: black;
+  color: ${(props) => props.theme.textColor};
   font-size: 28px;
 `;
 
 export const SignupButton = styled(ButtonBasic)`
   width: 100%;
   padding: 0;
-  border: 2px solid purple;
+  border: 2px solid ${(props) => props.theme.textColor};
   border-radius: 24px;
 
   font-size: 18px;
 
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
   &:hover {
-    background-color: #f1c7f1;
+    color: ${(props) => props.theme.contentTxtColor};
+    background-color: ${(props) => props.theme.contentBgColor};
   }
 `;

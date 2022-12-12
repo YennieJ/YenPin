@@ -37,8 +37,8 @@ export const NewCardButton = styled.button`
   border: none;
   border-radius: 50px;
 
-  color: white;
-  background-color: purple;
+  color: ${(props) => props.theme.contentTxtColor};
+  background-color: ${(props) => props.theme.contentBgColor};
 
   cursor: pointer;
 

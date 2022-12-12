@@ -12,7 +12,7 @@ export const Form = styled.form`
   justify-content: space-around;
   align-items: center;
 
-  height: 100%;
+  color: ${(props) => props.theme.textColor};
   div {
     &:nth-child(3) {
       display: flex;
@@ -27,7 +27,7 @@ export const Form = styled.form`
     border-radius: 50px;
 
     font-size: 15px;
-    background-color: #e6e6e6;
+    background-color: #dadada;
 
     cursor: pointer;
   }
@@ -93,9 +93,11 @@ export const UserNameEdit = styled.div<UserNameStyleProps>`
     padding: 8px 16px;
     border: 1px solid gray;
     border-radius: 15px;
-    border-color: ${(props) => props.warningMsg() && "#ff0000bb"};
+    border-color: ${(props) => props.warningMsg() && "#fb0000"};
 
     font-size: 25px;
+    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.inputBgColor};
 
     overflow: hidden;
     &:focus {
@@ -106,7 +108,7 @@ export const UserNameEdit = styled.div<UserNameStyleProps>`
     padding: 10px 0;
 
     font-size: 14px;
-    color: #ff0000bb;
+    color: #ff0000;
   }
 `;
 

@@ -33,7 +33,7 @@ const CardAddForm = ({
   const [textLength, setTextLength] = useState<number>(0);
 
   const [message, setMessage] = useState<string>("");
-  const basicHeight = message ? messageRef.current?.offsetHeight : 30;
+  const basicHeight = message ? messageRef.current?.offsetHeight : 32;
 
   const onCardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,15 +108,14 @@ const CardAddForm = ({
   const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
     setTextLength(messageRef.current!.value.length);
-    messageRef.current!.style.height = "auto"; //초기화를 위해
-    messageRef.current!.style.height =
-      messageRef.current!.scrollHeight + 2 + "px";
+    // messageRef.current!.style.height = "auto"; //초기화를 위해
+    // messageRef.current!.style.height = messageRef.current!.scrollHeight + "px";
   };
 
   return (
     <DialogBox preview>
       <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
-        <S.Header>
+        <S.Content>
           {fileURL ? (
             <S.ImgContainer onClick={onButtonClick}>
               <S.Overlay>
@@ -129,7 +128,7 @@ const CardAddForm = ({
               Add File
             </S.AddFileButton>
           )}
-          <S.DetailContainer>
+          <S.TextContainer>
             <input
               hidden
               ref={fileRef}
@@ -137,28 +136,25 @@ const CardAddForm = ({
               accept="image/*"
               onChange={onFileChange}
             />
-            <S.TextContainer>
-              <input
-                ref={cardNameRef}
-                type="text"
-                placeholder="카드 이름"
-                maxLength={15}
-              />
-              <div>최대 15글자</div>
-            </S.TextContainer>
-            <S.TextContainer>
-              <textarea
-                rows={1}
-                placeholder="사진에 대해 설명하세요"
-                maxLength={200}
-                ref={messageRef}
-                onChange={textHeightHandler}
-                style={{ height: basicHeight + "px" }}
-              />
-              <span>{textLength}/200</span>
-            </S.TextContainer>
-          </S.DetailContainer>
-        </S.Header>
+            <input
+              ref={cardNameRef}
+              type="text"
+              placeholder="카드 이름"
+              maxLength={15}
+            />
+            <span>최대 15글자</span>
+
+            <textarea
+              rows={1}
+              placeholder="사진에 대해 설명하세요"
+              maxLength={200}
+              ref={messageRef}
+              onChange={textHeightHandler}
+              // style={{ height: basicHeight + "px" }}
+            />
+            <span>{textLength}/200</span>
+          </S.TextContainer>
+        </S.Content>
         <S.ButtonContainer>
           <S.Button type="button" onClick={() => handleCardModal()}>
             취소

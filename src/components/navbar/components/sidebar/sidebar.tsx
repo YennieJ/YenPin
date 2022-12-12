@@ -12,7 +12,7 @@ const Sidebar = () => {
     AuthSignOut();
   };
   return (
-    <>
+    <S.Container>
       <Burger onClick={() => setOpen(!open)} open={open} />
       {open ? (
         <S.SidebarContents>
@@ -23,7 +23,7 @@ const Sidebar = () => {
           <li>로그아웃</li>
         </S.SidebarContents>
       ) : null}
-    </>
+    </S.Container>
   );
 };
 

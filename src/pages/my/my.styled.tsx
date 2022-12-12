@@ -11,24 +11,26 @@ export const CardContainer = styled.div`
   align-items: center;
 
   div {
+    margin-bottom: 30px;
+
     font-size: 15px;
     font-weight: 400;
-    margin-bottom: 30px;
+    color: ${(props) => props.theme.textColor};
   }
   button {
     border: none;
     border-radius: 50px;
     padding: 15px;
 
-    color: white;
-    background: purple;
+    color: ${(props) => props.theme.contentTxtColor};
+    background-color: ${(props) => props.theme.contentBgColor};
 
     font-size: 17px;
     font-weight: 500;
 
     cursor: pointer;
     :hover {
-      background-color: #6b006b;
+      background-color: ${(props) => props.theme.contentHoverColor};
     }
   }
 `;

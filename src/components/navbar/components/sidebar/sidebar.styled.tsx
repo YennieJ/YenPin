@@ -1,9 +1,15 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const SidebarContents = styled.ul`
   position: absolute;
   top: 50px;
-  right: 0;
+  right: 8px;
 
   display: flex;
   flex-direction: column;
@@ -11,23 +17,25 @@ export const SidebarContents = styled.ul`
 
   width: 200px;
   height: 400px;
-  padding: 0;
-  margin: 0;
+  border-radius: 20px;
+  padding: 10px;
 
   z-index: 10;
-  background-color: purple;
+  background-color: ${(props) => props.theme.textColor};
   list-style: none;
 
   li {
     width: 100%;
+    border-radius: 15px;
     padding: 10px;
+
     text-align: center;
     font-size: 24px;
-    color: white;
+    color: ${(props) => props.theme.bgColor};
 
     cursor: pointer;
     :hover {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: ${(props) => props.theme.hoverColor};
     }
   }
 `;

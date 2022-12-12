@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface Props {
   open: boolean;
+  onClick: () => void;
 }
 
 export const StyledBurger = styled.div<Props>`
@@ -10,21 +11,18 @@ export const StyledBurger = styled.div<Props>`
   justify-content: space-around;
   align-items: end;
 
-  width: 200px;
   height: 100%;
-  padding: 10px 20px;
+  padding: 10px 10px;
 
   cursor: pointer;
-  :hover {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
 
   div {
     width: 30px;
     height: 4px;
-    background-color: #fff;
+    background-color: ${(props) => props.theme.textColor};
     border-radius: 10px;
-    transform-origin: 0.8px;
+    transform-origin: 1px;
+
     transition: all 0.3s linear;
     &:nth-child(1) {
       transform: ${({ open }) => (open ? "rotate(45deg)" : "rotate(0)")};

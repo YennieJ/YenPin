@@ -162,11 +162,14 @@ export const Button = styled(ButtonBasic)`
   width: 90px;
   height: 45px;
   padding: 0;
-  border: 2px solid purple;
+  border: 2px solid ${(props) => props.theme.contentBgColor};
   border-radius: 24px;
 
   font-size: 23px;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
   &:hover {
-    background-color: #f1c7f1;
+    color: ${(props) => props.theme.contentTxtColor};
+    background-color: ${(props) => props.theme.contentBgColor};
   }
 `;

@@ -11,7 +11,7 @@ export const Backdrop = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: ${(props) => props.theme.contentHoverColor};
 `;
 
 interface DialogBoxProps {
@@ -24,10 +24,10 @@ export const DialogBox = styled.dialog<DialogBoxProps>`
   border-radius: 20px;
   padding: 0;
 
-  background-color: white;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
 
-  box-sizing: border-box;
-  box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
+  /* box-shadow: 0 0 30px rgba(30, 30, 30, 0.185); */
 
   ${({ preview }) => css`
     width: ${preview ? "880px" : "450px"};

@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
-const ButtonBasic = styled.button`
-  height: 50px;
-  border: none;
-  background: none;
-  cursor: pointer;
-`;
-
-export const LoginButton = styled(ButtonBasic)`
-  width: 70px;
+export const LoginButton = styled.button`
+  width: 100%;
+  height: 100%;
+  padding: 0 5px;
   margin-right: 15px;
 
-  color: white;
-  font-size: x-large;
+  border: none;
+  border-radius: 20px;
+
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
+  font-size: 28px;
+
+  &:hover {
+    color: ${(props) => props.theme.contentTxtColor};
+    background-color: ${(props) => props.theme.contentBgColor};
+  }
 `;

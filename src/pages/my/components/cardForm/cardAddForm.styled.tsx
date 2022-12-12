@@ -10,7 +10,7 @@ export const CardForm = styled.form`
   padding: 20px;
 `;
 
-export const Header = styled.div`
+export const Content = styled.div`
   display: flex;
   justify-content: space-around;
 
@@ -32,36 +32,31 @@ export const ImgContainer = styled.div`
     font-size: 20px;
     border: 1px solid gray;
     border-radius: 20px;
-    background-color: #fff;
+    background-color: black;
     cursor: pointer;
   }
-`;
-
-export const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 400px;
 
   input,
   textarea {
     width: 400px;
-    padding: 0;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 10px;
     margin: 20px 0;
 
-    border: none;
-    border-bottom: 1px solid #9e9e9e;
-
     text-align: left;
+    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.inputBgColor};
 
     outline: none;
-
     &:focus {
-      border-bottom: 1px solid #62abf8;
+      border: 2px solid #62abf8;
     }
   }
 
@@ -71,8 +66,7 @@ export const TextContainer = styled.div`
     font-weight: 700;
   }
   textarea {
-    max-height: 200px;
-    padding-bottom: 5px;
+    height: 200px;
 
     font-size: 20px;
     word-spacing: -8px;
@@ -107,10 +101,12 @@ export const Overlay = styled.div`
   border-radius: 20px;
 
   transition: opacity 0.4s ease-in-out;
-  background: #6f6f6f;
+  background-color: ${(props) => props.theme.contentHoverColor};
+
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    opacity: 1;
+    border: 2px solid #62abf8;
   }
 `;
 export const OverlayContent = styled.div`
@@ -118,9 +114,27 @@ export const OverlayContent = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white;
+
   text-align: center;
   font-size: 27px;
+  color: ${(props) => props.theme.contentTxtColor};
+`;
+
+export const AddFileButton = styled.button`
+  width: 350px;
+  height: 350px;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 0;
+
+  font-size: 20px;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.inputBgColor};
+
+  &:hover {
+    background-color: ${(props) => props.theme.contentHoverColor};
+    border: 2px solid #62abf8;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -129,34 +143,19 @@ export const ButtonContainer = styled.div`
 
   width: 100%;
 `;
-const ButtonBasic = styled.button`
-  background: none;
-  cursor: pointer;
-`;
 
-export const AddFileButton = styled.button`
-  width: 350px;
-  height: 350px;
-  padding: 0;
-  font-size: 20px;
-  border: 1px solid gray;
-  border-radius: 20px;
-  background-color: #e7e6e6;
-  cursor: pointer;
-  &:hover {
-    background-color: #888888;
-  }
-`;
-
-export const Button = styled(ButtonBasic)`
+export const Button = styled.button`
   width: 90px;
   height: 45px;
   padding: 0;
-  border: 2px solid purple;
+  border: 2px solid ${(props) => props.theme.textColor};
   border-radius: 24px;
 
   font-size: 23px;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
   &:hover {
-    background-color: #f1c7f1;
+    color: ${(props) => props.theme.contentTxtColor};
+    background-color: ${(props) => props.theme.contentBgColor};
   }
 `;

@@ -33,8 +33,10 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	line-height: 1;
-padding: 20px 10px;
-font-family: 'PT Sans Narrow', sans-serif;
+	padding: 20px 10px;
+	font-family: 'PT Sans Narrow', sans-serif;
+
+	background-color: ${(props) => props.theme.bgColor};
 
 }
 ol, ul {

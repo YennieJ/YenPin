@@ -14,20 +14,20 @@ export const PageButton = styled.button`
   height: 50px;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid purple;
+  border: 1px solid ${(props) => props.theme.contentBgColor};
   margin-right: 10px;
 
-  color: purple;
-  background-color: #fff;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
   cursor: pointer;
 
   &:hover {
-    color: white;
-    background-color: purple;
+    color: ${(props) => props.theme.contentTxtColor};
+    background-color: ${(props) => props.theme.contentHoverColor};
   }
   &.active {
-    color: white;
-    background-color: purple;
+    color: ${(props) => props.theme.contentTxtColor};
+    background-color: ${(props) => props.theme.contentBgColor};
   }
   &:disabled {
     /* display: none; */

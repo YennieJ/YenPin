@@ -6,11 +6,10 @@ export const Container = styled.nav`
   justify-content: space-between;
 
   height: 50px;
-
-  background-color: purple;
 `;
 export const LinkContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 interface LinkBoxProps {
@@ -21,16 +20,18 @@ interface LinkBoxProps {
 export const LinkBox = styled.span<LinkBoxProps>`
   display: flex;
   align-items: center;
-  border-right: ${(props) => (props.home ? " 3px solid white" : "")};
+  height: 50px;
+
+  border-radius: 20px;
+  margin-right: 10px;
+
+  background-color: ${(props) =>
+    props.isActive ? props.theme.textColor : props.theme.bgColor};
 
   a {
-    color: ${(props) => (props.isActive ? "blue" : "white")};
-    ${({ home }) => css`
-      font-size: ${home ? "40px" : "28px"};
-      padding: ${home ? "0 20px" : " 0 10px "};
-    `}
-    &:hover {
-      color: blue;
-    }
+    padding: 0 10px;
+    font-size: ${(props) => (props.home ? "40px" : "28px")};
+    color: ${(props) =>
+      props.isActive ? props.theme.bgColor : props.theme.textColor};
   }
 `;

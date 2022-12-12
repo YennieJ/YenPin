@@ -42,9 +42,9 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
   const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewMessage(e.target.value);
     setTextLength(e.target.value.length);
-    newMessageRef.current!.style.height = "auto"; //초기화를 위해
-    newMessageRef.current!.style.height =
-      newMessageRef.current!.scrollHeight + 2 + "px";
+    // newMessageRef.current!.style.height = "auto"; //초기화를 위해
+    // newMessageRef.current!.style.height =
+    //   newMessageRef.current!.scrollHeight + 2 + "px";
   };
 
   const onNewCardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +105,7 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
     if (onEditMode) {
       setTimeout(() => {
         newMessageRef.current!.focus();
-        newMessageRef.current!.scrollTop = newMessageRef.current!.offsetHeight;
+        // newMessageRef.current!.scrollTop = newMessageRef.current!.offsetHeight;
       });
     }
   }, [onEditMode]);
@@ -113,7 +113,7 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
   return (
     <DialogBox preview>
       <S.CardForm>
-        <S.Header>
+        <S.Content>
           <S.ImgContainer onClick={onButtonClick}>
             <S.Overlay>
               <S.OverlayContent>Change File</S.OverlayContent>
@@ -151,7 +151,7 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
                       e.currentTarget.value.length
                     )
                   }
-                  style={{ height: basicHeight + "px" }}
+                  // style={{ height: basicHeight + "px" }}
                 />
               ) : (
                 <pre
@@ -169,13 +169,12 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
                 ref={newMessageRef}
                 placeholder="사진에 대해 설명하세요"
                 onChange={textHeightHandler}
-                style={{ height: basicHeight + "px" }}
                 onClick={() => setOnEditMode(true)}
               />
             )}
             <span>{textLength}/200</span>
           </S.TextContainer>
-        </S.Header>
+        </S.Content>
         <S.ButtonContainer>
           <S.Button type="button" onClick={() => onModalClose()}>
             취소
