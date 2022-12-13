@@ -18,21 +18,18 @@ export const PageButton = styled.button`
   margin-right: 10px;
 
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.contentBgColor};
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme.contentTxtColor};
-    background-color: ${(props) => props.theme.contentHoverColor};
+    background-color: ${(props) => props.theme.hoverColor};
   }
   &.active {
-    color: ${(props) => props.theme.contentTxtColor};
-    background-color: ${(props) => props.theme.contentBgColor};
+    background-color: ${(props) => props.theme.hoverColor};
   }
   &:disabled {
     /* display: none; */
     color: gray;
-    border-color: gray;
     cursor: default;
     pointer-events: none;
   }

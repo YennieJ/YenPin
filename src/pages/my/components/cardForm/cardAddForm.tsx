@@ -12,15 +12,15 @@ interface CardProps {
   handleCardModal: () => void;
   onCurrentPage: () => void;
   userUid: string;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  // setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CardAddForm = ({
   handleCardModal,
   onCurrentPage,
   userUid,
-  setLoading,
-}: CardProps) => {
+}: // setLoading,
+CardProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -56,7 +56,7 @@ const CardAddForm = ({
       formRef.current?.reset();
       handleCardModal();
       onCurrentPage();
-      setLoading(true);
+      // setLoading(true);
     }
   };
 

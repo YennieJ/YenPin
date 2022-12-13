@@ -11,7 +11,7 @@ export const Backdrop = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background-color: ${(props) => props.theme.contentHoverColor};
+  background-color: ${(props) => props.theme.hoverColor};
 `;
 
 interface DialogBoxProps {
@@ -25,7 +25,7 @@ export const DialogBox = styled.dialog<DialogBoxProps>`
   padding: 0;
 
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.contentBgColor};
 
   /* box-shadow: 0 0 30px rgba(30, 30, 30, 0.185); */
 

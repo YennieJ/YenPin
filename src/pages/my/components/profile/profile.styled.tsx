@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 260px;
-  padding: 10px 0 20px 0;
+  padding: 20px 0;
   border-bottom: 1px groove gray;
 `;
 
@@ -27,9 +27,11 @@ export const Form = styled.form`
     border-radius: 50px;
 
     font-size: 15px;
-    background-color: #dadada;
-
-    cursor: pointer;
+    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.contentBgColor};
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
   }
 `;
 
@@ -91,13 +93,13 @@ export const UserNameEdit = styled.div<UserNameStyleProps>`
   input {
     width: 250px;
     padding: 8px 16px;
-    border: 1px solid gray;
+    border: 1px solid ${(props) => props.theme.hoverColor};
     border-radius: 15px;
     border-color: ${(props) => props.warningMsg() && "#fb0000"};
 
     font-size: 25px;
     color: ${(props) => props.theme.textColor};
-    background-color: ${(props) => props.theme.inputBgColor};
+    background-color: ${(props) => props.theme.contentBgColor};
 
     overflow: hidden;
     &:focus {

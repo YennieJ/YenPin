@@ -13,17 +13,17 @@ import { CardType } from "types";
 
 const db = getDatabase();
 
-export const FbGetAllCards = () => {
-  return new Promise((resolve) => {
-    const cards = ref(db, "card");
-    onValue(cards, (snapshot) => {
-      const data = snapshot.val();
-      resolve(data);
-    });
-  });
-};
+// export const FbGetAllCards = () => {
+//   return new Promise((resolve) => {
+//     const cards = ref(db, "card");
+//     onValue(cards, (snapshot) => {
+//       const data = snapshot.val();
+//       resolve(data);
+//     });
+//   });
+// };
 
-export async function Temp() {
+export async function FbGetAllCards() {
   return new Promise<CardType[]>((resolve) => {
     const cards = ref(db, "card");
     onValue(cards, (snapshot) => {
@@ -41,22 +41,22 @@ export async function Temp() {
 }
 
 //any로 받음
-export const FbGetMyCards = (userUid: string) => {
-  return new Promise((resolve) => {
-    const mostViewedPosts = query(
-      ref(db, "card"),
-      orderByChild("user"),
-      equalTo(userUid)
-    );
+// export const FbGetMyCards = (userUid: string) => {
+//   return new Promise((resolve) => {
+//     const mostViewedPosts = query(
+//       ref(db, "card"),
+//       orderByChild("user"),
+//       equalTo(userUid)
+//     );
 
-    onValue(mostViewedPosts, (snapshot) => {
-      const data = snapshot.val();
-      resolve(data);
-    });
-  });
-};
+//     onValue(mostViewedPosts, (snapshot) => {
+//       const data = snapshot.val();
+//       resolve(data);
+//     });
+//   });
+// };
 
-export async function gg(userUid: string) {
+export async function FbGetMyCards(userUid: string) {
   return new Promise<CardType[]>((resolve) => {
     const mostViewedPosts = query(
       ref(db, "card"),

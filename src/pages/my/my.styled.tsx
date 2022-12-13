@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Content = styled.div`
   height: 100%;
@@ -22,7 +22,7 @@ export const CardContainer = styled.div`
     border-radius: 50px;
     padding: 15px;
 
-    color: ${(props) => props.theme.contentTxtColor};
+    color: ${(props) => props.theme.textColor};
     background-color: ${(props) => props.theme.contentBgColor};
 
     font-size: 17px;
@@ -30,7 +30,7 @@ export const CardContainer = styled.div`
 
     cursor: pointer;
     :hover {
-      background-color: ${(props) => props.theme.contentHoverColor};
+      background-color: ${(props) => props.theme.hoverColor};
     }
   }
 `;

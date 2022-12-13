@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const CardForm = styled.form`
   display: flex;
@@ -31,7 +31,7 @@ export const ImgContainer = styled.div`
     height: 350px;
     font-size: 20px;
     border: 1px solid gray;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
   }
 `;
@@ -43,16 +43,14 @@ export const TextContainer = styled.div`
 
   input,
   textarea {
-    padding: 0;
-    border: 1px solid gray;
-    border-radius: 20px;
+    border: 1px solid #9e9e9e;
+    border-radius: 10px;
     padding: 10px;
     margin: 20px 0;
 
     text-align: left;
     color: ${(props) => props.theme.textColor};
-    background-color: ${(props) => props.theme.inputBgColor};
-
+    background-color: ${(props) => props.theme.contentBgColor};
     outline: none;
 
     &:focus {
@@ -74,22 +72,13 @@ export const TextContainer = styled.div`
     overflow: auto;
     white-space: inherit;
     resize: none;
-  }
-  pre {
-    white-space: pre-wrap;
-    word-break: break-all;
-    width: 400px;
-    height: 200px;
 
-    overflow: auto;
-
-    border-bottom: 1px solid #606060;
-    padding-bottom: 5px;
-    font-size: 20px;
-    cursor: text;
-
-    :hover {
-      border-bottom: 1px solid #62abf8;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
     }
   }
   span {
@@ -112,10 +101,10 @@ export const Overlay = styled.div`
   width: 350px;
   height: 350px;
   border: 1px solid gray;
-  border-radius: 20px;
+  border-radius: 10px;
 
   transition: opacity 0.4s ease-in-out;
-  background-color: ${(props) => props.theme.contentHoverColor};
+  background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   &:hover {
     opacity: 1;
@@ -130,7 +119,7 @@ export const OverlayContent = styled.div`
 
   text-align: center;
   font-size: 27px;
-  color: ${(props) => props.theme.contentTxtColor};
+  color: white;
 `;
 
 export const ButtonContainer = styled.div`
@@ -140,32 +129,17 @@ export const ButtonContainer = styled.div`
   width: 100%;
 `;
 
-export const AddFileButton = styled.button`
-  width: 350px;
-  height: 350px;
-  padding: 0;
-  font-size: 20px;
-  border: 1px solid gray;
-  border-radius: 20px;
-  background-color: #e7e6e6;
-  cursor: pointer;
-  &:hover {
-    background-color: #888888;
-  }
-`;
-
 export const Button = styled.button`
-  width: 90px;
-  height: 45px;
+  width: 100px;
+  height: 50px;
   padding: 0;
   border: 2px solid ${(props) => props.theme.textColor};
   border-radius: 24px;
 
   font-size: 23px;
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.contentBgColor};
   &:hover {
-    color: ${(props) => props.theme.contentTxtColor};
-    background-color: ${(props) => props.theme.contentBgColor};
+    background-color: ${(props) => props.theme.hoverColor};
   }
 `;

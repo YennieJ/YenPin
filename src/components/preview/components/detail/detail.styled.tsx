@@ -10,7 +10,7 @@ export const CardForm = styled.form`
   padding: 20px;
 `;
 
-export const Header = styled.div`
+export const Content = styled.div`
   display: flex;
   justify-content: space-around;
 
@@ -34,39 +34,45 @@ export const ImgContainer = styled.div`
   }
 `;
 
-export const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: space-around;
+
+  width: 400px;
 
   div {
-    display: flex;
-    align-items: center;
-
     width: 400px;
     border: none;
     border-bottom: 1px solid #9e9e9e;
-    padding: 0;
-    padding-bottom: 5px;
+    padding: 10px;
     margin: 20px 0;
 
+    height: 60px;
+
+    font-size: 28px;
+    font-weight: 700;
     text-align: left;
     outline: none;
+  }
 
-    &:nth-child(1) {
-      height: 60px;
-      font-size: 28px;
-      font-weight: 700;
+  pre {
+    border: 1px solid #9e9e9e;
+    border-radius: 10px;
+    padding: 10px;
+
+    height: 200px;
+
+    font-size: 20px;
+
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
     }
-    &:nth-child(2) {
-      font-size: 20px;
-      word-break: break-all;
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
     }
   }
 `;
@@ -139,10 +145,6 @@ export const ButtonContainer = styled.div`
 
   width: 100%;
 `;
-const ButtonBasic = styled.button`
-  background: none;
-  cursor: pointer;
-`;
 
 export const AddFileButton = styled.button`
   width: 350px;
@@ -152,24 +154,23 @@ export const AddFileButton = styled.button`
   border: 1px solid gray;
   border-radius: 20px;
   background-color: #e7e6e6;
-  cursor: pointer;
+
   &:hover {
     background-color: #888888;
   }
 `;
 
-export const Button = styled(ButtonBasic)`
-  width: 90px;
-  height: 45px;
+export const Button = styled.button`
+  width: 100px;
+  height: 50px;
   padding: 0;
-  border: 2px solid ${(props) => props.theme.contentBgColor};
+  border: 2px solid ${(props) => props.theme.textColor};
   border-radius: 24px;
 
   font-size: 23px;
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.contentBgColor};
   &:hover {
-    color: ${(props) => props.theme.contentTxtColor};
-    background-color: ${(props) => props.theme.contentBgColor};
+    background-color: ${(props) => props.theme.hoverColor};
   }
 `;

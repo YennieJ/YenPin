@@ -34,13 +34,12 @@ export const NewCardButton = styled.button`
   width: 45px;
   height: 45px;
   padding: 0;
-  border: none;
+  border: 2px solid ${(props) => props.theme.hoverColor};
   border-radius: 50px;
 
-  color: ${(props) => props.theme.contentTxtColor};
+  color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.contentBgColor};
-
-  cursor: pointer;
+  box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
 
   position: absolute;
   top: 30px;

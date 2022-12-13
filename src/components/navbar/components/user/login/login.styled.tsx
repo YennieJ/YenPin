@@ -53,7 +53,7 @@ export const Input = styled.input`
   outline: none;
 
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.inputBgColor};
+  background-color: ${(props) => props.theme.contentBgColor};
 
   &:focus {
     border: 2px solid #80bdff;
@@ -103,11 +103,10 @@ export const Button = styled(ButtonBasic)`
   font-size: 18px;
 
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.contentBgColor};
 
   &:hover {
-    color: ${(props) => props.theme.contentTxtColor};
-    background-color: ${(props) => props.theme.contentBgColor};
+    background-color: ${(props) => props.theme.hoverColor};
   }
 `;
 

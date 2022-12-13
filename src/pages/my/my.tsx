@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Helmet } from "react-helmet";
 
 import { AuthContext } from "service/authContext";
 
-import { FbGetMyCards, gg } from "service/card_repository";
+import { FbGetMyCards } from "service/card_repository";
 
 import { useQuery } from "react-query";
 
@@ -20,30 +20,30 @@ const My = () => {
   const userUid = userInfo!.uid;
 
   const { isLoading, data } = useQuery<CardType[]>("allCards", () =>
-    gg(userUid)
+    FbGetMyCards(userUid)
   );
 
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const [myCards, setMyCards] = useState<CardType[]>([]);
 
-  const [myCards, setMyCards] = useState<CardType[]>([]);
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  useEffect(() => {
-    const loadingCard = async () => {
-      await FbGetMyCards(userUid)
-        .then((card: unknown) => {
-          const dbCard = Object.values(card as CardType)
-            .reverse()
-            .map((data) => data);
-          setMyCards(dbCard);
-        })
-        .catch(() => setMyCards([]));
+  // useEffect(() => {
+  //   const loadingCard = async () => {
+  //     await FbGetMyCards(userUid)
+  //       .then((card: unknown) => {
+  //         const dbCard = Object.values(card as CardType)
+  //           .reverse()
+  //           .map((data) => data);
+  //         setMyCards(dbCard);
+  //       })
+  //       .catch(() => setMyCards([]));
 
-      setLoading(false);
-    };
-    loadingCard();
-  }, [userUid, loading]);
+  //     setLoading(false);
+  //   };
+  //   loadingCard();
+  // }, [userUid, loading]);
 
   const handleCardModal = () => {
     if (cardAddModal === false) {
@@ -75,7 +75,7 @@ const My = () => {
           cards={data}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          setLoading={setLoading}
+          // setLoading={setLoading}
           handleCardModal={handleCardModal}
         />
       )}
@@ -110,7 +110,7 @@ const My = () => {
           handleCardModal={handleCardModal}
           onCurrentPage={() => setCurrentPage(1)}
           userUid={userUid}
-          setLoading={setLoading}
+          // setLoading={setLoading}
         />
       )}
     </>

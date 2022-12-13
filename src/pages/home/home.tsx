@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { FbGetAllCards, Temp } from "service/card_repository";
+import { FbGetAllCards } from "service/card_repository";
 
 import Preview from "components/preview";
 
@@ -16,29 +16,29 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const { isLoading, data } = useQuery<CardType[]>("allCards", Temp);
+  const { isLoading, data } = useQuery<CardType[]>("allCards", FbGetAllCards);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const [loading, setLoading] = useState<boolean>(true);
-  const [allCards, setAllCard] = useState<CardType[]>([]);
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const [allCards, setAllCard] = useState<CardType[]>([]);
 
-  const lodingCard = async () => {
-    await FbGetAllCards()
-      .then((card: unknown) => {
-        const dbCards = Object.values(card as CardType)
-          .reverse()
-          .map((data) => data);
-        setAllCard(dbCards);
-      })
-      .catch(() => setAllCard([]));
+  // const lodingCard = async () => {
+  //   await FbGetAllCards()
+  //     .then((card: unknown) => {
+  //       const dbCards = Object.values(card as CardType)
+  //         .reverse()
+  //         .map((data) => data);
+  //       setAllCard(dbCards);
+  //     })
+  //     .catch(() => setAllCard([]));
 
-    setLoading(false);
-  };
+  //   setLoading(false);
+  // };
 
-  useEffect(() => {
-    lodingCard();
-  }, []);
+  // useEffect(() => {
+  //   lodingCard();
+  // }, []);
 
   const gotoMyPage = () => {
     navigate("/my");
@@ -89,7 +89,7 @@ const Home = () => {
           cards={data}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          setLoading={setLoading}
+          // setLoading={setLoading}
         />
       )}
     </>

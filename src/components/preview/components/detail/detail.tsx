@@ -16,24 +16,19 @@ const Detail = ({ card, onModalClose }: Props) => {
   return (
     <DialogBox preview>
       <S.CardForm>
-        <S.Header>
+        <S.Content>
           <S.ImgContainer>
             <img alt="" src={fileURL} />
           </S.ImgContainer>
-          <S.DetailContainer>
-            <S.TextContainer>
-              <div>{cardName}</div>
-              {message && <div>{message}</div>}
-            </S.TextContainer>
-          </S.DetailContainer>
-        </S.Header>
+          <S.TextContainer>
+            <div>{cardName}</div>
+            {message && <pre>{message}</pre>}
+          </S.TextContainer>
+        </S.Content>
         <S.ButtonContainer>
           <S.Button type="button" onClick={() => onModalClose()}>
             취소
           </S.Button>
-          {/* <S.Button type="button" onClick={() => setEditModal(true)}>
-            수정
-          </S.Button> */}
         </S.ButtonContainer>
       </S.CardForm>
     </DialogBox>

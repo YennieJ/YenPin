@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 import { FbSaveCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
@@ -13,16 +13,16 @@ import { CardType } from "types";
 interface Props {
   card: CardType;
   onModalClose: () => void;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  // setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Edit = ({ onModalClose, card, setLoading }: Props) => {
+const Edit = ({ onModalClose, card }: Props) => {
   const { cardName, fileURL, message, id, user } = card;
 
   const defaultLength = message ? message.length : 0;
 
   // const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const messageRef = useRef<HTMLPreElement>(null);
+  // const messageRef = useRef<HTMLPreElement>(null);
   const newMessageRef = useRef<HTMLTextAreaElement>(null);
   //////////
   const [newCardName, setNewCardName] = useState<string>(cardName);
@@ -33,11 +33,11 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
   const [file, setFile] = useState<File>();
   const [newFileURL, setNewFileURL] = useState<string>(fileURL);
 
-  //textarea
-  const basicHeight = message ? messageRef.current?.offsetHeight : 30;
-
   const [textLength, setTextLength] = useState<number>(defaultLength);
-  const [onEditMode, setOnEditMode] = useState<boolean>(false);
+
+  //textarea
+  //   const basicHeight = message ? messageRef.current?.offsetHeight : 30;
+  // const [onEditMode, setOnEditMode] = useState<boolean>(false);
 
   const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewMessage(e.target.value);
@@ -70,10 +70,9 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
       FbSaveCard(user, card);
       file && FbUploadImageFile(file, id);
       onModalClose();
-      setLoading(true);
-      // setOnEditMode(false);
     }
   };
+
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
@@ -101,14 +100,14 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
     fileRef.current?.click();
   };
 
-  useEffect(() => {
-    if (onEditMode) {
-      setTimeout(() => {
-        newMessageRef.current!.focus();
-        // newMessageRef.current!.scrollTop = newMessageRef.current!.offsetHeight;
-      });
-    }
-  }, [onEditMode]);
+  // useEffect(() => {
+  //   if (onEditMode) {
+  //     setTimeout(() => {
+  //       newMessageRef.current!.focus();
+  //       // newMessageRef.current!.scrollTop = newMessageRef.current!.offsetHeight;
+  //     });
+  //   }
+  // }, [onEditMode]);
 
   return (
     <DialogBox preview>
@@ -137,39 +136,38 @@ const Edit = ({ onModalClose, card, setLoading }: Props) => {
             />
             <span>최대 15글자</span>
             {newMessage ? (
-              onEditMode ? (
-                <textarea
-                  rows={1}
-                  ref={newMessageRef}
-                  placeholder="사진에 대해 설명하세요"
-                  maxLength={200}
-                  onChange={textHeightHandler}
-                  value={newMessage}
-                  onFocus={(e) =>
-                    e.currentTarget.setSelectionRange(
-                      e.currentTarget.value.length,
-                      e.currentTarget.value.length
-                    )
-                  }
-                  // style={{ height: basicHeight + "px" }}
-                />
-              ) : (
-                <pre
-                  ref={messageRef}
-                  // onClick={() => temp()}
-                  onClick={() => setOnEditMode(true)}
-                  // style={{ height: basicHeight + "px" }}
-                >
-                  {newMessage}
-                </pre>
-              )
+              // onEditMode ? (
+              <textarea
+                rows={1}
+                ref={newMessageRef}
+                placeholder="사진에 대해 설명하세요"
+                maxLength={200}
+                onChange={textHeightHandler}
+                value={newMessage}
+                onFocus={(e) =>
+                  e.currentTarget.setSelectionRange(
+                    e.currentTarget.value.length,
+                    e.currentTarget.value.length
+                  )
+                }
+                // style={{ height: basicHeight + "px" }}
+              />
             ) : (
+              // ) : (
+              //   <pre
+              //     ref={messageRef}
+              //     onClick={() => setOnEditMode(true)}
+              //     style={{ height: basicHeight + "px" }}
+              //   >
+              //     {newMessage}
+              //   </pre>
+              // )
               <textarea
                 rows={1}
                 ref={newMessageRef}
                 placeholder="사진에 대해 설명하세요"
                 onChange={textHeightHandler}
-                onClick={() => setOnEditMode(true)}
+                // onClick={() => setOnEditMode(true)}
               />
             )}
             <span>{textLength}/200</span>

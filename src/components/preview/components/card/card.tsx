@@ -15,9 +15,9 @@ import { CardType } from "types";
 interface CardProps {
   card: CardType;
   home?: string;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  // setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Card = ({ card, home, setLoading }: CardProps) => {
+const Card = ({ card, home }: CardProps) => {
   //수정
   const [detailModal, setDetailModal] = useState<boolean>(false);
   const [detailCard, setDetailCard] = useState<CardType>();
@@ -52,7 +52,7 @@ const Card = ({ card, home, setLoading }: CardProps) => {
     if (window.confirm("삭제하시겠습니까?") === true) {
       FbDeleteCard(cardId);
       FbDeleteImageFile(cardId);
-      setLoading(true);
+      // setLoading(true);
     } else return null;
   };
 
@@ -80,7 +80,7 @@ const Card = ({ card, home, setLoading }: CardProps) => {
         {editModal && detailCard && (
           <Edit
             card={detailCard}
-            setLoading={setLoading}
+            // setLoading={setLoading}
             onModalClose={() => onEditModal(card)}
           />
         )}
