@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+// export const HomeContainer = styled.div`
+//   border: 1px solid green;
+//   height: 100%;
+// `;
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,5 +69,32 @@ export const Spinner = styled.span`
     100% {
       box-shadow: 14px 0 0 -2px, 38px 0 0 2px, -14px 0 0 -2px, -38px 0 0 -2px;
     }
+  }
+`;
+
+export const ThemeButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+
+  width: 160px;
+  height: 50px;
+  border-radius: 30px;
+  font-size: 20px;
+  background-color: ${(props) => props.theme.buttonTheme};
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 140px;
+  }
+  span {
+    font-size: 15px;
   }
 `;

@@ -7,5 +7,7 @@ declare module "styled-components" {
 
     contentBgColor: string;
     hoverColor: string;
+
+    buttonTheme: string;
   }
 }

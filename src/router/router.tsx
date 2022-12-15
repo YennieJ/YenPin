@@ -7,22 +7,30 @@ import My from "pages/my";
 import Nav from "components/navbar";
 import ProtectRoute from "router/protectRoute";
 
+import styled from "styled-components";
+
+const Main = styled.div`
+  height: calc(100% - 50px);
+`;
+
 const Router = () => {
   return (
     <BrowserRouter>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="popular" element={<Popular />} />
-        <Route
-          path="my"
-          element={
-            <ProtectRoute>
-              <My />
-            </ProtectRoute>
-          }
-        />
-      </Routes>
+      <Main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="popular" element={<Popular />} />
+          <Route
+            path="my"
+            element={
+              <ProtectRoute>
+                <My />
+              </ProtectRoute>
+            }
+          />
+        </Routes>
+      </Main>
     </BrowserRouter>
   );
 };

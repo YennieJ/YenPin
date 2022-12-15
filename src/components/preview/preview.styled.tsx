@@ -1,19 +1,26 @@
 import styled from "styled-components";
 
-export const PreviewContainer = styled.div`
+interface PreviewStyleProps {
+  home?: string;
+}
+
+export const PreviewContainer = styled.div<PreviewStyleProps>`
   display: flex;
   flex-direction: column;
 
-  height: auto;
+  height: ${(props) => (props.home ? "100%" : "auto")};
 
   position: relative;
 `;
+
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-gap: 10px;
   place-items: center;
 
-  height: 80%;
+  width: 100%;
+  height: 90%;
   padding: 30px 30px 60px 30px;
 `;
 
@@ -23,7 +30,7 @@ export const Footer = styled.div`
   align-items: flex-start;
 
   width: 100%;
-  height: 20%;
+  height: 10%;
 `;
 
 export const NewCardButton = styled.button`

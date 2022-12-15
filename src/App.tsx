@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { AuthProvider } from "service/auth_service";
 
 import Router from "router/router";
 
-import GlobalStyle from "grobal.styled";
+import GlobalStyle from "style/grobal.styled";
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "theme";
+import { lightTheme, darkTheme } from "style/theme";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "style/atoms";
 
 const App = () => {
-  const [theme, setTheme] = useState("light");
-  const isDarkTheme = theme === "dark";
-  const toggleTheme = () => setTheme(isDarkTheme ? "light" : "dark");
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <AuthProvider>
-      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <button onClick={toggleTheme}> Theme</button>
         <Router />
       </ThemeProvider>
     </AuthProvider>

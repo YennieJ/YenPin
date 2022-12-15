@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Pagination from "./components/pagination";
 import Card from "./components/card";
@@ -32,6 +32,7 @@ const Preview = ({
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = cards!.slice(indexOfFirstItem, indexOfLastItem);
 
+  console.log(cards);
   //페이지 수 구하기
   const pages: number[] = [];
   for (let i = 1; i <= Math.ceil(cards!.length / itemsPerPage); i++) {
@@ -39,7 +40,7 @@ const Preview = ({
   }
 
   return (
-    <S.PreviewContainer>
+    <S.PreviewContainer home={home}>
       <S.Content>
         {currentItems.map((card: CardType) => (
           <Card key={card.id} card={card} home={home} />

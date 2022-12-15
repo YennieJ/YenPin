@@ -7,6 +7,8 @@ import { FbGetAllCards } from "service/card_repository";
 import Preview from "components/preview";
 
 import * as S from "./home.styled";
+import { useRecoilState } from "recoil";
+import { isDarkAtom } from "style/atoms";
 
 import { CardType } from "types";
 import { useQuery } from "react-query";
@@ -19,6 +21,9 @@ const Home = () => {
   const { isLoading, data } = useQuery<CardType[]>("allCards", FbGetAllCards);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [isDark, setIsDark] = useRecoilState(isDarkAtom);
+  const toggleTheme = () => setIsDark((prev) => !prev);
 
   // const [loading, setLoading] = useState<boolean>(true);
   // const [allCards, setAllCard] = useState<CardType[]>([]);
@@ -92,6 +97,17 @@ const Home = () => {
           // setLoading={setLoading}
         />
       )}
+      <S.ThemeButton onClick={toggleTheme}>
+        {isDark ? (
+          <div>
+            🌝<span>다크 모드로 보기</span>
+          </div>
+        ) : (
+          <div>
+            🌚<span>라이트 모드로 보기</span>
+          </div>
+        )}
+      </S.ThemeButton>
     </>
   );
 };

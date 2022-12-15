@@ -30,14 +30,23 @@ footer, header, hgroup, menu, nav, section {
 *{
   box-sizing: border-box;
 }
-
+html,body{
+	height: 98vh;
+  @media (max-width: 1240px) {
+    height: auto;
+  }
+		
+	
+}
+#root{
+	height: 100%;
+}
 body {
 	line-height: 1;
 	padding: 20px 10px;
 	font-family: 'PT Sans Narrow', sans-serif;
 
 	background-color: ${(props) => props.theme.bgColor};
-
 }
 ol, ul {
 	list-style: none;
@@ -57,6 +66,9 @@ table {
 
 button{
   cursor: pointer;
+	padding: 0;
+	border: none;
+	background: none;
 }
 
 a{

@@ -14,7 +14,7 @@ export const LinkContainer = styled.div`
 
 interface LinkBoxProps {
   home?: string;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export const LinkBox = styled.span<LinkBoxProps>`

@@ -9,6 +9,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 import * as S from "./navbar.styled";
+import Temp from "./components/temp/temp";
 
 const Nav = () => {
   const userInfo = useContext(AuthContext);
@@ -25,13 +26,13 @@ const Nav = () => {
           <S.LinkBox isActive={pathname === "/popular"}>
             <Link to="/popular">popular</Link>
           </S.LinkBox>
-
           {userInfo && (
             <S.LinkBox isActive={pathname === "/my"}>
               <Link to="/my">my</Link>
             </S.LinkBox>
           )}
         </S.LinkContainer>
+        <S.LinkBox>{/* <Temp toggleTheme={toggleTheme} /> */}</S.LinkBox>
 
         {userInfo ? <Sidebar /> : <User />}
       </S.Container>
