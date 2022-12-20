@@ -9,11 +9,11 @@ import * as S from "./edit.styled";
 import DialogBox from "components/dialogBox/dialogBox";
 
 import { CardType } from "types";
+import { useMutation, useQueryClient } from "react-query";
 
 interface Props {
   card: CardType;
   onModalClose: () => void;
-  // setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Edit = ({ onModalClose, card }: Props) => {
   const { cardName, fileURL, message, id, user } = card;
@@ -51,6 +51,24 @@ const Edit = ({ onModalClose, card }: Props) => {
     setNewCardName(e.target.value);
   };
 
+  const queryClient = useQueryClient();
+  const UpdateMutation = useMutation({
+    mutationFn: (newCard: CardType) => FbSaveCard(user, newCard),
+
+    onSuccess: () => {
+      // 요청이 성공한 경우
+      queryClient.invalidateQueries("myCards");
+    },
+    onError: (error) => {
+      // 요청에 에러가 발생된 경우
+      // console.log("onError");
+    },
+    onSettled: () => {
+      // 요청이 성공하든, 에러가 발생되든 실행하고 싶은 경우
+      // console.log("onSettled");
+    },
+  });
+
   const updateCard = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -67,7 +85,8 @@ const Edit = ({ onModalClose, card }: Props) => {
     if (card.cardName === "") {
       alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
-      FbSaveCard(user, card);
+      UpdateMutation.mutate(card);
+      // FbSaveCard(user, card);
       file && FbUploadImageFile(file, id);
       onModalClose();
     }

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { motion } from "framer-motion";
 interface PreviewStyleProps {
   home?: string;
 }

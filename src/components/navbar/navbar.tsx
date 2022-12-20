@@ -9,7 +9,6 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 import * as S from "./navbar.styled";
-import Temp from "./components/temp/temp";
 
 const Nav = () => {
   const userInfo = useContext(AuthContext);
@@ -32,7 +31,6 @@ const Nav = () => {
             </S.LinkBox>
           )}
         </S.LinkContainer>
-        <S.LinkBox>{/* <Temp toggleTheme={toggleTheme} /> */}</S.LinkBox>
 
         {userInfo ? <Sidebar /> : <User />}
       </S.Container>

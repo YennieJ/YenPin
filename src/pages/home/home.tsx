@@ -100,11 +100,12 @@ const Home = () => {
       <S.ThemeButton onClick={toggleTheme}>
         {isDark ? (
           <div>
-            🌝<span>다크 모드로 보기</span>
+            🌝
+            <span>라이트 모드로 보기</span>
           </div>
         ) : (
           <div>
-            🌚<span>라이트 모드로 보기</span>
+            🌚<span>다크 모드로 보기</span>
           </div>
         )}
       </S.ThemeButton>

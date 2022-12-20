@@ -9,6 +9,8 @@ import { lightTheme, darkTheme } from "style/theme";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "style/atoms";
 
+import { ReactQueryDevtools } from "react-query/devtools";
+
 const App = () => {
   const isDark = useRecoilValue(isDarkAtom);
   return (
@@ -17,6 +19,7 @@ const App = () => {
         <GlobalStyle />
         <Router />
       </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={true} />
     </AuthProvider>
   );
 };

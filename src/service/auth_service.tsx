@@ -34,6 +34,7 @@ interface AuthProps {
   email: string;
   password: string;
 }
+
 export const AuthSignUp = ({ email, password }: AuthProps) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
@@ -60,12 +61,12 @@ export const AuthLogIn = ({ email, password }: AuthProps) => {
       const wrongId = "Firebase: Error (auth/user-not-found).";
       const wrongPassword = "Firebase: Error (auth/wrong-password).";
 
-      if (e.message === wrongId) {
+      if (e.message === emptyAll || emptyPassword) {
+        alert("칸을 비울 수 없습니다.");
+      } else if (e.message === wrongId) {
         alert("아이디를 찾을 수 없습니다.");
       } else if (e.message === wrongPassword) {
         alert("비밀번호가 틀렸습니다.");
-      } else if (e.message === emptyAll || emptyPassword) {
-        alert("칸을 비울 수 없습니다.");
       }
     });
 };

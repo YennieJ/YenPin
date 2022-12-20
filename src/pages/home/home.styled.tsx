@@ -90,7 +90,7 @@ export const ThemeButton = styled.button`
   div {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: baseline;
 
     width: 140px;
   }

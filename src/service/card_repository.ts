@@ -78,15 +78,41 @@ export async function FbGetMyCards(userUid: string) {
   });
 }
 
-export const FbSaveCard = (userUid: string, card: CardType) => {
-  set(ref(db, `/card/${card.id}`), {
-    id: card.id,
-    cardName: card.cardName,
-    fileURL: card.fileURL,
-    message: card.message,
-    user: userUid,
+// export const FbSaveCard = (userUid: string, card: CardType) => {
+//   set(ref(db, `/card/${card.id}`), {
+//     id: card.id,
+//     cardName: card.cardName,
+//     fileURL: card.fileURL,
+//     message: card.message,
+//     user: userUid,
+//   });
+// };
+
+// export async function FbSaveCard(userUid: string, card: CardType) {
+//   return new Promise<CardType>((resolve, reject) => {
+//     const newCard = set(ref(db, `/card/${card.id}`), {
+//       id: card.id,
+//       cardName: card.cardName,
+//       fileURL: card.fileURL,
+//       message: card.message,
+//       user: userUid,
+//     });
+//     resolve(newCard as unknown as CardType);
+//   });
+// }
+
+export async function FbSaveCard(userUid: string, card: CardType) {
+  return new Promise<CardType>((resolve, reject) => {
+    const newCard = set(ref(db, `/card/${card.id}`), {
+      id: card.id,
+      cardName: card.cardName,
+      fileURL: card.fileURL,
+      message: card.message,
+      user: userUid,
+    });
+    resolve(newCard as any);
   });
-};
+}
 
 export const FbDeleteCard = (id: number) => {
   remove(ref(db, `/card//${id}`));

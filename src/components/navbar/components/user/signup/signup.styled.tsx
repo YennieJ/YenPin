@@ -3,22 +3,36 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   width: 100%;
   padding: 30px 40px 50px 40px;
   h1 {
-    margin: 0;
+    margin-bottom: 20px;
     font-size: 30px;
   }
 `;
 
-export const InputContainer = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
+`;
 
-  height: 250px;
+export const InputContainers = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  height: 280px;
+`;
+
+export const inputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  p {
+    color: red;
+  }
 `;
 
 export const InputText = styled.div`

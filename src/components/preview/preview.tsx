@@ -32,7 +32,6 @@ const Preview = ({
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = cards!.slice(indexOfFirstItem, indexOfLastItem);
 
-  console.log(cards);
   //페이지 수 구하기
   const pages: number[] = [];
   for (let i = 1; i <= Math.ceil(cards!.length / itemsPerPage); i++) {

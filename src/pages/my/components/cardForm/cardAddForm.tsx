@@ -7,20 +7,20 @@ import imageCompression from "browser-image-compression";
 
 import * as S from "./cardAddForm.styled";
 import DialogBox from "components/dialogBox/dialogBox";
+import { CardType } from "types";
+import { useMutation, useQueryClient } from "react-query";
 
 interface CardProps {
   handleCardModal: () => void;
   onCurrentPage: () => void;
   userUid: string;
-  // setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CardAddForm = ({
   handleCardModal,
   onCurrentPage,
   userUid,
-}: // setLoading,
-CardProps) => {
+}: CardProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -34,6 +34,33 @@ CardProps) => {
 
   const [message, setMessage] = useState<string>("");
   const basicHeight = message ? messageRef.current?.offsetHeight : 32;
+
+  // const UpdateMutation = (newCard: CardType) => {
+  //   const queryClient = useQueryClient();
+  //   return (
+  //     useMutation(() => FbSaveCard(userUid, newCard)),
+  //     {
+  //       onSuccess: () => queryClient.invalidateQueries("myCards"),
+  //     }
+  //   );
+  // };
+  const queryClient = useQueryClient();
+  const UpdateMutation = useMutation({
+    mutationFn: (newCard: CardType) => FbSaveCard(userUid, newCard),
+
+    onSuccess: () => {
+      // 요청이 성공한 경우
+      queryClient.invalidateQueries("myCards");
+    },
+    onError: (error) => {
+      // 요청에 에러가 발생된 경우
+      // console.log("onError");
+    },
+    onSettled: () => {
+      // 요청이 성공하든, 에러가 발생되든 실행하고 싶은 경우
+      // console.log("onSettled");
+    },
+  });
 
   const onCardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,13 +77,12 @@ CardProps) => {
         message: messageTrim,
         user: userUid,
       };
-
-      FbSaveCard(userUid, newCard);
+      UpdateMutation.mutate(newCard);
+      // FbSaveCard(userUid, newCard);
       file && FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
       onCurrentPage();
-      // setLoading(true);
     }
   };
 

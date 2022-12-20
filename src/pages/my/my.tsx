@@ -5,7 +5,7 @@ import { AuthContext } from "service/authContext";
 
 import { FbGetMyCards } from "service/card_repository";
 
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 import Profile from "./components/profile/profile";
 import Preview from "../../components/preview";
@@ -19,7 +19,7 @@ const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
 
-  const { isLoading, data } = useQuery<CardType[]>("allCards", () =>
+  const { isLoading, data } = useQuery<CardType[]>(["myCards"], () =>
     FbGetMyCards(userUid)
   );
 
