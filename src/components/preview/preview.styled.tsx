@@ -6,23 +6,24 @@ interface PreviewStyleProps {
 }
 
 export const PreviewContainer = styled.div<PreviewStyleProps>`
+  border: 1px solid green;
   display: flex;
   flex-direction: column;
 
   height: ${(props) => (props.home ? "100%" : "auto")};
-
   position: relative;
 `;
 
 export const Content = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+
   grid-gap: 10px;
   place-items: center;
 
-  width: 100%;
+  /* width: 100%; */
   height: 90%;
-  padding: 30px 30px 60px 30px;
+  padding: 50px 30px 60px 30px;
 `;
 
 export const Footer = styled.div`

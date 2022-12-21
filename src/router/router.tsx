@@ -20,6 +20,7 @@ const Router = () => {
       <Main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="cards/:id" element={<Home />} />
           <Route path="popular" element={<Popular />} />
           <Route
             path="my"

@@ -54,31 +54,7 @@ const Home = () => {
       <Helmet>
         <title>HOME</title>
       </Helmet>
-      {/* {loading ? (
-        <S.SpinnerContainer>
-          <S.Spinner />
-        </S.SpinnerContainer>
-      ) : allCards.length === 0 ? (
-        <S.CardContainer>
-          <div>첫 카드를 만들어보세요</div>
-          <button onClick={() => gotoMyPage()}>ㅇㅅㅇ</button>
-        </S.CardContainer>
-      ) : (
-        <Preview
-          home={home}
-          cards={allCards}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          setLoading={setLoading}
-        />
-      )}
-      {isLoading ? (
-        <S.SpinnerContainer>
-          <S.Spinner />
-        </S.SpinnerContainer>
-      ) : (
-        data?.map((card: any) => <div key={card.id}>{card.cardName}</div>)
-      )} */}
+
       {data?.length === 0 ? (
         <S.CardContainer>
           <div>첫 카드를 만들어보세요</div>
@@ -94,7 +70,6 @@ const Home = () => {
           cards={data}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          // setLoading={setLoading}
         />
       )}
       <S.ThemeButton onClick={toggleTheme}>
