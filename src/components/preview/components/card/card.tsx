@@ -3,9 +3,6 @@ import React, { useState } from "react";
 import { FbDeleteCard } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
 
-import Detail from "../detail";
-import Edit from "../edit";
-
 import * as S from "./card.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -16,10 +13,12 @@ import { PathMatch, useMatch, useNavigate } from "react-router";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router";
+import BigCard from "../bigCard/bigCard";
 
 export const Box = styled(motion.div)`
   position: relative;
   background-position: center center;
+
   /*  */
   /* background-color: #fff;
   background-size: cover;
@@ -87,24 +86,61 @@ interface CardProps {
   home?: string;
 }
 const Card = ({ card, home }: CardProps) => {
-  const navigate = useNavigate();
+  const [detailModal, setDetailModal] = useState<boolean>(false);
+  const [detailCard, setDetailCard] = useState<CardType>();
 
-  const onBoxClicked = (cardId: number) => {
-    navigate(`/cards/${cardId}`);
+  const [editModal, setEditModal] = useState<boolean>(false);
+
+  const onDetailModal = (card: CardType) => {
+    if (detailModal === false) {
+      document.body.style.overflow = "hidden";
+      setDetailCard(card);
+      setDetailModal(true);
+    } else {
+      document.body.style.overflow = "auto";
+      setDetailModal(false);
+    }
   };
+
+  //수정
+  const onEditModal = (card: CardType) => {
+    if (editModal === false) {
+      document.body.style.overflow = "hidden";
+      setDetailCard(card);
+      setEditModal(true);
+    } else {
+      document.body.style.overflow = "auto";
+      setEditModal(false);
+    }
+  };
+
+  //삭제
+  const deleteCard = (cardId: number) => {
+    if (window.confirm("삭제하시겠습니까?") === true) {
+      FbDeleteCard(cardId);
+      FbDeleteImageFile(cardId);
+    } else return null;
+  };
+
   return (
-    <Box
-      key={card.id}
-      layoutId={card.id + ""}
-      onClick={() => onBoxClicked(card.id)}
-      variants={boxVariants}
-      whileHover="hover"
-      initial="normal"
-      transition={{ type: "tween" }}
-    >
-      <img src={card.fileURL} alt="" />
-      <Info variants={infoVariants}>{card.cardName}</Info>
-    </Box>
+    <AnimatePresence>
+      <Box
+        key={card.id}
+        layoutId={card.id + ""}
+        variants={boxVariants}
+        whileHover="hover"
+        initial="normal"
+        transition={{ type: "tween" }}
+        onClick={() => onDetailModal(card)}
+      >
+        <img src={card.fileURL} alt="" />
+        <Info variants={infoVariants}>{card.cardName}</Info>
+      </Box>
+
+      {detailModal && detailCard && (
+        <BigCard card={detailCard} onModalClose={() => onDetailModal(card)} />
+      )}
+    </AnimatePresence>
   );
 };
 

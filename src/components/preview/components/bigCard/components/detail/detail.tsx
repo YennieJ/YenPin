@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Navigate, PathMatch, useMatch, useNavigate } from "react-router";
 import { CardType } from "types";
+
+import * as S from "./detail.styled";
+import { AuthContext } from "service/authContext";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -104,40 +106,40 @@ export const TextContainer = styled.div`
   }
 `;
 
-interface ITemp {
-  cards?: CardType[];
-  cardPathMatch: PathMatch<string>;
+interface DetailProps {
+  card: CardType;
+  onModalClose: () => void;
+  onEditMode: () => void;
 }
-const Temp = ({ cards, cardPathMatch }: ITemp) => {
-  const navigate = useNavigate();
-  const onOverlayClick = () => navigate("/");
+const Detail = ({ card, onModalClose, onEditMode }: DetailProps) => {
+  const userInfo = useContext(AuthContext);
+  const userUid = userInfo!.uid;
+  const { cardName, fileURL, message, user } = card;
 
-  const clickedCard =
-    cardPathMatch.params.id &&
-    cards?.find((card) => String(card.id) === cardPathMatch.params.id);
   return (
     <>
-      <Overlay
-        onClick={onOverlayClick}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      ></Overlay>
-      <BigMovie layoutId={cardPathMatch.params.id}>
-        {clickedCard && (
-          <CardForm>
-            <Content>
-              <ImgContainer>
-                <img src={clickedCard.fileURL} alt="" />
-              </ImgContainer>
-              <TextContainer>
-                <div>{clickedCard.cardName}</div>
-                {clickedCard.message && <pre>{clickedCard.message}</pre>}
-              </TextContainer>
-            </Content>
-          </CardForm>
-        )}
-      </BigMovie>
+      <S.Div>
+        <S.Content>
+          <S.ImgContainer>
+            <img alt="" src={fileURL} />
+          </S.ImgContainer>
+          <S.TextContainer>
+            <div>{cardName}</div>
+            {message && <pre>{message}</pre>}
+          </S.TextContainer>
+        </S.Content>
+        <S.ButtonContainer>
+          <S.Button type="button" onClick={onModalClose}>
+            뒤로
+          </S.Button>
+          {userUid === user && (
+            <S.Button type="button" onClick={onEditMode}>
+              수정
+            </S.Button>
+          )}
+        </S.ButtonContainer>
+      </S.Div>
     </>
   );
 };
-export default Temp;
+export default Detail;

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
+import { motion } from "framer-motion";
 
-export const Backdrop = styled.div`
+export const Backdrop = styled(motion.div)`
   display: flex;
   place-items: center;
   position: fixed;
@@ -17,7 +18,7 @@ export const Backdrop = styled.div`
 interface DialogBoxProps {
   preview?: boolean;
 }
-export const DialogBox = styled.dialog<DialogBoxProps>`
+export const DialogBox = styled(motion.dialog)<DialogBoxProps>`
   display: flex;
 
   border: none;

@@ -9,6 +9,15 @@ export const CardForm = styled.form`
   width: 100%;
   padding: 20px;
 `;
+export const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: space-around;
+
+  width: 100%;
+  padding: 20px;
+`;
 
 export const Content = styled.div`
   display: flex;

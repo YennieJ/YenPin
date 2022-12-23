@@ -7,6 +7,13 @@ import {
   query,
   orderByChild,
   equalTo,
+  limitToFirst,
+  limitToLast,
+  startAfter,
+  startAt,
+  orderByKey,
+  orderByValue,
+  endAt,
 } from "firebase/database";
 
 import { CardType } from "types";
@@ -26,6 +33,7 @@ const db = getDatabase();
 export async function FbGetAllCards() {
   return new Promise<CardType[]>((resolve) => {
     const cards = ref(db, "card");
+
     onValue(cards, (snapshot) => {
       const data = snapshot.val();
       if (!data) {
@@ -56,6 +64,21 @@ export async function FbGetAllCards() {
 //   });
 // };
 
+export const FbGetSearch = (value: string) => {
+  return new Promise((resolve) => {
+    const search = query(
+      ref(db, "card"),
+      orderByChild("cardName"),
+      startAt(value)
+    );
+
+    onValue(search, (snapshot) => {
+      const data = snapshot.val();
+      resolve(data);
+    });
+  });
+};
+
 export async function FbGetMyCards(userUid: string) {
   return new Promise<CardType[]>((resolve) => {
     const mostViewedPosts = query(
@@ -63,7 +86,6 @@ export async function FbGetMyCards(userUid: string) {
       orderByChild("user"),
       equalTo(userUid)
     );
-
     onValue(mostViewedPosts, (snapshot) => {
       const data = snapshot.val();
       if (!data) {

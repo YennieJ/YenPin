@@ -11,7 +11,7 @@ import { CardType } from "types";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import { PathMatch, useMatch, useNavigate } from "react-router";
-import Temp from "./components/temp";
+import Temp from "./components/bigCard/components/detail/detail";
 
 interface PreviewProps {
   currentPage: number;
@@ -42,38 +42,30 @@ const Preview = ({
     pages.push(i);
   }
 
-  ////////////////////////////////////
-  const cardPathMatch: PathMatch<string> | null = useMatch("/cards/:id");
-
   return (
     <S.PreviewContainer home={home}>
       <S.Content>
         {currentItems.map((card: CardType) => (
           <Card key={card.id} card={card} home={home} />
         ))}
-        <AnimatePresence>
-          {cardPathMatch ? (
-            <Temp cards={cards} cardPathMatch={cardPathMatch} />
-          ) : null}
-        </AnimatePresence>
 
-        {/* {!home && handleCardModal && (
+        {!home && handleCardModal && (
           <S.NewCardButton onClick={() => handleCardModal()}>
             <div>
               <FontAwesomeIcon icon={faPlus} />
             </div>
             <div>새로운 카드</div>
           </S.NewCardButton>
-        )} */}
+        )}
       </S.Content>
 
-      <S.Footer>
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pages={pages}
-        />
-      </S.Footer>
+      {/* <S.Footer> */}
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        pages={pages}
+      />
+      {/* </S.Footer> */}
     </S.PreviewContainer>
   );
 };
