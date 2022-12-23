@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { FbDeleteCard } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
@@ -8,12 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
-import { PathMatch, useMatch, useNavigate } from "react-router";
 
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router";
 import BigCard from "../bigCard/bigCard";
+import { AuthContext } from "service/authContext";
 
 export const Box = styled(motion.div)`
   position: relative;
@@ -55,12 +55,30 @@ export const Info = styled(motion.div)`
   font-size: 18px;
   background-color: ${(props) => props.theme.contentBgColor};
 `;
+
+const DeletButton = styled(motion.button)`
+  position: absolute;
+  opacity: 0;
+
+  top: 10px;
+  left: 10px;
+  width: 35px;
+  height: 35px;
+  border: 1px solid ${(props) => props.theme.hoverColor};
+  padding: 5px;
+  font-size: 18px;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.contentBgColor};
+
+  border-radius: 50%;
+`;
 const boxVariants = {
   normal: {
     scale: 1,
   },
   hover: {
-    zIndex: 99,
+    //zindex 꼭 사용해야되는건가.. 왜때문이지
+    zIndex: 9,
     scale: 1.3,
     transition: {
       delay: 0.5,
@@ -86,12 +104,13 @@ interface CardProps {
   home?: string;
 }
 const Card = ({ card, home }: CardProps) => {
+  const userInfo = useContext(AuthContext);
+  const userUid = userInfo!.uid;
+
   const [detailModal, setDetailModal] = useState<boolean>(false);
   const [detailCard, setDetailCard] = useState<CardType>();
 
-  const [editModal, setEditModal] = useState<boolean>(false);
-
-  const onDetailModal = (card: CardType) => {
+  const onBigCard = (card: CardType) => {
     if (detailModal === false) {
       document.body.style.overflow = "hidden";
       setDetailCard(card);
@@ -99,18 +118,6 @@ const Card = ({ card, home }: CardProps) => {
     } else {
       document.body.style.overflow = "auto";
       setDetailModal(false);
-    }
-  };
-
-  //수정
-  const onEditModal = (card: CardType) => {
-    if (editModal === false) {
-      document.body.style.overflow = "hidden";
-      setDetailCard(card);
-      setEditModal(true);
-    } else {
-      document.body.style.overflow = "auto";
-      setEditModal(false);
     }
   };
 
@@ -131,14 +138,26 @@ const Card = ({ card, home }: CardProps) => {
         whileHover="hover"
         initial="normal"
         transition={{ type: "tween" }}
-        onClick={() => onDetailModal(card)}
+        onClick={() => onBigCard(card)}
       >
         <img src={card.fileURL} alt="" />
         <Info variants={infoVariants}>{card.cardName}</Info>
+        {userUid === card.user && (
+          <DeletButton
+            variants={infoVariants}
+            // e: React.MouseEvent
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteCard(card.id);
+            }}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </DeletButton>
+        )}
       </Box>
 
       {detailModal && detailCard && (
-        <BigCard card={detailCard} onModalClose={() => onDetailModal(card)} />
+        <BigCard card={detailCard} onModalClose={() => onBigCard(card)} />
       )}
     </AnimatePresence>
   );
