@@ -56,11 +56,11 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
 
     onSuccess: () => {
       // 요청이 성공한 경우
-      queryClient.invalidateQueries("myCards");
+      queryClient.invalidateQueries(["myCards"]);
     },
     onError: (error) => {
       // 요청에 에러가 발생된 경우
-      // console.log("onError");
+      // console.log(error);
     },
     onSettled: () => {
       // 요청이 성공하든, 에러가 발생되든 실행하고 싶은 경우
@@ -86,7 +86,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
     } else {
       UpdateMutation.mutate(newCard);
       file && FbUploadImageFile(file, id);
-      toggleEdit();
+      closeModal();
     }
   };
 

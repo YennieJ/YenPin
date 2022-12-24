@@ -15,6 +15,7 @@ import * as S from "./my.styled";
 
 import { CardType } from "types";
 
+const PATH = "MY_PAGE";
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
@@ -22,7 +23,6 @@ const My = () => {
   const { isLoading, data } = useQuery<CardType[]>(["myCards"], () =>
     FbGetMyCards(userUid)
   );
-
   // const [loading, setLoading] = useState<boolean>(true);
   // const [myCards, setMyCards] = useState<CardType[]>([]);
 
@@ -72,45 +72,19 @@ const My = () => {
         </S.SpinnerContainer>
       ) : (
         <Preview
+          PATH={PATH}
           cards={data}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          // setLoading={setLoading}
           handleCardModal={handleCardModal}
         />
       )}
-
-      {/* {loading ? (
-        <S.SpinnerContainer>
-          <S.Spinner />
-        </S.SpinnerContainer>
-      ) : (
-        <S.Content>
-          {myCards.length === 0 ? (
-            <S.CardContainer>
-              <div>내가 만든 카드가 여기에 보관됩니다.</div>
-              <button onClick={() => handleCardModal()}>
-                새로운 카드 만들기
-              </button>
-            </S.CardContainer>
-          ) : (
-            <Preview
-              cards={myCards}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              handleCardModal={handleCardModal}
-              setLoading={setLoading}
-            />
-          )}
-        </S.Content>
-      )} */}
 
       {cardAddModal && (
         <CardAddForm
           handleCardModal={handleCardModal}
           onCurrentPage={() => setCurrentPage(1)}
           userUid={userUid}
-          // setLoading={setLoading}
         />
       )}
     </>

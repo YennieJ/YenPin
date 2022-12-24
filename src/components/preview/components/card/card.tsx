@@ -101,11 +101,10 @@ const infoVariants = {
 
 interface CardProps {
   card: CardType;
-  home?: string;
 }
-const Card = ({ card, home }: CardProps) => {
+const Card = ({ card }: CardProps) => {
   const userInfo = useContext(AuthContext);
-  const userUid = userInfo!.uid;
+  const userUid = userInfo?.uid;
 
   const [detailModal, setDetailModal] = useState<boolean>(false);
   const [detailCard, setDetailCard] = useState<CardType>();
@@ -142,6 +141,7 @@ const Card = ({ card, home }: CardProps) => {
       >
         <img src={card.fileURL} alt="" />
         <Info variants={infoVariants}>{card.cardName}</Info>
+
         {userUid === card.user && (
           <DeletButton
             variants={infoVariants}

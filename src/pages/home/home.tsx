@@ -12,8 +12,6 @@ import { CardType } from "types";
 import { useQuery } from "react-query";
 
 const Home = () => {
-  const PATH = "home";
-
   const navigate = useNavigate();
 
   const { isLoading, data } = useQuery<CardType[]>("allCards", FbGetAllCards);
@@ -41,7 +39,6 @@ const Home = () => {
         </S.SpinnerContainer>
       ) : (
         <Preview
-          home={PATH}
           cards={data}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

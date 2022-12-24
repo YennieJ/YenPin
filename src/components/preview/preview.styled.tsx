@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { motion } from "framer-motion";
 interface PreviewStyleProps {
-  home?: string;
+  PATH?: string;
 }
 
 export const PreviewContainer = styled.div<PreviewStyleProps>`
@@ -10,7 +10,7 @@ export const PreviewContainer = styled.div<PreviewStyleProps>`
   display: flex;
   flex-direction: column;
 
-  height: ${(props) => (props.home ? "100%" : "auto")};
+  height: ${(props) => (props.PATH ? "100%" : "auto")};
   position: relative;
 `;
 

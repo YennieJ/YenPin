@@ -35,22 +35,13 @@ const CardAddForm = ({
   const [message, setMessage] = useState<string>("");
   const basicHeight = message ? messageRef.current?.offsetHeight : 32;
 
-  // const UpdateMutation = (newCard: CardType) => {
-  //   const queryClient = useQueryClient();
-  //   return (
-  //     useMutation(() => FbSaveCard(userUid, newCard)),
-  //     {
-  //       onSuccess: () => queryClient.invalidateQueries("myCards"),
-  //     }
-  //   );
-  // };
   const queryClient = useQueryClient();
   const UpdateMutation = useMutation({
     mutationFn: (newCard: CardType) => FbSaveCard(userUid, newCard),
 
     onSuccess: () => {
       // 요청이 성공한 경우
-      queryClient.invalidateQueries("myCards");
+      queryClient.invalidateQueries(["myCards"]);
     },
     onError: (error) => {
       // 요청에 에러가 발생된 경우
@@ -78,7 +69,6 @@ const CardAddForm = ({
         user: userUid,
       };
       UpdateMutation.mutate(newCard);
-      // FbSaveCard(userUid, newCard);
       file && FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
@@ -134,8 +124,6 @@ const CardAddForm = ({
   const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
     setTextLength(messageRef.current!.value.length);
-    // messageRef.current!.style.height = "auto"; //초기화를 위해
-    // messageRef.current!.style.height = messageRef.current!.scrollHeight + "px";
   };
 
   return (
@@ -176,7 +164,6 @@ const CardAddForm = ({
               maxLength={200}
               ref={messageRef}
               onChange={textHeightHandler}
-              // style={{ height: basicHeight + "px" }}
             />
             <span>{textLength}/200</span>
           </S.TextContainer>
