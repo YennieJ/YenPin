@@ -16,7 +16,7 @@ const Search = () => {
       setCardAddModal(false);
     }
   };
-
+  console.log(state);
   return (
     <>
       {

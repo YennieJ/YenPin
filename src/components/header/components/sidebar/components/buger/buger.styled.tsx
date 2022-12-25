@@ -11,7 +11,7 @@ export const StyledBurger = styled.div<Props>`
   justify-content: space-around;
   align-items: end;
 
-  height: 100%;
+  height: 50px;
   padding: 10px 10px;
 
   cursor: pointer;
