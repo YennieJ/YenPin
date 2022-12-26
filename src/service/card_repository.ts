@@ -131,6 +131,7 @@ export async function FbSaveCard(userUid: string, card: CardType) {
       fileURL: card.fileURL,
       message: card.message,
       user: userUid,
+      thumbs: "",
     });
     resolve(newCard as any);
   });

@@ -6,7 +6,6 @@ interface PreviewStyleProps {
 }
 
 export const PreviewContainer = styled.div<PreviewStyleProps>`
-  border: 1px solid green;
   display: flex;
   flex-direction: column;
 
@@ -21,7 +20,6 @@ export const Content = styled.div`
   grid-gap: 10px;
   place-items: center;
 
-  /* width: 100%; */
   height: 90%;
   padding: 50px 30px 60px 30px;
 `;

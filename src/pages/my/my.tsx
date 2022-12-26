@@ -5,7 +5,7 @@ import { AuthContext } from "service/authContext";
 
 import { FbGetMyCards } from "service/card_repository";
 
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 
 import Profile from "./components/profile/profile";
 import Preview from "../../components/preview";

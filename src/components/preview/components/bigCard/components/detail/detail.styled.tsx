@@ -39,7 +39,7 @@ export const ImgContainer = styled.div`
     width: 350px;
     height: 350px;
     border: 1px solid gray;
-    border-radius: 20px;
+    border-radius: 10px;
   }
 `;
 

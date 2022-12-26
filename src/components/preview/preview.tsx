@@ -8,10 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
-import styled from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
-import { PathMatch, useMatch, useNavigate } from "react-router";
-import Temp from "./components/bigCard/components/detail/detail";
 
 interface PreviewProps {
   currentPage: number;
@@ -19,7 +15,6 @@ interface PreviewProps {
   cards?: CardType[];
   PATH?: string;
   handleCardModal?: () => void;
-  // setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const itemsPerPage: number = 3;

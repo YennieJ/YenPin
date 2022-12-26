@@ -8,7 +8,6 @@ import ProtectRoute from "router/protectRoute";
 
 import styled from "styled-components";
 import Search from "pages/search/search";
-import Footer from "components/footer/footer";
 import Header from "components/header";
 
 const Main = styled.div`
@@ -20,7 +19,7 @@ const Router = () => {
     <BrowserRouter>
       <Header />
 
-      <Main>
+      <Main className="ROUTER">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="cards/:id" element={<Home />} />
@@ -34,16 +33,16 @@ const Router = () => {
             }
           />
           <Route
-            path="/search"
+            path="search"
             element={
               <ProtectRoute>
                 <Search />
               </ProtectRoute>
             }
           />
+          <Route path="search/:id" element={<Home />} />
         </Routes>
       </Main>
-      <Footer />
     </BrowserRouter>
   );
 };

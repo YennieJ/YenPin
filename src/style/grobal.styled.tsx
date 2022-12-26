@@ -40,10 +40,11 @@ html,body{
 }
 #root{
 	height: 100%;
+	position:relative;
 }
 body {
 	line-height: 1;
-	padding: 20px 10px;
+	padding: 20px 10px 60px 10px;
 	font-family: 'PT Sans Narrow', sans-serif;
 
 	background-color: ${(props) => props.theme.bgColor};

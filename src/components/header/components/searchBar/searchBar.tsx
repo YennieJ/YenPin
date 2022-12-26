@@ -19,10 +19,10 @@ const SearchBar = () => {
     const keyword = data.keyword;
     if (keyword.length > 0) {
       FbGetAllCards().then((response) => {
-        const seachValue = response.filter((card) =>
+        const searchValue = response.filter((card) =>
           card.cardName.includes(keyword)
         );
-        navigate("/search", { state: seachValue });
+        navigate("/search", { state: { searchValue, keyword } });
       });
       setValue("keyword", "");
     }
@@ -68,7 +68,6 @@ const SearchBar = () => {
             <FontAwesomeIcon icon={faX} />
           </S.DeleteButton>
         )}
-        <button hidden>검색</button>
       </S.Container>
     </>
   );
