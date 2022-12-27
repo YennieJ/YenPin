@@ -14,6 +14,9 @@ import {
   orderByKey,
   orderByValue,
   endAt,
+  update,
+  push,
+  child,
 } from "firebase/database";
 
 import { CardType } from "types";
@@ -100,6 +103,17 @@ export async function FbGetMyCards(userUid: string) {
   });
 }
 
+export const FbThumbs = () => {
+  return new Promise((resolve) => {
+    const search = query(ref(db, "card"), orderByChild("thumbs"));
+
+    onValue(search, (snapshot) => {
+      const data = snapshot.val();
+      resolve(data);
+    });
+  });
+};
+
 // export const FbSaveCard = (userUid: string, card: CardType) => {
 //   set(ref(db, `/card/${card.id}`), {
 //     id: card.id,
@@ -131,7 +145,45 @@ export async function FbSaveCard(userUid: string, card: CardType) {
       fileURL: card.fileURL,
       message: card.message,
       user: userUid,
-      thumbs: "",
+      likeCount: 0,
+      likeUid: [],
+    });
+    resolve(newCard as any);
+  });
+}
+
+export async function FbLike(card: CardType) {
+  return new Promise((resolve) => {
+    const thumbs = update(ref(db, `/card/${card.id}`), {
+      likeCount: +1,
+      likeUid: card.user,
+    });
+
+    resolve(thumbs as any);
+  });
+}
+
+export async function FbDislike(card: CardType) {
+  return new Promise((resolve) => {
+    const search = query(
+      ref(db, "card"),
+      orderByChild("likeUid"),
+      equalTo(card.user)
+    );
+
+    // search.remove()
+
+    const temp = remove(ref(db, `/card/${card.id}/likeUid/${card.user}`));
+    resolve(temp as any);
+  });
+}
+export async function FbUpdateCard(card: CardType) {
+  return new Promise<CardType>((resolve, reject) => {
+    const newCard = update(ref(db, `/card/${card.id}`), {
+      id: card.id,
+      cardName: card.cardName,
+      fileURL: card.fileURL,
+      message: card.message,
     });
     resolve(newCard as any);
   });

@@ -9,6 +9,7 @@ import ProtectRoute from "router/protectRoute";
 import styled from "styled-components";
 import Search from "pages/search/search";
 import Header from "components/header";
+import Temp from "pages/my/components/temp";
 
 const Main = styled.div`
   height: calc(100% - 50px);
@@ -18,8 +19,8 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Header />
-
-      <Main className="ROUTER">
+      <Temp />
+      {/* <Main className="ROUTER">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="cards/:id" element={<Home />} />
@@ -42,7 +43,7 @@ const Router = () => {
           />
           <Route path="search/:id" element={<Home />} />
         </Routes>
-      </Main>
+      </Main> */}
     </BrowserRouter>
   );
 };

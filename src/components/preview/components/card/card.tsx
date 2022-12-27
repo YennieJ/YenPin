@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "service/authContext";
 
-import { FbDeleteCard } from "service/card_repository";
+import { FbDeleteCard, FbDislike, FbLike } from "service/card_repository";
 import { FbDeleteImageFile } from "service/img_uploader";
 
 import BigCard from "../bigCard/bigCard";
@@ -47,7 +47,7 @@ const Card = ({ card }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
-  const { cardName, fileURL, message, id, user } = card;
+  const { cardName, fileURL, message, id, user, likeCount, likeUid } = card;
 
   const [detailModal, setDetailModal] = useState<boolean>(false);
   const [detailCard, setDetailCard] = useState<CardType>();
@@ -70,9 +70,22 @@ const Card = ({ card }: CardProps) => {
       FbDeleteImageFile(cardId);
     } else return null;
   };
+  const [temp, setTemp] = useState(false);
+
+  const onClick = () => {
+    //userUid가 있어야 작동하게 짜야돼
+    if (likeUid?.includes(userUid)) {
+      setTemp(true);
+      FbDislike(card);
+      console.log("들어있음");
+    } else {
+      FbLike(card);
+      console.log("좋아요함");
+    }
+  };
 
   return (
-    <AnimatePresence>
+    <>
       <S.Box
         key={id}
         layoutId={id + ""}
@@ -97,11 +110,15 @@ const Card = ({ card }: CardProps) => {
           </S.DeletButton>
         )}
       </S.Box>
+      <button onClick={onClick}>좋아요</button>
+      <div style={temp ? { border: "1px solid green" } : { fontSize: "50px" }}>
+        {likeCount}
+      </div>
 
       {detailModal && detailCard && (
         <BigCard card={detailCard} onModalClose={() => onBigCard(card)} />
       )}
-    </AnimatePresence>
+    </>
   );
 };
 

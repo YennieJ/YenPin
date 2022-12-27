@@ -36,7 +36,6 @@ const Preview = ({
   for (let i = 1; i <= Math.ceil(cards!.length / itemsPerPage); i++) {
     pages.push(i);
   }
-
   return (
     <S.PreviewContainer PATH={PATH}>
       <S.Content>

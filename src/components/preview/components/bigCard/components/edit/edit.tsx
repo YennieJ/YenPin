@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-import { FbSaveCard } from "service/card_repository";
+import { FbSaveCard, FbUpdateCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
 
 import imageCompression from "browser-image-compression";
@@ -52,10 +52,11 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
 
   const queryClient = useQueryClient();
   const UpdateMutation = useMutation({
-    mutationFn: (newCard: CardType) => FbSaveCard(user, newCard),
+    mutationFn: (newCard: CardType) => FbUpdateCard(newCard),
 
     onSuccess: () => {
       // 요청이 성공한 경우
+      queryClient.invalidateQueries(["allCards"]);
       queryClient.invalidateQueries(["myCards"]);
     },
     onError: (error) => {
@@ -86,7 +87,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
     } else {
       UpdateMutation.mutate(newCard);
       file && FbUploadImageFile(file, id);
-      closeModal();
+      onModalClose();
     }
   };
 

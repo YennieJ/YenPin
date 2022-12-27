@@ -4,5 +4,6 @@ export interface CardType {
   fileURL: string;
   message?: string;
   user: string;
-  thumbs?: string;
+  likeCount?: number;
+  likeUid?: any;
 }
