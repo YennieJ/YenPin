@@ -7,3 +7,13 @@ export interface CardType {
   likeCount?: number;
   likeUid?: any;
 }
+
+export interface Type {
+  id: number;
+  image: string;
+  message: string;
+  title: string;
+  user: string;
+  likeCount?: number;
+  likeUids?: string[];
+}

@@ -9,18 +9,25 @@ import ProtectRoute from "router/protectRoute";
 import styled from "styled-components";
 import Search from "pages/search/search";
 import Header from "components/header";
-import Temp from "pages/my/components/temp";
+
+import NewCreateCrad from "pages/update/newCreateCard";
+import NewMy from "pages/update/newMy";
 
 const Main = styled.div`
   height: calc(100% - 50px);
+`;
+
+const AddButtom = styled(Link)`
+  border: 1px solid red;
+  font-size: 30px;
 `;
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Temp />
-      {/* <Main className="ROUTER">
+
+      <Main className="ROUTER">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="cards/:id" element={<Home />} />
@@ -43,7 +50,7 @@ const Router = () => {
           />
           <Route path="search/:id" element={<Home />} />
         </Routes>
-      </Main> */}
+      </Main>
     </BrowserRouter>
   );
 };
