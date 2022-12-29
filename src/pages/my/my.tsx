@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 import { AuthContext } from "service/authContext";
@@ -13,37 +13,20 @@ import CardAddForm from "./components/cardForm";
 
 import * as S from "./my.styled";
 
-import { CardType } from "types";
+import { CardType, Type } from "types";
+import { GetMyCard } from "service/card";
 
 const PATH = "MY_PAGE";
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
 
-  const { isLoading, data } = useQuery<CardType[]>(["myCards"], () =>
-    FbGetMyCards(userUid)
+  const { isLoading, data } = useQuery<Type[]>(["myCards"], () =>
+    GetMyCard(userUid)
   );
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [myCards, setMyCards] = useState<CardType[]>([]);
 
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  // useEffect(() => {
-  //   const loadingCard = async () => {
-  //     await FbGetMyCards(userUid)
-  //       .then((card: unknown) => {
-  //         const dbCard = Object.values(card as CardType)
-  //           .reverse()
-  //           .map((data) => data);
-  //         setMyCards(dbCard);
-  //       })
-  //       .catch(() => setMyCards([]));
-
-  //     setLoading(false);
-  //   };
-  //   loadingCard();
-  // }, [userUid, loading]);
 
   const handleCardModal = () => {
     if (cardAddModal === false) {
@@ -61,6 +44,7 @@ const My = () => {
         <title>my</title>
       </Helmet>
       <Profile />
+
       {data?.length === 0 ? (
         <S.CardContainer>
           <div>내가 만든 카드가 여기에 보관됩니다.</div>

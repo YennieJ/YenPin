@@ -8,10 +8,32 @@ import BigCard from "../bigCard/bigCard";
 
 import * as S from "./card.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence } from "framer-motion";
 
-import { CardType } from "types";
+import { CardType, Type } from "types";
+import { CountLikes, DeleteCard } from "service/card";
+
+import styled from "styled-components";
+import {
+  arrayUnion,
+  doc,
+  getFirestore,
+  setDoc,
+  increment,
+  arrayRemove,
+} from "firebase/firestore";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "react-query";
+const db = getFirestore();
+
+interface Props {
+  isActive?: boolean;
+}
+const LikeButton = styled.div<Props>`
+  cursor: pointer;
+  border: 5px solid ${(props) => (props.isActive ? "red" : "black")};
+`;
 
 const boxVariants = {
   normal: {
@@ -41,18 +63,18 @@ const infoVariants = {
 };
 
 interface CardProps {
-  card: CardType;
+  card: Type;
 }
 const Card = ({ card }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
-  const { cardName, fileURL, message, id, user, likeCount, likeUid } = card;
+  const { id, image, title, user, likeCount } = card;
 
   const [detailModal, setDetailModal] = useState<boolean>(false);
-  const [detailCard, setDetailCard] = useState<CardType>();
+  const [detailCard, setDetailCard] = useState<Type>();
 
-  const onBigCard = (card: CardType) => {
+  const onBigCard = (card: Type) => {
     if (detailModal === false) {
       document.body.style.overflow = "hidden";
       setDetailCard(card);
@@ -66,22 +88,25 @@ const Card = ({ card }: CardProps) => {
   //삭제
   const deleteCard = (cardId: number) => {
     if (window.confirm("삭제하시겠습니까?") === true) {
-      FbDeleteCard(cardId);
-      FbDeleteImageFile(cardId);
+      DeleteCard(cardId);
     } else return null;
   };
-  const [temp, setTemp] = useState(false);
 
-  const onClick = () => {
-    //userUid가 있어야 작동하게 짜야돼
-    if (likeUid?.includes(userUid)) {
-      setTemp(true);
-      FbDislike(card);
-      console.log("들어있음");
-    } else {
-      FbLike(card);
-      console.log("좋아요함");
-    }
+  const likeUid = card?.likeUids.includes(card.user);
+
+  const queryClient = useQueryClient();
+  const UpdateMutation = useMutation({
+    mutationFn: (card: Type) => CountLikes(card),
+
+    onSuccess: () => {
+      // 요청이 성공한 경우
+      queryClient.invalidateQueries(["myCards"]);
+      queryClient.invalidateQueries(["allCards"]);
+    },
+  });
+
+  const onLikes = () => {
+    UpdateMutation.mutate(card);
   };
 
   return (
@@ -95,8 +120,8 @@ const Card = ({ card }: CardProps) => {
         transition={{ type: "tween" }}
         onClick={() => onBigCard(card)}
       >
-        <img src={fileURL} alt="" />
-        <S.Info variants={infoVariants}>{cardName}</S.Info>
+        <img src={image} alt="" />
+        <S.Info variants={infoVariants}>{title}</S.Info>
         {userUid === user && (
           <S.DeletButton
             variants={infoVariants}
@@ -110,14 +135,17 @@ const Card = ({ card }: CardProps) => {
           </S.DeletButton>
         )}
       </S.Box>
-      <button onClick={onClick}>좋아요</button>
-      <div style={temp ? { border: "1px solid green" } : { fontSize: "50px" }}>
-        {likeCount}
-      </div>
-
+      <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} />
       {detailModal && detailCard && (
         <BigCard card={detailCard} onModalClose={() => onBigCard(card)} />
       )}
+
+      <>
+        <LikeButton onClick={onLikes} isActive={likeUid}>
+          likes
+        </LikeButton>
+        <span>{card.likeCount}</span>
+      </>
     </>
   );
 };

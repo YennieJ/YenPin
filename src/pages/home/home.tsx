@@ -8,20 +8,20 @@ import Preview from "components/preview";
 
 import * as S from "./home.styled";
 
-import { CardType } from "types";
+import { CardType, Type } from "types";
 import { useQuery } from "react-query";
+import { GetCard } from "service/card";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const { isLoading, data } = useQuery<CardType[]>("allCards", FbGetAllCards);
+  const { isLoading, data } = useQuery<Type[]>("allCards", GetCard);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const gotoMyPage = () => {
     navigate("/my");
   };
-
   return (
     <>
       <Helmet>

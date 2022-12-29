@@ -14,6 +14,7 @@ export interface Type {
   message: string;
   title: string;
   user: string;
-  likeCount?: number;
-  likeUids?: string[];
+  likeCount: number;
+  likeUids: string[];
+  createdAt?: Date;
 }

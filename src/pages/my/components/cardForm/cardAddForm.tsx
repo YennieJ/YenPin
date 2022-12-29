@@ -7,10 +7,10 @@ import imageCompression from "browser-image-compression";
 
 import * as S from "./cardAddForm.styled";
 import DialogBox from "components/dialogBox/dialogBox";
-import { CardType } from "types";
+import { CardType, Type } from "types";
 import { useMutation, useQueryClient } from "react-query";
 import { useForm } from "react-hook-form";
-import { SaveCard } from "service/card";
+import { ImgConvert, SaveCard } from "service/card";
 import { useNavigate } from "react-router";
 
 interface CardProps {
@@ -19,7 +19,7 @@ interface CardProps {
   userUid: string;
 }
 
-interface ICreateForm {
+export interface ICardForm {
   image: FileList;
   title: string;
   message: string;
@@ -34,146 +34,111 @@ const CardAddForm = ({
   const fileRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  //firebase upload를 위한
-  // const [file, setFile] = useState<File>();
-  // const [fileURL, setFileURL] = useState<string>("");
+  const [fileURL, setFileURL] = useState<string>("");
 
   const [textLength, setTextLength] = useState<number>(0);
 
-  // const [message, setMessage] = useState<string>("");
-  // const basicHeight = message ? messageRef.current?.offsetHeight : 32;
+  const [message, setMessage] = useState<string>("");
 
-  // const queryClient = useQueryClient();
-  // const UpdateMutation = useMutation({
-  //   mutationFn: (newCard: CardType) => FbSaveCard(userUid, newCard),
+  const queryClient = useQueryClient();
+  const UpdateMutation = useMutation({
+    mutationFn: (newCard: Type) => SaveCard(newCard),
 
-  //   onSuccess: () => {
-  //     // 요청이 성공한 경우
-  //     queryClient.invalidateQueries(["myCards"]);
-  //   },
-  //   onError: (error) => {
-  //     // 요청에 에러가 발생된 경우
-  //     // console.log("onError");
-  //   },
-  //   onSettled: () => {
-  //     // 요청이 성공하든, 에러가 발생되든 실행하고 싶은 경우
-  //     // console.log("onSettled");
-  //   },
-  // });
+    onSuccess: () => {
+      // 요청이 성공한 경우
+      queryClient.invalidateQueries(["myCards"]);
+    },
+    onError: (error) => {
+      // 요청에 에러가 발생된 경우
+      // console.log("onError");
+    },
+    onSettled: () => {
+      // 요청이 성공하든, 에러가 발생되든 실행하고 싶은 경우
+      // console.log("onSettled");
+    },
+  });
 
-  // const onCardSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
+  const onCardSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  //   if (cardNameRef.current!.value === "" || fileRef.current!.value === "") {
-  //     alert("카드 이름과 파일은 비울 수 없습니다.");
-  //   } else {
-  //     const id = new Date().getTime();
-  //     const messageTrim = message!.trim();
-  //     const newCard = {
-  //       id: id,
-  //       cardName: cardNameRef.current!.value,
-  //       fileURL: fileURL,
-  //       message: messageTrim,
-  //       user: userUid,
-  //     };
-  //     UpdateMutation.mutate(newCard);
-  //     file && FbUploadImageFile(file, id);
-  //     formRef.current?.reset();
-  //     handleCardModal();
-  //     onCurrentPage();
-  //   }
-  // };
-
-  // const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const {
-  //     target: { files },
-  //   } = e;
-  //   const file = files![0];
-  //   // setFile(file);
-  //   const options = {
-  //     maxSizeMB: 2,
-  //     maxWidthOrHeight: 1920,
-  //   };
-
-  //   try {
-  //     const compressedFile = await imageCompression(file, options);
-  //     setFile(compressedFile);
-
-  //     // resize된 이미지의 url을 받아 fileUrl에 저장
-  //     const promise = imageCompression.getDataUrlFromFile(compressedFile);
-  //     promise.then((result) => {
-  //       setFileURL(result);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  // imageCompression(file, {
-  //   maxSizeMB: 1,
-  //   maxWidthOrHeight: 1920,
-  // }).then((compressedFile) => {
-  //   const newFile = new File([compressedFile], file.name, {
-  //     type: file.type,
-  //   });
-  //   console.log(newFile);
-  // });
-
-  // const reader = new FileReader();
-  // reader.readAsDataURL(file);
-  // reader.onloadend = (event: ProgressEvent<FileReader>) => {
-  //   setFileURL(event.target!.result as string);
-  // };
-  // };
-
-  // const onButtonClick = () => {
-  //   fileRef.current?.click();
-  // };
-
-  // const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   setMessage(e.target.value);
-  //   setTextLength(messageRef.current!.value.length);
-  // };
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-    setError,
-  } = useForm<ICreateForm>();
-
-  const [fileURL, setFileURL] = useState<string>("");
-  const image = watch("image");
-  const message = watch("message");
-
-  useEffect(() => {
-    if (image && image.length > 0) {
-      const file = image[0];
-      setFileURL(URL.createObjectURL(file));
-    }
-  }, [image]);
-
-  const onValid = async (data: any) => {
-    const id = new Date().getTime();
-
-    if (!fileURL) {
-      setError("image", { message: "Select your card image" });
+    if (cardNameRef.current!.value === "" || fileRef.current!.value === "") {
+      alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
+      const id = new Date().getTime();
+      const messageTrim = message!.trim();
       const newCard = {
         id: id,
+        title: cardNameRef.current!.value,
         image: fileURL,
-        title: data.title,
-        message: data.message.trim(),
+        message: messageTrim,
         user: userUid,
+        likeCount: 0,
+        likeUids: [],
       };
-      SaveCard(newCard);
+      UpdateMutation.mutate(newCard);
+      // file && FbUploadImageFile(file, id);
+      formRef.current?.reset();
       handleCardModal();
+      onCurrentPage();
     }
   };
 
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { files },
+    } = e;
+    const file = files![0];
+    // setFile(file);
+    ImgConvert(file, setFileURL);
+  };
+
+  const onButtonClick = () => {
+    fileRef.current?.click();
+  };
+
+  const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+    setTextLength(messageRef.current!.value.length);
+  };
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  //   setError,
+  // } = useForm<ICardForm>();
+
+  // const [fileURL, setFileURL] = useState<string>("");
+  // const image = watch("image");
+  // const message = watch("message");
+
+  // useEffect(() => {
+  //   if (image && image.length > 0) {
+  //     const file = image[0];
+  //     ImgConvert(file, setFileURL);
+  //   }
+  // }, [image]);
+
+  // const onValid = async (data: any) => {
+  //   const id = new Date().getTime();
+  //   if (!fileURL) {
+  //     setError("image", { message: "Select your card image" });
+  //   } else {
+  //     const newCard = {
+  //       id: id,
+  //       image: fileURL,
+  //       title: data.title,
+  //       message: data.message.trim(),
+  //       user: userUid,
+  //     };
+  //     UpdateMutation.mutate(newCard);
+  //     handleCardModal();
+  //   }
+  // };
   return (
     <DialogBox preview>
-      {/* <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
+      <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
         <S.Content>
           {fileURL ? (
             <S.ImgContainer onClick={onButtonClick}>
@@ -195,22 +160,25 @@ const CardAddForm = ({
               accept="image/*"
               onChange={onFileChange}
             />
-            <input
-              ref={cardNameRef}
-              type="text"
-              placeholder="카드 이름"
-              maxLength={15}
-            />
-            <span>최대 15글자</span>
-
-            <textarea
-              rows={1}
-              placeholder="사진에 대해 설명하세요"
-              maxLength={200}
-              ref={messageRef}
-              onChange={textHeightHandler}
-            />
-            <span>{textLength}/200</span>
+            <div>
+              <input
+                ref={cardNameRef}
+                type="text"
+                placeholder="카드 이름"
+                maxLength={15}
+              />
+              <span>최대 15글자</span>
+            </div>
+            <div>
+              <textarea
+                rows={1}
+                placeholder="사진에 대해 설명하세요"
+                maxLength={200}
+                ref={messageRef}
+                onChange={textHeightHandler}
+              />
+              <span>{textLength}/200</span>
+            </div>
           </S.TextContainer>
         </S.Content>
         <S.ButtonContainer>
@@ -219,12 +187,13 @@ const CardAddForm = ({
           </S.Button>
           <S.Button type="submit">등록</S.Button>
         </S.ButtonContainer>
-      </S.CardForm> */}
+      </S.CardForm>
 
-      <S.CardForm onSubmit={handleSubmit(onValid)}>
+      {/* <S.CardForm onSubmit={handleSubmit(onValid)}>
         <S.Content>
+          <img src="" alt="" style={{ width: "50px", height: "50px" }} />
           <S.ImgContainer>
-            <img src={fileURL} alt="" />
+            <img src={fileURL} alt="rlqhs" />
             <span>{errors?.image?.message}</span>
             <label htmlFor="fileUpload"> Select file</label>
             <input
@@ -252,7 +221,6 @@ const CardAddForm = ({
               {...register("message")}
               maxLength={199}
             />
-            <span>{errors?.title?.message}</span>
             <span>{message?.length}/200</span>
           </S.TextContainer>
         </S.Content>
@@ -262,7 +230,7 @@ const CardAddForm = ({
           </S.Button>
           <S.Button type="submit">등록</S.Button>
         </S.ButtonContainer>
-      </S.CardForm>
+      </S.CardForm> */}
     </DialogBox>
   );
 };

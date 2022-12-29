@@ -7,12 +7,12 @@ import * as S from "./preview.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { CardType } from "types";
+import { CardType, Type } from "types";
 
 interface PreviewProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  cards?: CardType[];
+  cards?: Type[];
   PATH?: string;
   handleCardModal?: () => void;
 }
@@ -36,10 +36,11 @@ const Preview = ({
   for (let i = 1; i <= Math.ceil(cards!.length / itemsPerPage); i++) {
     pages.push(i);
   }
+
   return (
     <S.PreviewContainer PATH={PATH}>
       <S.Content>
-        {currentItems.map((card: CardType) => (
+        {currentItems.map((card: Type) => (
           <Card key={card.id} card={card} />
         ))}
 

@@ -46,7 +46,7 @@ export const ImgContainer = styled.div`
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 
   width: 400px;
 
@@ -55,7 +55,6 @@ export const TextContainer = styled.div`
     border: none;
     border-bottom: 1px solid #9e9e9e;
     padding: 10px;
-    margin: 20px 0;
 
     height: 60px;
 
@@ -70,9 +69,9 @@ export const TextContainer = styled.div`
     border-radius: 10px;
     padding: 10px;
 
-    height: 200px;
+    height: 250px;
 
-    font-size: 20px;
+    font-size: 23px;
 
     overflow: auto;
 

@@ -20,25 +20,25 @@ export const Content = styled.div`
   padding: 10px;
 `;
 
-// export const ImgContainer = styled.label`
-//   position: relative;
-//   align-self: center;
+export const ImgContainer = styled.div`
+  position: relative;
+  align-self: center;
 
-//   width: 350px;
-//   height: 350px;
-//   img {
-//     width: 350px;
-//     height: 350px;
-//     font-size: 20px;
-//     border: 1px solid gray;
-//     border-radius: 10px;
-//     cursor: pointer;
-//   }
-// `;
+  width: 350px;
+  height: 350px;
+  img {
+    width: 350px;
+    height: 350px;
+    font-size: 20px;
+    border: 1px solid gray;
+    border-radius: 10px;
+  }
+`;
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 400px;
 
   input,
@@ -47,7 +47,6 @@ export const TextContainer = styled.div`
     border: 1px solid #9e9e9e;
     border-radius: 10px;
     padding: 10px;
-    margin: 20px 0;
 
     text-align: left;
     color: ${(props) => props.theme.textColor};
@@ -65,7 +64,7 @@ export const TextContainer = styled.div`
     font-weight: 700;
   }
   textarea {
-    height: 200px;
+    height: 220px;
 
     font-size: 20px;
     word-spacing: -8px;
@@ -85,9 +84,10 @@ export const TextContainer = styled.div`
   span {
     display: flex;
     justify-content: end;
-    padding-right: 5px;
+    padding-right: 10px;
     font-size: 15px;
     color: #606060;
+    margin-top: 10px;
   }
 `;
 
@@ -159,29 +159,5 @@ export const Button = styled.button`
   background-color: ${(props) => props.theme.contentBgColor};
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};
-  }
-`;
-
-export const ImgContainer = styled.div`
-  border: 1px solid green;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-
-  width: 350px;
-  height: 350px;
-  img {
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
-    border: 1px solid gray;
-    border-radius: 10px;
-  }
-  label {
-    border: 1px solid gray;
-    border-radius: 10px;
-    padding: 5px;
-    cursor: pointer;
   }
 `;

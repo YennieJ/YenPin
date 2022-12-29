@@ -3,7 +3,7 @@ import React, { useContext, useRef, useState } from "react";
 import * as S from "./bigCard.styled";
 import DialogBox from "components/dialogBox/dialogBox";
 
-import { CardType } from "types";
+import { CardType, Type } from "types";
 
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -25,7 +25,7 @@ const Overlay = styled(motion.div)`
 `;
 
 interface Props {
-  card: CardType;
+  card: Type;
   onModalClose: () => void;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { FbSaveCard, FbUpdateCard } from "service/card_repository";
 import { FbUploadImageFile } from "service/img_uploader";
@@ -7,16 +7,17 @@ import imageCompression from "browser-image-compression";
 
 import * as S from "./edit.styled";
 
-import { CardType } from "types";
+import { Type } from "types";
 import { useMutation, useQueryClient } from "react-query";
+import { ImgConvert, UpdateCard } from "service/card";
 
 interface EditProps {
-  card: CardType;
+  card: Type;
   onModalClose: () => void;
   toggleEdit: () => void;
 }
 const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
-  const { cardName, fileURL, message, id, user } = card;
+  const { title, image, message, id, user, likeCount, likeUids } = card;
 
   const defaultLength = message ? message.length : 0;
 
@@ -25,13 +26,13 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
   // const messageRef = useRef<HTMLPreElement>(null);
   const newMessageRef = useRef<HTMLTextAreaElement>(null);
   //////////
-  const [newCardName, setNewCardName] = useState<string>(cardName);
+  const [newTitle, setNewTitle] = useState<string>(title);
   const [newMessage, setNewMessage] = useState<string | undefined>(message);
 
   //////////
   //firebase upload를 위한
-  const [file, setFile] = useState<File>();
-  const [newFileURL, setNewFileURL] = useState<string>(fileURL);
+  // const [file, setFile] = useState<File>();
+  const [newFileURL, setNewFileURL] = useState<string>(image);
 
   const [textLength, setTextLength] = useState<number>(defaultLength);
 
@@ -41,7 +42,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
   };
 
   const onNewCardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewCardName(e.target.value);
+    setNewTitle(e.target.value);
   };
 
   const closeModal = () => {
@@ -52,7 +53,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
 
   const queryClient = useQueryClient();
   const UpdateMutation = useMutation({
-    mutationFn: (newCard: CardType) => FbUpdateCard(newCard),
+    mutationFn: (newCard: Type) => UpdateCard(newCard),
 
     onSuccess: () => {
       // 요청이 성공한 경우
@@ -75,18 +76,20 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
     const newMessageTrim = newMessage!.trim();
 
     const newCard = {
-      id: id,
-      cardName: newCardName,
-      fileURL: newFileURL,
+      id,
+      title: newTitle,
+      image: newFileURL,
       message: newMessageTrim,
-      user: user,
+      user,
+      likeCount,
+      likeUids,
     };
 
-    if (newCard.cardName === "") {
+    if (newCard.title === "") {
       alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
       UpdateMutation.mutate(newCard);
-      file && FbUploadImageFile(file, id);
+      // file && FbUploadImageFile(file, id);
       onModalClose();
     }
   };
@@ -96,22 +99,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
       target: { files },
     } = e;
     const file = files![0];
-
-    const options = {
-      maxSizeMB: 2,
-      maxWidthOrHeight: 1920,
-    };
-    try {
-      const compressedFile = await imageCompression(file, options);
-      setFile(compressedFile);
-      // resize된 이미지의 url을 받아 fileUrl에 저장
-      const promise = imageCompression.getDataUrlFromFile(compressedFile);
-      promise.then((result) => {
-        setNewFileURL(result);
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    ImgConvert(file, setNewFileURL);
   };
 
   const onButtonClick = () => {
@@ -135,38 +123,42 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
           />
         </S.ImgContainer>
         <S.TextContainer>
-          <input
-            type="text"
-            placeholder="카드 이름"
-            maxLength={15}
-            value={newCardName}
-            onChange={onNewCardNameChange}
-          />
-          <span>최대 15글자</span>
-          {newMessage ? (
-            <textarea
-              rows={1}
-              ref={newMessageRef}
-              placeholder="사진에 대해 설명하세요"
-              maxLength={200}
-              onChange={textHeightHandler}
-              value={newMessage}
-              onFocus={(e) =>
-                e.currentTarget.setSelectionRange(
-                  e.currentTarget.value.length,
-                  e.currentTarget.value.length
-                )
-              }
+          <div>
+            <input
+              type="text"
+              placeholder="카드 이름"
+              maxLength={15}
+              value={newTitle}
+              onChange={onNewCardNameChange}
             />
-          ) : (
-            <textarea
-              rows={1}
-              ref={newMessageRef}
-              placeholder="사진에 대해 설명하세요"
-              onChange={textHeightHandler}
-            />
-          )}
-          <span>{textLength}/200</span>
+            <span>최대 15글자</span>
+          </div>
+          <div>
+            {newMessage ? (
+              <textarea
+                rows={1}
+                ref={newMessageRef}
+                placeholder="사진에 대해 설명하세요"
+                maxLength={200}
+                onChange={textHeightHandler}
+                value={newMessage}
+                onFocus={(e) =>
+                  e.currentTarget.setSelectionRange(
+                    e.currentTarget.value.length,
+                    e.currentTarget.value.length
+                  )
+                }
+              />
+            ) : (
+              <textarea
+                rows={1}
+                ref={newMessageRef}
+                placeholder="사진에 대해 설명하세요"
+                onChange={textHeightHandler}
+              />
+            )}
+            <span>{textLength}/200</span>
+          </div>
         </S.TextContainer>
       </S.Content>
       <S.ButtonContainer>

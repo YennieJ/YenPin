@@ -32,21 +32,21 @@ export const ImgContainer = styled.div`
     font-size: 20px;
     border: 1px solid gray;
     border-radius: 10px;
-    cursor: pointer;
   }
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 400px;
 
   input,
   textarea {
+    width: 400px;
     border: 1px solid #9e9e9e;
     border-radius: 10px;
     padding: 10px;
-    margin: 20px 0;
 
     text-align: left;
     color: ${(props) => props.theme.textColor};
@@ -64,7 +64,7 @@ export const TextContainer = styled.div`
     font-weight: 700;
   }
   textarea {
-    height: 200px;
+    height: 220px;
 
     font-size: 20px;
     word-spacing: -8px;
@@ -87,6 +87,7 @@ export const TextContainer = styled.div`
     padding-right: 5px;
     font-size: 15px;
     color: #606060;
+    margin-top: 10px;
   }
 `;
 

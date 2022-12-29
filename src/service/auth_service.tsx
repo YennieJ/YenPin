@@ -57,7 +57,7 @@ export const AuthLogIn = ({ email, password }: AuthProps) => {
     .catch((e) => {
       const emptyAll = "FirebaseError: Firebase: Error (auth/invalid-email).";
       const emptyPassword =
-        "FirebaseError: Firebase: Error (auth/internal-error).";
+        "FirebaseError: Firebase: Error (auth/invalid-password).";
       const wrongId = "Firebase: Error (auth/user-not-found).";
       const wrongPassword = "Firebase: Error (auth/wrong-password).";
 

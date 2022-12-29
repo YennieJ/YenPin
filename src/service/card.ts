@@ -5,32 +5,41 @@ import {
   increment,
   arrayUnion,
   arrayRemove,
-  getDoc,
+  getDocs,
   collection,
   query,
   deleteDoc,
+  where,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 import { Type } from "types";
 
-// Initialize Firebase
+import imageCompression from "browser-image-compression";
 
-// Initialize Cloud Firestore and get a reference to the service
+//setState로 넘기는 방법 뿐인가?
+export async function ImgConvert(
+  file: File,
+  setFileURL: React.Dispatch<React.SetStateAction<string>>
+) {
+  const options = {
+    maxSizeMB: 2,
+    maxWidthOrHeight: 1920,
+  };
+
+  try {
+    const compressedFile = await imageCompression(file, options);
+
+    const promise = imageCompression.getDataUrlFromFile(compressedFile);
+    promise.then((result) => {
+      setFileURL(result);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const db = getFirestore();
-
-// export async function FbSaveCard(userUid: string, card: CardType) {
-//   return new Promise<CardType>((resolve, reject) => {
-//     const newCard = set(ref(db, `/card/${card.id}`), {
-//       id: card.id,
-//       cardName: card.cardName,
-//       fileURL: card.fileURL,
-//       message: card.message,
-//       user: userUid,
-//       likeCount: 0,
-//       likeUid: [],
-//     });
-//     resolve(newCard as any);
-//   });
-// }
 
 export async function SaveCard(card: Type) {
   await setDoc(doc(db, `/cards/${card.id}`), {
@@ -41,5 +50,64 @@ export async function SaveCard(card: Type) {
     user: card.user,
     likeCount: 0,
     likeUids: [],
+    createdAt: serverTimestamp(),
   });
+}
+
+export async function GetCard() {
+  const q = query(collection(db, "cards"), orderBy("createdAt", "desc"));
+
+  const querySnapshot = await getDocs(q);
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+
+  return data as Type[];
+}
+
+export async function GetMyCard(userUid: string) {
+  const q = query(
+    collection(db, "cards"),
+    where("user", "==", userUid) && orderBy("createdAt", "desc")
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+  return data as Type[];
+}
+
+export async function UpdateCard(card: Type) {
+  await setDoc(
+    doc(db, `/cards/${card.id}`),
+    {
+      image: card.image,
+      title: card.title,
+      message: card.message,
+    },
+    { merge: true }
+  );
+}
+
+export async function CountLikes(card: Type) {
+  const likeUid = card.likeUids.includes(card.user);
+
+  likeUid
+    ? await setDoc(
+        doc(db, `/cards/${card.id}`),
+        {
+          likeCount: increment(-1),
+          likeUids: arrayRemove(card.user),
+        },
+        { merge: true }
+      )
+    : await setDoc(
+        doc(db, `/cards/${card.id}`),
+        {
+          likeCount: increment(1),
+          likeUids: arrayUnion(card.user),
+        },
+        { merge: true }
+      );
+}
+export async function DeleteCard(cardId: number) {
+  deleteDoc(doc(db, `/cards/${cardId}`));
 }
