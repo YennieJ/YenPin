@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
+interface Props {
+  isActive?: boolean;
+}
+
 export const Box = styled(motion.div)`
   position: relative;
   background-position: center center;
@@ -20,16 +24,49 @@ export const Box = styled(motion.div)`
   }
 `;
 export const Info = styled(motion.div)`
-  padding: 20px;
+  height: 50px;
 
   border-radius: 0 0 10px 10px;
   opacity: 0;
   position: absolute;
   width: 100%;
   bottom: 0;
-  text-align: center;
   font-size: 18px;
   background-color: ${(props) => props.theme.contentBgColor};
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: default;
+  span {
+    &:nth-child(1) {
+      width: 200px;
+      padding: 3px 15px;
+    }
+  }
+  div {
+    padding-right: 15px;
+    display: flex;
+    align-items: center;
+    span {
+      padding: 0 7px;
+    }
+  }
+`;
+
+export const LikeButton = styled(motion.button)<Props>`
+  font-size: 18px;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.contentBgColor};
+
+  svg {
+    color: ${(props) => (props.isActive ? "red" : props.theme.textColor)};
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const DeletButton = styled(motion.button)`
@@ -37,7 +74,7 @@ export const DeletButton = styled(motion.button)`
   opacity: 0;
 
   top: 10px;
-  left: 10px;
+  right: 10px;
   width: 35px;
   height: 35px;
   border: 1px solid ${(props) => props.theme.hoverColor};

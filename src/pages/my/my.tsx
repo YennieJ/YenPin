@@ -15,15 +15,14 @@ import * as S from "./my.styled";
 
 import { CardType, Type } from "types";
 import { GetMyCard } from "service/card";
+import { useMyCardQueryData } from "hooks/useQueryData";
 
 const PATH = "MY_PAGE";
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
 
-  const { isLoading, data } = useQuery<Type[]>(["myCards"], () =>
-    GetMyCard(userUid)
-  );
+  const { isLoading, data } = useMyCardQueryData(userUid);
 
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);

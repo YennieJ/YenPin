@@ -1,17 +1,12 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useState } from "react";
 
-import * as S from "./bigCard.styled";
 import DialogBox from "components/dialogBox/dialogBox";
 
-import { CardType, Type } from "types";
+import { Type } from "types";
 
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useMutation, useQueryClient } from "react-query";
-import { FbSaveCard } from "service/card_repository";
-import { FbUploadImageFile } from "service/img_uploader";
-import imageCompression from "browser-image-compression";
-import { AuthContext } from "service/authContext";
+
 import Detail from "./components/detail";
 import Edit from "./components/edit";
 
@@ -33,7 +28,6 @@ const BigCard = ({ card, onModalClose }: Props) => {
   const [editMode, setEditMode] = useState(false);
 
   const toggleEdit = () => {
-    // e.preventDefault();
     setEditMode((prev) => !prev);
   };
   return (

@@ -48,7 +48,7 @@ const Router = () => {
               </ProtectRoute>
             }
           />
-          <Route path="search/:id" element={<Home />} />
+          <Route path="my/:saved" element={<My />} />
         </Routes>
       </Main>
     </BrowserRouter>

@@ -1,39 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "service/authContext";
 
-import { FbDeleteCard, FbDislike, FbLike } from "service/card_repository";
-import { FbDeleteImageFile } from "service/img_uploader";
-
 import BigCard from "../bigCard/bigCard";
 
 import * as S from "./card.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { AnimatePresence } from "framer-motion";
 
-import { CardType, Type } from "types";
-import { CountLikes, DeleteCard } from "service/card";
+import { Type } from "types";
+import { DeleteCard, GetKeppCard } from "service/card";
 
-import styled from "styled-components";
-import {
-  arrayUnion,
-  doc,
-  getFirestore,
-  setDoc,
-  increment,
-  arrayRemove,
-} from "firebase/firestore";
-import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "react-query";
-const db = getFirestore();
-
-interface Props {
-  isActive?: boolean;
-}
-const LikeButton = styled.div<Props>`
-  cursor: pointer;
-  border: 5px solid ${(props) => (props.isActive ? "red" : "black")};
-`;
+import { useKeepCardData, useLikeData } from "hooks/useQueryData";
 
 const boxVariants = {
   normal: {
@@ -94,21 +71,15 @@ const Card = ({ card }: CardProps) => {
 
   const likeUid = card?.likeUids.includes(card.user);
 
-  const queryClient = useQueryClient();
-  const UpdateMutation = useMutation({
-    mutationFn: (card: Type) => CountLikes(card),
+  const { mutate: likeCard } = useLikeData();
 
-    onSuccess: () => {
-      // 요청이 성공한 경우
-      queryClient.invalidateQueries(["myCards"]);
-      queryClient.invalidateQueries(["allCards"]);
-    },
-  });
-
-  const onLikes = () => {
-    UpdateMutation.mutate(card);
+  const onLikes = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    likeCard(card);
   };
 
+  // const { data } = useKeepCardData(user);
+  // console.log(data);
   return (
     <>
       <S.Box
@@ -118,10 +89,21 @@ const Card = ({ card }: CardProps) => {
         whileHover="hover"
         initial="normal"
         transition={{ type: "tween" }}
-        onClick={() => onBigCard(card)}
       >
-        <img src={image} alt="" />
-        <S.Info variants={infoVariants}>{title}</S.Info>
+        <img src={image} alt="" onClick={() => onBigCard(card)} />
+        <S.Info variants={infoVariants}>
+          <span>{title}</span>
+          <div>
+            <S.LikeButton
+              variants={infoVariants}
+              onClick={(e) => onLikes(e)}
+              isActive={likeUid}
+            >
+              <FontAwesomeIcon icon={faHeart} />
+            </S.LikeButton>
+            <span>{likeCount}</span>
+          </div>
+        </S.Info>
         {userUid === user && (
           <S.DeletButton
             variants={infoVariants}
@@ -135,17 +117,10 @@ const Card = ({ card }: CardProps) => {
           </S.DeletButton>
         )}
       </S.Box>
-      <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} />
+
       {detailModal && detailCard && (
         <BigCard card={detailCard} onModalClose={() => onBigCard(card)} />
       )}
-
-      <>
-        <LikeButton onClick={onLikes} isActive={likeUid}>
-          likes
-        </LikeButton>
-        <span>{card.likeCount}</span>
-      </>
     </>
   );
 };

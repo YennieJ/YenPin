@@ -7,15 +7,12 @@ import { FbGetAllCards } from "service/card_repository";
 import Preview from "components/preview";
 
 import * as S from "./home.styled";
-
-import { CardType, Type } from "types";
-import { useQuery } from "react-query";
-import { GetCard } from "service/card";
+import { useAllCardQueryData } from "hooks/useQueryData";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const { isLoading, data } = useQuery<Type[]>("allCards", GetCard);
+  const { isLoading, data } = useAllCardQueryData();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -38,11 +35,13 @@ const Home = () => {
           <S.Spinner />
         </S.SpinnerContainer>
       ) : (
-        <Preview
-          cards={data}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        data && (
+          <Preview
+            cards={data}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )
       )}
     </>
   );

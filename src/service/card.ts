@@ -13,6 +13,7 @@ import {
   orderBy,
   serverTimestamp,
 } from "firebase/firestore";
+
 import { Type } from "types";
 
 import imageCompression from "browser-image-compression";
@@ -96,6 +97,7 @@ export async function CountLikes(card: Type) {
         {
           likeCount: increment(-1),
           likeUids: arrayRemove(card.user),
+          likeCreateAt: "",
         },
         { merge: true }
       )
@@ -104,6 +106,7 @@ export async function CountLikes(card: Type) {
         {
           likeCount: increment(1),
           likeUids: arrayUnion(card.user),
+          likeCreateAt: serverTimestamp(),
         },
         { merge: true }
       );
@@ -111,3 +114,17 @@ export async function CountLikes(card: Type) {
 export async function DeleteCard(cardId: number) {
   deleteDoc(doc(db, `/cards/${cardId}`));
 }
+
+export async function GetKeppCard(userUid: string) {
+  const q = query(
+    collection(db, "cards"),
+    where("likeUids", "array-contains", userUid) &&
+      orderBy("likeCreateAt", "desc")
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+  return data as Type[];
+}
+// && orderBy("createdAt", "desc")

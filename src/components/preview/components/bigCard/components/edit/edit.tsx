@@ -10,6 +10,7 @@ import * as S from "./edit.styled";
 import { Type } from "types";
 import { useMutation, useQueryClient } from "react-query";
 import { ImgConvert, UpdateCard } from "service/card";
+import { useEditData } from "hooks/useQueryData";
 
 interface EditProps {
   card: Type;
@@ -50,25 +51,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
       onModalClose();
     } else return null;
   };
-
-  const queryClient = useQueryClient();
-  const UpdateMutation = useMutation({
-    mutationFn: (newCard: Type) => UpdateCard(newCard),
-
-    onSuccess: () => {
-      // 요청이 성공한 경우
-      queryClient.invalidateQueries(["allCards"]);
-      queryClient.invalidateQueries(["myCards"]);
-    },
-    onError: (error) => {
-      // 요청에 에러가 발생된 경우
-      // console.log(error);
-    },
-    onSettled: () => {
-      // 요청이 성공하든, 에러가 발생되든 실행하고 싶은 경우
-      // console.log("onSettled");
-    },
-  });
+  const { mutate: editCard } = useEditData();
 
   const updateCard = (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +71,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
     if (newCard.title === "") {
       alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
-      UpdateMutation.mutate(newCard);
+      editCard(newCard);
       // file && FbUploadImageFile(file, id);
       onModalClose();
     }

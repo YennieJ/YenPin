@@ -1,17 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-
-import { FbSaveCard } from "service/card_repository";
-import { FbUploadImageFile } from "service/img_uploader";
-
-import imageCompression from "browser-image-compression";
+import React, { useState, useRef } from "react";
 
 import * as S from "./cardAddForm.styled";
 import DialogBox from "components/dialogBox/dialogBox";
-import { CardType, Type } from "types";
-import { useMutation, useQueryClient } from "react-query";
-import { useForm } from "react-hook-form";
-import { ImgConvert, SaveCard } from "service/card";
-import { useNavigate } from "react-router";
+import { ImgConvert } from "service/card";
+import { useAddMyCardData } from "hooks/useQueryData";
 
 interface CardProps {
   handleCardModal: () => void;
@@ -40,23 +32,7 @@ const CardAddForm = ({
 
   const [message, setMessage] = useState<string>("");
 
-  const queryClient = useQueryClient();
-  const UpdateMutation = useMutation({
-    mutationFn: (newCard: Type) => SaveCard(newCard),
-
-    onSuccess: () => {
-      // 요청이 성공한 경우
-      queryClient.invalidateQueries(["myCards"]);
-    },
-    onError: (error) => {
-      // 요청에 에러가 발생된 경우
-      // console.log("onError");
-    },
-    onSettled: () => {
-      // 요청이 성공하든, 에러가 발생되든 실행하고 싶은 경우
-      // console.log("onSettled");
-    },
-  });
+  const { mutate: addCard } = useAddMyCardData();
 
   const onCardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,7 +51,7 @@ const CardAddForm = ({
         likeCount: 0,
         likeUids: [],
       };
-      UpdateMutation.mutate(newCard);
+      addCard(newCard);
       // file && FbUploadImageFile(file, id);
       formRef.current?.reset();
       handleCardModal();
@@ -88,7 +64,6 @@ const CardAddForm = ({
       target: { files },
     } = e;
     const file = files![0];
-    // setFile(file);
     ImgConvert(file, setFileURL);
   };
 
