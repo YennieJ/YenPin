@@ -10,6 +10,7 @@ import {
   GetCard,
   GetKeppCard,
   GetMyCard,
+  GetPopularCard,
   SaveCard,
   UpdateCard,
 } from "service/card";
@@ -20,6 +21,10 @@ export const useAllCardQueryData = () => {
 
 export const useMyCardQueryData = (userUid: string) => {
   return useQuery<Type[]>(["myCards"], () => GetMyCard(userUid));
+};
+
+export const usePopularCardData = () => {
+  return useQuery<Type[]>(["popular"], () => GetPopularCard());
 };
 
 export const useAddMyCardData = () => {
@@ -44,12 +49,13 @@ export const useAddMyCardData = () => {
   });
 };
 
-export const useLikeData = () => {
+export const useLikeData = (userUid: string, card: Type) => {
   const queryClient = useQueryClient();
-  return useMutation((card: Type) => CountLikes(card), {
+  return useMutation(() => CountLikes(userUid, card), {
     onSuccess: () => {
       queryClient.invalidateQueries(["myCards"]);
       queryClient.invalidateQueries(["allCards"]);
+      queryClient.invalidateQueries(["popular"]);
     },
   });
 };
@@ -67,3 +73,6 @@ export const useEditData = () => {
 export const useKeepCardData = (userUid: string) => {
   return useQuery<Type[]>(["keepCards"], () => GetKeppCard(userUid));
 };
+function userUid(userUid: any, card: Type): Promise<void> {
+  throw new Error("Function not implemented.");
+}

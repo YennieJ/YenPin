@@ -5,14 +5,22 @@ interface PreviewStyleProps {
   PATH?: string;
 }
 
-export const PreviewContainer = styled.div<PreviewStyleProps>`
+// export const PreviewContainer = styled.div<PreviewStyleProps>`
+//   display: flex;
+//   flex-direction: column;
+
+//   /* height: ${(props) => (props.PATH ? "100%" : "auto")}; */
+//   height: auto;
+//   position: relative;
+// `;
+
+export const PreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  height: ${(props) => (props.PATH ? "100%" : "auto")};
+  height: auto;
   position: relative;
 `;
-
 export const Content = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -22,6 +30,7 @@ export const Content = styled.div`
 
   height: 90%;
   padding: 50px 30px 60px 30px;
+  border-top: 1px groove gray;
 `;
 
 export const Footer = styled.div`

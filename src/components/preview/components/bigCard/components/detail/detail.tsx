@@ -12,7 +12,7 @@ interface DetailProps {
 }
 const Detail = ({ card, onModalClose, onEditMode }: DetailProps) => {
   const userInfo = useContext(AuthContext);
-  const userUid = userInfo!.uid;
+  const userUid = userInfo?.uid;
   const { title, image, message, user } = card;
 
   return (

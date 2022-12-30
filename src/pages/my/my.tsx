@@ -17,7 +17,6 @@ import { CardType, Type } from "types";
 import { GetMyCard } from "service/card";
 import { useMyCardQueryData } from "hooks/useQueryData";
 
-const PATH = "MY_PAGE";
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
@@ -55,7 +54,6 @@ const My = () => {
         </S.SpinnerContainer>
       ) : (
         <Preview
-          PATH={PATH}
           cards={data}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

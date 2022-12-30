@@ -69,17 +69,16 @@ const Card = ({ card }: CardProps) => {
     } else return null;
   };
 
-  const likeUid = card?.likeUids.includes(card.user);
+  const likeUid = card?.likeUids.includes(userUid!);
 
-  const { mutate: likeCard } = useLikeData();
+  const { mutate: likeCard } = useLikeData(userUid!, card);
 
   const onLikes = (e: React.MouseEvent) => {
     e.stopPropagation();
-    likeCard(card);
+    likeCard();
   };
 
   // const { data } = useKeepCardData(user);
-  // console.log(data);
   return (
     <>
       <S.Box

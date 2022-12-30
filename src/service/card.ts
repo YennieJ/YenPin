@@ -67,8 +67,18 @@ export async function GetCard() {
 export async function GetMyCard(userUid: string) {
   const q = query(
     collection(db, "cards"),
-    where("user", "==", userUid) && orderBy("createdAt", "desc")
+    orderBy("createdAt", "desc"),
+    where("user", "==", userUid)
   );
+
+  const querySnapshot = await getDocs(q);
+
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+  return data as Type[];
+}
+
+export async function GetPopularCard() {
+  const q = query(collection(db, "cards"), orderBy("likeCount", "desc"));
 
   const querySnapshot = await getDocs(q);
 
@@ -88,25 +98,24 @@ export async function UpdateCard(card: Type) {
   );
 }
 
-export async function CountLikes(card: Type) {
-  const likeUid = card.likeUids.includes(card.user);
+export async function CountLikes(userUid: string, card: Type) {
+  const likeUid = card.likeUids.includes(userUid);
 
+  const cardRef = doc(db, `cards/${card.id}`);
   likeUid
     ? await setDoc(
-        doc(db, `/cards/${card.id}`),
+        cardRef,
         {
           likeCount: increment(-1),
-          likeUids: arrayRemove(card.user),
-          likeCreateAt: "",
+          likeUids: arrayRemove(userUid),
         },
         { merge: true }
       )
     : await setDoc(
-        doc(db, `/cards/${card.id}`),
+        cardRef,
         {
           likeCount: increment(1),
-          likeUids: arrayUnion(card.user),
-          likeCreateAt: serverTimestamp(),
+          likeUids: arrayUnion(userUid),
         },
         { merge: true }
       );
@@ -118,8 +127,7 @@ export async function DeleteCard(cardId: number) {
 export async function GetKeppCard(userUid: string) {
   const q = query(
     collection(db, "cards"),
-    where("likeUids", "array-contains", userUid) &&
-      orderBy("likeCreateAt", "desc")
+    where("likeUids", "array-contains", userUid)
   );
 
   const querySnapshot = await getDocs(q);
@@ -127,4 +135,3 @@ export async function GetKeppCard(userUid: string) {
   const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
   return data as Type[];
 }
-// && orderBy("createdAt", "desc")

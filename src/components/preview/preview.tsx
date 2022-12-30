@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import Pagination from "./components/pagination";
 import Card from "./components/card";
@@ -10,12 +10,13 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { CardType, Type } from "types";
 import { GetKeppCard } from "service/card";
 import { Link, useLocation } from "react-router-dom";
+import { useKeepCardData } from "hooks/useQueryData";
+import { AuthContext } from "service/authContext";
 
 interface PreviewProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   cards?: Type[];
-  PATH?: string;
   handleCardModal?: () => void;
 }
 
@@ -25,17 +26,13 @@ const Preview = ({
   cards,
   currentPage,
   setCurrentPage,
-  PATH,
   handleCardModal,
 }: PreviewProps) => {
+  const userInfo = useContext(AuthContext);
+  const userUid = userInfo?.uid;
   const { pathname } = useLocation();
+  // const { data } = useKeepCardData(userUid!);
 
-  let temp = [];
-  if (pathname === "/") {
-    temp.push(cards);
-  }
-
-  console.log(temp);
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -48,11 +45,12 @@ const Preview = ({
   }
 
   return (
-    <S.PreviewContainer PATH={PATH}>
+    <S.PreviewContainer>
       <S.Content>
-        {PATH && handleCardModal && (
+        {pathname === "/my" && handleCardModal && (
           <>
-            <Link to="/my/saved">생성됨</Link> <h1>저장됨</h1>
+            {/* <Link to="/my/created">생성됨</Link>
+            <Link to="/my/saved">저장됨</Link> */}
             <S.NewCardButton onClick={() => handleCardModal()}>
               <div>
                 <FontAwesomeIcon icon={faPlus} />
@@ -79,3 +77,15 @@ const Preview = ({
 };
 
 export default Preview;
+
+// {PATH && handleCardModal && (
+//   <>
+//     <Link to="/my/saved">생성됨</Link> <h1>저장됨</h1>
+//     <S.NewCardButton onClick={() => handleCardModal()}>
+//       <div>
+//         <FontAwesomeIcon icon={faPlus} />
+//       </div>
+//       <div>새로운 카드</div>
+//     </S.NewCardButton>
+//   </>
+// )}

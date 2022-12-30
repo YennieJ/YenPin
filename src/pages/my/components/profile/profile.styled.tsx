@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   height: 260px;
   padding: 20px 0;
-  border-bottom: 1px groove gray;
+  /* border-bottom: 1px groove gray; */
 `;
 
 export const Form = styled.form`

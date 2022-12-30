@@ -7,4 +7,5 @@ export const Container = styled.nav`
   align-items: center;
 
   height: 50px;
+  margin-bottom: 20px;
 `;

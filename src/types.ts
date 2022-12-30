@@ -17,5 +17,4 @@ export interface Type {
   likeCount: number;
   likeUids: string[];
   createdAt?: Date;
-  likeCreateAt?: Date;
 }
