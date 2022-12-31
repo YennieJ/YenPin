@@ -18,13 +18,16 @@ const Nav = () => {
         <S.LinkBox isActive={pathname === "/"} home="true">
           <Link to="/">HOME</Link>
         </S.LinkBox>
-        <S.LinkBox isActive={pathname === "/popular"}>
-          <Link to="/popular">popular</Link>
-        </S.LinkBox>
+
         {userInfo && (
-          <S.LinkBox isActive={pathname === "/my"}>
-            <Link to="/my">my</Link>
-          </S.LinkBox>
+          <>
+            <S.LinkBox isActive={pathname === "/popular"}>
+              <Link to="/popular">popular</Link>
+            </S.LinkBox>
+            <S.LinkBox isActive={pathname === "/my"}>
+              <Link to="/my">my</Link>
+            </S.LinkBox>
+          </>
         )}
       </S.Container>
     </>

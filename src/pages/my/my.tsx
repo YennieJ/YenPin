@@ -1,27 +1,22 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Helmet } from "react-helmet";
 
 import { AuthContext } from "service/authContext";
 
-import { FbGetMyCards } from "service/card_repository";
-
-import { useQuery } from "react-query";
-
 import Profile from "./components/profile/profile";
+import CreateCard from "./components/createCard";
 import Preview from "../../components/preview";
-import CardAddForm from "./components/cardForm";
 
 import * as S from "./my.styled";
 
-import { CardType, Type } from "types";
-import { GetMyCard } from "service/card";
-import { useMyCardQueryData } from "hooks/useQueryData";
+import { useMyCardsQueryData } from "hooks/useQueryData";
+import Loading from "components/loading";
 
 const My = () => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
 
-  const { isLoading, data } = useMyCardQueryData(userUid);
+  const { isLoading, data } = useMyCardsQueryData(userUid);
 
   const [cardAddModal, setCardAddModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -49,9 +44,7 @@ const My = () => {
           <button onClick={() => handleCardModal()}>새로운 카드 만들기</button>
         </S.CardContainer>
       ) : isLoading ? (
-        <S.SpinnerContainer>
-          <S.Spinner />
-        </S.SpinnerContainer>
+        <Loading />
       ) : (
         <Preview
           cards={data}
@@ -62,7 +55,7 @@ const My = () => {
       )}
 
       {cardAddModal && (
-        <CardAddForm
+        <CreateCard
           handleCardModal={handleCardModal}
           onCurrentPage={() => setCurrentPage(1)}
           userUid={userUid}

@@ -6,9 +6,9 @@ import { AuthSignUp } from "service/auth_service";
 import * as S from "./signup.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
 
 interface SignupProps {
-  closeUserModal: () => void;
   isLogin: () => void;
 }
 
@@ -18,7 +18,9 @@ export interface IForm {
   confirmPassword: string;
 }
 
-const Signup = ({ closeUserModal, isLogin }: SignupProps) => {
+const Signup = ({ isLogin }: SignupProps) => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -46,7 +48,7 @@ const Signup = ({ closeUserModal, isLogin }: SignupProps) => {
     <>
       <S.Container>
         <h1>회원가입</h1>
-        <S.CloseLoginModalButton type="button" onClick={closeUserModal}>
+        <S.CloseLoginModalButton type="button" onClick={() => navigate(-1)}>
           &#10005;
         </S.CloseLoginModalButton>
 

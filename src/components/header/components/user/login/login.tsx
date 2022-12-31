@@ -7,56 +7,20 @@ import * as S from "./login.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { IForm } from "../signup/signup";
+import { useNavigate } from "react-router";
 
 const GOOGLE_IMAGE = "/image/google_logo.png";
 
 interface LoginProps {
-  closeUserModal: () => void;
   isSignup: () => void;
 }
 
-const Login = ({ closeUserModal, isSignup }: LoginProps) => {
+const Login = ({ isSignup }: LoginProps) => {
+  const navigate = useNavigate();
+
   const { register, handleSubmit } = useForm<IForm>();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const {
-  //     target: { name, value },
-  //   } = e;
-
-  //   if (name === "email") {
-  //     setEmail(value);
-  //   } else if (name === "password") {
-  //     setPassword(value);
-  //   }
-  // };
-
-  //아래 코드를 하나로 합친 것 handleInputChange
-  // const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setEmail(e.target.value);
-  // };
-
-  // const handlePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   setPassword(e.target.value);
-  // };
-
-  // const handleClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   //submit되지 않기 위해 preventDefault 필요함
-  //   e.preventDefault();
-  //   setEmail("");
-  //   setPassword("");
-  //   // setIsCreate((pre) => !pre);
-  // };
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   AuthLogIn({ email, password });
-  // };
 
   const onValid = (data: any) => {
     const email = data.email;
@@ -69,7 +33,7 @@ const Login = ({ closeUserModal, isSignup }: LoginProps) => {
     <>
       <S.Container>
         <h1>로그인</h1>
-        <S.CloseLoginModalButton type="button" onClick={closeUserModal}>
+        <S.CloseLoginModalButton type="button" onClick={() => navigate(-1)}>
           &#10005;
         </S.CloseLoginModalButton>
         <S.Form onSubmit={handleSubmit(onValid)}>

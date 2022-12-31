@@ -1,19 +1,5 @@
 import styled from "styled-components";
 
-import { motion } from "framer-motion";
-interface PreviewStyleProps {
-  PATH?: string;
-}
-
-// export const PreviewContainer = styled.div<PreviewStyleProps>`
-//   display: flex;
-//   flex-direction: column;
-
-//   /* height: ${(props) => (props.PATH ? "100%" : "auto")}; */
-//   height: auto;
-//   position: relative;
-// `;
-
 export const PreviewContainer = styled.div`
   display: flex;
   flex-direction: column;

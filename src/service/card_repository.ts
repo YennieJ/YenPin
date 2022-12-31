@@ -1,194 +1,114 @@
 import {
-  getDatabase,
-  ref,
-  set,
-  remove,
-  onValue,
+  getFirestore,
+  setDoc,
+  doc,
+  increment,
+  arrayUnion,
+  arrayRemove,
+  getDocs,
+  collection,
   query,
-  orderByChild,
-  equalTo,
-  limitToFirst,
-  limitToLast,
-  startAfter,
-  startAt,
-  orderByKey,
-  orderByValue,
-  endAt,
-  update,
-  push,
-  child,
-} from "firebase/database";
+  deleteDoc,
+  where,
+  orderBy,
+  serverTimestamp,
+} from "firebase/firestore";
 
 import { CardType } from "types";
 
-const db = getDatabase();
-
-// export const FbGetAllCards = () => {
-//   return new Promise((resolve) => {
-//     const cards = ref(db, "card");
-//     onValue(cards, (snapshot) => {
-//       const data = snapshot.val();
-//       resolve(data);
-//     });
-//   });
-// };
+const db = getFirestore();
 
 export async function FbGetAllCards() {
-  return new Promise<CardType[]>((resolve) => {
-    const cards = ref(db, "card");
+  const q = query(collection(db, "cards"), orderBy("createdAt", "desc"));
 
-    onValue(cards, (snapshot) => {
-      const data = snapshot.val();
-      if (!data) {
-        resolve([]);
-      } else {
-        const dbCards = Object.values(data)
-          .reverse()
-          .map((data) => data);
-        resolve(dbCards as CardType[]);
-      }
-    });
-  });
+  const querySnapshot = await getDocs(q);
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+
+  return data as CardType[];
 }
-
-//any로 받음
-// export const FbGetMyCards = (userUid: string) => {
-//   return new Promise((resolve) => {
-//     const mostViewedPosts = query(
-//       ref(db, "card"),
-//       orderByChild("user"),
-//       equalTo(userUid)
-//     );
-
-//     onValue(mostViewedPosts, (snapshot) => {
-//       const data = snapshot.val();
-//       resolve(data);
-//     });
-//   });
-// };
-
-export const FbGetSearch = (value: string) => {
-  return new Promise((resolve) => {
-    const search = query(
-      ref(db, "card"),
-      orderByChild("cardName"),
-      startAt(value)
-    );
-
-    onValue(search, (snapshot) => {
-      const data = snapshot.val();
-      resolve(data);
-    });
-  });
-};
 
 export async function FbGetMyCards(userUid: string) {
-  return new Promise<CardType[]>((resolve) => {
-    const mostViewedPosts = query(
-      ref(db, "card"),
-      orderByChild("user"),
-      equalTo(userUid)
-    );
-    onValue(mostViewedPosts, (snapshot) => {
-      const data = snapshot.val();
-      if (!data) {
-        resolve([]);
-      } else {
-        const dbCards = Object.values(data)
-          .reverse()
-          .map((data) => data);
-        resolve(dbCards as CardType[]);
-      }
-    });
+  const q = query(
+    collection(db, "cards"),
+    orderBy("createdAt", "desc"),
+    where("user", "==", userUid)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+  return data as CardType[];
+}
+
+export async function FbGetPopularCards() {
+  const q = query(collection(db, "cards"), orderBy("likeCount", "desc"));
+
+  const querySnapshot = await getDocs(q);
+
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+  return data as CardType[];
+}
+
+export async function FbCreateCard(card: CardType) {
+  await setDoc(doc(db, `/cards/${card.id}`), {
+    id: card.id,
+    image: card.image,
+    title: card.title,
+    message: card.message,
+    user: card.user,
+    likeCount: 0,
+    likeUids: [],
+    createdAt: serverTimestamp(),
   });
 }
 
-export const FbThumbs = () => {
-  return new Promise((resolve) => {
-    const search = query(ref(db, "card"), orderByChild("thumbs"));
-
-    onValue(search, (snapshot) => {
-      const data = snapshot.val();
-      resolve(data);
-    });
-  });
-};
-
-// export const FbSaveCard = (userUid: string, card: CardType) => {
-//   set(ref(db, `/card/${card.id}`), {
-//     id: card.id,
-//     cardName: card.cardName,
-//     fileURL: card.fileURL,
-//     message: card.message,
-//     user: userUid,
-//   });
-// };
-
-// export async function FbSaveCard(userUid: string, card: CardType) {
-//   return new Promise<CardType>((resolve, reject) => {
-//     const newCard = set(ref(db, `/card/${card.id}`), {
-//       id: card.id,
-//       cardName: card.cardName,
-//       fileURL: card.fileURL,
-//       message: card.message,
-//       user: userUid,
-//     });
-//     resolve(newCard as unknown as CardType);
-//   });
-// }
-
-export async function FbSaveCard(userUid: string, card: CardType) {
-  return new Promise<CardType>((resolve, reject) => {
-    const newCard = set(ref(db, `/card/${card.id}`), {
-      id: card.id,
-      cardName: card.cardName,
-      fileURL: card.fileURL,
-      message: card.message,
-      user: userUid,
-      likeCount: 0,
-      likeUid: [],
-    });
-    resolve(newCard as any);
-  });
-}
-
-export async function FbLike(card: CardType) {
-  return new Promise((resolve) => {
-    const thumbs = update(ref(db, `/card/${card.id}`), {
-      likeCount: +1,
-      likeUid: card.user,
-    });
-
-    resolve(thumbs as any);
-  });
-}
-
-export async function FbDislike(card: CardType) {
-  return new Promise((resolve) => {
-    const search = query(
-      ref(db, "card"),
-      orderByChild("likeUid"),
-      equalTo(card.user)
-    );
-
-    // search.remove()
-
-    const temp = remove(ref(db, `/card/${card.id}/likeUid/${card.user}`));
-    resolve(temp as any);
-  });
-}
 export async function FbUpdateCard(card: CardType) {
-  return new Promise<CardType>((resolve, reject) => {
-    const newCard = update(ref(db, `/card/${card.id}`), {
-      id: card.id,
-      cardName: card.cardName,
-      fileURL: card.fileURL,
+  await setDoc(
+    doc(db, `/cards/${card.id}`),
+    {
+      image: card.image,
+      title: card.title,
       message: card.message,
-    });
-    resolve(newCard as any);
-  });
+    },
+    { merge: true }
+  );
 }
 
-export const FbDeleteCard = (id: number) => {
-  remove(ref(db, `/card//${id}`));
-};
+export async function FbLikeCard(userUid: string, card: CardType) {
+  const likeUid = card.likeUids.includes(userUid);
+
+  const cardRef = doc(db, `cards/${card.id}`);
+  likeUid
+    ? await setDoc(
+        cardRef,
+        {
+          likeCount: increment(-1),
+          likeUids: arrayRemove(userUid),
+        },
+        { merge: true }
+      )
+    : await setDoc(
+        cardRef,
+        {
+          likeCount: increment(1),
+          likeUids: arrayUnion(userUid),
+        },
+        { merge: true }
+      );
+}
+
+export async function FbDeleteCard(cardId: number) {
+  deleteDoc(doc(db, `/cards/${cardId}`));
+}
+
+export async function FbGetSavedCards(userUid: string) {
+  const q = query(
+    collection(db, "cards"),
+    where("likeUids", "array-contains", userUid)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+  return data as CardType[];
+}

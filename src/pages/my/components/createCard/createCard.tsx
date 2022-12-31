@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react";
 
-import * as S from "./cardAddForm.styled";
+import { ImgConvert } from "service/img_uploader";
+import { useCreateCardQueryData } from "hooks/useQueryData";
+
+import * as S from "./createCard.styled";
 import DialogBox from "components/dialogBox/dialogBox";
-import { ImgConvert } from "service/card";
-import { useAddMyCardData } from "hooks/useQueryData";
 
 interface CardProps {
   handleCardModal: () => void;
@@ -16,11 +17,8 @@ export interface ICardForm {
   title: string;
   message: string;
 }
-const CardAddForm = ({
-  handleCardModal,
-  onCurrentPage,
-  userUid,
-}: CardProps) => {
+
+const CreateCard = ({ handleCardModal, onCurrentPage, userUid }: CardProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -32,7 +30,7 @@ const CardAddForm = ({
 
   const [message, setMessage] = useState<string>("");
 
-  const { mutate: addCard } = useAddMyCardData();
+  const { mutate: addCard } = useCreateCardQueryData();
 
   const onCardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -210,4 +208,4 @@ const CardAddForm = ({
   );
 };
 
-export default CardAddForm;
+export default CreateCard;

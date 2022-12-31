@@ -1,23 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
-
-import { FbSaveCard, FbUpdateCard } from "service/card_repository";
-import { FbUploadImageFile } from "service/img_uploader";
-
-import imageCompression from "browser-image-compression";
+import React, { useState, useRef } from "react";
 
 import * as S from "./edit.styled";
 
-import { Type } from "types";
-import { useMutation, useQueryClient } from "react-query";
-import { ImgConvert, UpdateCard } from "service/card";
-import { useEditData } from "hooks/useQueryData";
+import { CardType } from "types";
+import { ImgConvert } from "service/img_uploader";
+import { useUpdateQueryData } from "hooks/useQueryData";
 
 interface EditProps {
-  card: Type;
+  card: CardType;
   onModalClose: () => void;
-  toggleEdit: () => void;
 }
-const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
+
+const Edit = ({ card, onModalClose }: EditProps) => {
   const { title, image, message, id, user, likeCount, likeUids } = card;
 
   const defaultLength = message ? message.length : 0;
@@ -51,9 +45,9 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
       onModalClose();
     } else return null;
   };
-  const { mutate: editCard } = useEditData();
+  const { mutate: updateCard } = useUpdateQueryData();
 
-  const updateCard = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const newMessageTrim = newMessage!.trim();
@@ -71,7 +65,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
     if (newCard.title === "") {
       alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
-      editCard(newCard);
+      updateCard(newCard);
       // file && FbUploadImageFile(file, id);
       onModalClose();
     }
@@ -148,7 +142,7 @@ const Edit = ({ card, onModalClose, toggleEdit }: EditProps) => {
         <S.Button type="button" onClick={closeModal}>
           취소
         </S.Button>
-        <S.Button type="submit" onClick={updateCard}>
+        <S.Button type="submit" onClick={onSubmit}>
           완료
         </S.Button>
       </S.ButtonContainer>

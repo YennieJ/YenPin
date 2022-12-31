@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "service/authContext";
 
 import BigCard from "../bigCard/bigCard";
@@ -7,10 +7,11 @@ import * as S from "./card.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faHeart } from "@fortawesome/free-solid-svg-icons";
 
-import { Type } from "types";
-import { DeleteCard, GetKeppCard } from "service/card";
+import { CardType } from "types";
+import { FbDeleteCard } from "service/card_repository";
 
-import { useKeepCardData, useLikeData } from "hooks/useQueryData";
+import { useLikeQueryData } from "hooks/useQueryData";
+import { useNavigate } from "react-router";
 
 const boxVariants = {
   normal: {
@@ -40,18 +41,19 @@ const infoVariants = {
 };
 
 interface CardProps {
-  card: Type;
+  card: CardType;
 }
 const Card = ({ card }: CardProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
+  const navigate = useNavigate();
 
   const { id, image, title, user, likeCount } = card;
 
   const [detailModal, setDetailModal] = useState<boolean>(false);
-  const [detailCard, setDetailCard] = useState<Type>();
+  const [detailCard, setDetailCard] = useState<CardType>();
 
-  const onBigCard = (card: Type) => {
+  const onBigCard = (card: CardType) => {
     if (detailModal === false) {
       document.body.style.overflow = "hidden";
       setDetailCard(card);
@@ -65,17 +67,25 @@ const Card = ({ card }: CardProps) => {
   //삭제
   const deleteCard = (cardId: number) => {
     if (window.confirm("삭제하시겠습니까?") === true) {
-      DeleteCard(cardId);
+      FbDeleteCard(cardId);
     } else return null;
   };
 
   const likeUid = card?.likeUids.includes(userUid!);
 
-  const { mutate: likeCard } = useLikeData(userUid!, card);
+  const { mutate: likeCard } = useLikeQueryData(userUid!, card);
 
-  const onLikes = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    likeCard();
+  const onLikes = () => {
+    if (!userUid) {
+      if (
+        window.confirm("로그인이 필요합니다. 로그인 페이지로 이동할까요?") ===
+        true
+      ) {
+        navigate("/welcome");
+      }
+    } else {
+      likeCard();
+    }
   };
 
   // const { data } = useKeepCardData(user);
@@ -95,7 +105,7 @@ const Card = ({ card }: CardProps) => {
           <div>
             <S.LikeButton
               variants={infoVariants}
-              onClick={(e) => onLikes(e)}
+              onClick={onLikes}
               isActive={likeUid}
             >
               <FontAwesomeIcon icon={faHeart} />

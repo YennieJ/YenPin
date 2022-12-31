@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 import Pagination from "./components/pagination";
 import Card from "./components/card";
@@ -7,16 +8,12 @@ import * as S from "./preview.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { CardType, Type } from "types";
-import { GetKeppCard } from "service/card";
-import { Link, useLocation } from "react-router-dom";
-import { useKeepCardData } from "hooks/useQueryData";
-import { AuthContext } from "service/authContext";
+import { CardType } from "types";
 
 interface PreviewProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  cards?: Type[];
+  cards?: CardType[];
   handleCardModal?: () => void;
 }
 
@@ -28,8 +25,6 @@ const Preview = ({
   setCurrentPage,
   handleCardModal,
 }: PreviewProps) => {
-  const userInfo = useContext(AuthContext);
-  const userUid = userInfo?.uid;
   const { pathname } = useLocation();
   // const { data } = useKeepCardData(userUid!);
 
@@ -60,7 +55,7 @@ const Preview = ({
           </>
         )}
 
-        {currentItems.map((card: Type) => (
+        {currentItems.map((card: CardType) => (
           <Card key={card.id} card={card} />
         ))}
       </S.Content>

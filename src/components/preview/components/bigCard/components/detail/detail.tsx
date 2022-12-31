@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 
-import { Type } from "types";
+import { CardType } from "types";
 
 import * as S from "./detail.styled";
 import { AuthContext } from "service/authContext";
 
 interface DetailProps {
-  card: Type;
+  card: CardType;
   onModalClose: () => void;
   onEditMode: () => void;
 }

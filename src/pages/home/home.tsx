@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { FbGetAllCards } from "service/card_repository";
+import { useAllCardsQueryData } from "hooks/useQueryData";
 
 import Preview from "components/preview";
 
 import * as S from "./home.styled";
-import { useAllCardQueryData } from "hooks/useQueryData";
+import Loading from "components/loading";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const { isLoading, data } = useAllCardQueryData();
+  const { isLoading, data } = useAllCardsQueryData();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -31,9 +31,7 @@ const Home = () => {
           <button onClick={() => gotoMyPage()}>ㅇㅅㅇ</button>
         </S.CardContainer>
       ) : isLoading ? (
-        <S.SpinnerContainer>
-          <S.Spinner />
-        </S.SpinnerContainer>
+        <Loading />
       ) : (
         data && (
           <Preview

@@ -1,35 +1,30 @@
-import { CardType, Type } from "types";
+import { CardType } from "types";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
-import {
-  CountLikes,
-  GetCard,
-  GetKeppCard,
-  GetMyCard,
-  GetPopularCard,
-  SaveCard,
-  UpdateCard,
-} from "service/card";
+  FbGetAllCards,
+  FbGetMyCards,
+  FbGetPopularCards,
+  FbCreateCard,
+  FbUpdateCard,
+  FbLikeCard,
+  FbGetSavedCards,
+} from "service/card_repository";
 
-export const useAllCardQueryData = () => {
-  return useQuery<Type[]>("allCards", GetCard);
+export const useAllCardsQueryData = () => {
+  return useQuery<CardType[]>("allCards", FbGetAllCards);
 };
 
-export const useMyCardQueryData = (userUid: string) => {
-  return useQuery<Type[]>(["myCards"], () => GetMyCard(userUid));
+export const useMyCardsQueryData = (userUid: string) => {
+  return useQuery<CardType[]>(["myCards"], () => FbGetMyCards(userUid));
 };
 
-export const usePopularCardData = () => {
-  return useQuery<Type[]>(["popular"], () => GetPopularCard());
+export const usePopularCardsQueryData = () => {
+  return useQuery<CardType[]>(["popular"], () => FbGetPopularCards());
 };
 
-export const useAddMyCardData = () => {
+export const useCreateCardQueryData = () => {
   const queryClient = useQueryClient();
-  return useMutation((newCard: Type) => SaveCard(newCard), {
+  return useMutation((newCard: CardType) => FbCreateCard(newCard), {
     onSuccess: () => {
       queryClient.invalidateQueries(["myCards"]);
     },
@@ -49,9 +44,19 @@ export const useAddMyCardData = () => {
   });
 };
 
-export const useLikeData = (userUid: string, card: Type) => {
+export const useUpdateQueryData = () => {
   const queryClient = useQueryClient();
-  return useMutation(() => CountLikes(userUid, card), {
+  return useMutation((newCard: CardType) => FbUpdateCard(newCard), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["myCards"]);
+      queryClient.invalidateQueries(["allCards"]);
+    },
+  });
+};
+
+export const useLikeQueryData = (userUid: string, card: CardType) => {
+  const queryClient = useQueryClient();
+  return useMutation(() => FbLikeCard(userUid, card), {
     onSuccess: () => {
       queryClient.invalidateQueries(["myCards"]);
       queryClient.invalidateQueries(["allCards"]);
@@ -60,19 +65,6 @@ export const useLikeData = (userUid: string, card: Type) => {
   });
 };
 
-export const useEditData = () => {
-  const queryClient = useQueryClient();
-  return useMutation((newCard: Type) => UpdateCard(newCard), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["myCards"]);
-      queryClient.invalidateQueries(["allCards"]);
-    },
-  });
+export const useSavedQueryData = (userUid: string) => {
+  return useQuery<CardType[]>(["keepCards"], () => FbGetSavedCards(userUid));
 };
-
-export const useKeepCardData = (userUid: string) => {
-  return useQuery<Type[]>(["keepCards"], () => GetKeppCard(userUid));
-};
-function userUid(userUid: any, card: Type): Promise<void> {
-  throw new Error("Function not implemented.");
-}

@@ -9,17 +9,10 @@ import ProtectRoute from "router/protectRoute";
 import styled from "styled-components";
 import Search from "pages/search/search";
 import Header from "components/header";
-
-import NewCreateCrad from "pages/update/newCreateCard";
-import NewMy from "pages/update/newMy";
+import Login from "components/header/components/user/login";
 
 const Main = styled.div`
   height: calc(100% - 50px);
-`;
-
-const AddButtom = styled(Link)`
-  border: 1px solid red;
-  font-size: 30px;
 `;
 
 const Router = () => {
@@ -29,9 +22,16 @@ const Router = () => {
 
       <Main className="ROUTER">
         <Routes>
+          <Route path="/welcome" element={<Home />} />
           <Route path="/" element={<Home />} />
-          <Route path="cards/:id" element={<Home />} />
-          <Route path="popular" element={<Popular />} />
+          <Route
+            path="popular"
+            element={
+              <ProtectRoute>
+                <Popular />
+              </ProtectRoute>
+            }
+          />
           <Route
             path="my"
             element={
@@ -40,16 +40,8 @@ const Router = () => {
               </ProtectRoute>
             }
           />
-          <Route
-            path="search"
-            element={
-              <ProtectRoute>
-                <Search />
-              </ProtectRoute>
-            }
-          />
-          {/* <Route path="my/:created" element={<My />} />{" "} */}
-          <Route path="my/:saved" element={<My />} />
+          <Route path="search" element={<Search />} />
+          {/* <Route path="my/:saved" element={<My />} /> */}
         </Routes>
       </Main>
     </BrowserRouter>

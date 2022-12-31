@@ -5,40 +5,25 @@ import Signup from "./signup";
 
 import * as S from "./user.styled";
 import DialogBox from "components/dialogBox/dialogBox";
+import { useLocation, useNavigate } from "react-router";
 
 const User = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
-  const [userModal, setUserModal] = useState<boolean>(false);
-
-  const handleUserModal = () => {
-    if (userModal === false) {
-      document.body.style.overflow = "hidden";
-      setUserModal(true);
-      setIsCreate(false);
-    } else {
-      document.body.style.overflow = "visible";
-      setUserModal(false);
-    }
-  };
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <div>
-      {userModal ? (
+      {pathname === "/welcome" ? (
         <DialogBox>
           {isCreate ? (
-            <Signup
-              closeUserModal={handleUserModal}
-              isLogin={() => setIsCreate(false)}
-            />
+            <Signup isLogin={() => setIsCreate(false)} />
           ) : (
-            <Login
-              closeUserModal={handleUserModal}
-              isSignup={() => setIsCreate(true)}
-            />
+            <Login isSignup={() => setIsCreate(true)} />
           )}
         </DialogBox>
       ) : (
-        <S.LoginButton type="button" onClick={handleUserModal}>
+        <S.LoginButton type="button" onClick={() => navigate("/welcome")}>
           Login
         </S.LoginButton>
       )}
