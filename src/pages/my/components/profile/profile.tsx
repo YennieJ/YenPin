@@ -1,8 +1,7 @@
 import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "service/authContext";
 import { UpdateProfile } from "service/auth_service";
-
-import imageCompression from "browser-image-compression";
+import { ImgConvert } from "service/img_uploader";
 
 import * as S from "./profile.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,20 +34,7 @@ const Profile = () => {
     } = e;
     const file = files![0];
 
-    const options = {
-      maxSizeMB: 2,
-      maxWidthOrHeight: 1920,
-    };
-    try {
-      const compressedFile = await imageCompression(file, options);
-      // resize된 이미지의 url을 받아 fileUrl에 저장
-      const promise = imageCompression.getDataUrlFromFile(compressedFile);
-      promise.then((result) => {
-        setUserPhoto(result);
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    ImgConvert(file, setUserPhoto);
   };
 
   const onSubmit = (e: React.FormEvent) => {

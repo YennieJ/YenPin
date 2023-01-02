@@ -9,7 +9,7 @@ import ProtectRoute from "router/protectRoute";
 import styled from "styled-components";
 import Search from "pages/search/search";
 import Header from "components/header";
-import Login from "components/header/components/user/login";
+import ProtectUser from "./protectUser";
 
 const Main = styled.div`
   height: calc(100% - 50px);
@@ -22,8 +22,16 @@ const Router = () => {
 
       <Main className="ROUTER">
         <Routes>
-          <Route path="/welcome" element={<Home />} />
           <Route path="/" element={<Home />} />
+
+          <Route
+            path="/welcome"
+            element={
+              <ProtectUser>
+                <Home />
+              </ProtectUser>
+            }
+          />
           <Route
             path="popular"
             element={
@@ -40,6 +48,7 @@ const Router = () => {
               </ProtectRoute>
             }
           />
+
           <Route path="search" element={<Search />} />
           {/* <Route path="my/:saved" element={<My />} /> */}
         </Routes>

@@ -5,18 +5,15 @@ import { AuthContext } from "service/authContext";
 type Props = {
   children: JSX.Element;
 };
-const ProtectRoute = ({ children }: Props) => {
+const ProtectUser = ({ children }: Props) => {
   const userInfo = useContext(AuthContext);
   const { state, pathname } = useLocation();
 
-  if (!userInfo) {
+  if (userInfo) {
     return <Navigate to="/" />;
   }
-  // if (!state && pathname === "search") {
-  //   return <Navigate to="/" />;
-  // }
 
   return children;
 };
 
-export default ProtectRoute;
+export default ProtectUser;

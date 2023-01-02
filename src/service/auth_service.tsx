@@ -55,18 +55,17 @@ export const AuthLogIn = ({ email, password }: AuthProps) => {
       alert("로그인 성공");
     })
     .catch((e) => {
-      const emptyAll = "FirebaseError: Firebase: Error (auth/invalid-email).";
-      const emptyPassword =
-        "FirebaseError: Firebase: Error (auth/invalid-password).";
+      const emptyEmail = "Firebase: Error (auth/invalid-email).";
       const wrongId = "Firebase: Error (auth/user-not-found).";
       const wrongPassword = "Firebase: Error (auth/wrong-password).";
+      const emptyPassword = "Firebase: Error (auth/internal-error).";
 
-      if (e.message === emptyAll || emptyPassword) {
-        alert("칸을 비울 수 없습니다.");
+      if (e.message === emptyEmail) {
+        alert("이메일을 바르게 입력해주세요.");
+      } else if (e.message === emptyPassword || e.message === wrongPassword) {
+        alert("비밀번호를 바르게 입력해주세요.");
       } else if (e.message === wrongId) {
-        alert("아이디를 찾을 수 없습니다.");
-      } else if (e.message === wrongPassword) {
-        alert("비밀번호가 틀렸습니다.");
+        alert("이메일을 찾을 수 없습니다.");
       }
     });
 };

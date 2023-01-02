@@ -44,11 +44,15 @@ const Signup = ({ isLogin }: SignupProps) => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  const onClick = () => {
+    isLogin();
+    navigate("/");
+  };
   return (
     <>
       <S.Container>
         <h1>회원가입</h1>
-        <S.CloseLoginModalButton type="button" onClick={() => navigate(-1)}>
+        <S.CloseLoginModalButton type="button" onClick={onClick}>
           &#10005;
         </S.CloseLoginModalButton>
 
