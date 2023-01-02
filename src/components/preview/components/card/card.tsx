@@ -10,7 +10,7 @@ import { faTrash, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { CardType } from "types";
 import { FbDeleteCard } from "service/card_repository";
 
-import { useLikeQueryData } from "hooks/useQueryData";
+import { useLikeMutationData } from "hooks/useQueryData";
 import { useNavigate } from "react-router";
 
 const boxVariants = {
@@ -73,7 +73,7 @@ const Card = ({ card }: CardProps) => {
 
   const likeUid = card?.likeUids.includes(userUid!);
 
-  const { mutate: likeCard } = useLikeQueryData(userUid!, card);
+  const { mutate: likeCard } = useLikeMutationData(userUid!, card);
 
   const onLikes = () => {
     if (!userUid) {

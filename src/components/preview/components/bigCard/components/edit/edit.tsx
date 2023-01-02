@@ -4,7 +4,7 @@ import * as S from "./edit.styled";
 
 import { CardType } from "types";
 import { ImgConvert } from "service/img_uploader";
-import { useUpdateQueryData } from "hooks/useQueryData";
+import { useUpdateMutationData } from "hooks/useQueryData";
 
 interface EditProps {
   card: CardType;
@@ -45,7 +45,7 @@ const Edit = ({ card, onModalClose }: EditProps) => {
       onModalClose();
     } else return null;
   };
-  const { mutate: updateCard } = useUpdateQueryData();
+  const { mutate: updateCard } = useUpdateMutationData();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();

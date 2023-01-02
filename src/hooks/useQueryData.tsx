@@ -22,7 +22,7 @@ export const usePopularCardsQueryData = () => {
   return useQuery<CardType[]>(["popular"], () => FbGetPopularCards());
 };
 
-export const useCreateCardQueryData = () => {
+export const useCreateCardMutationData = () => {
   const queryClient = useQueryClient();
   return useMutation((newCard: CardType) => FbCreateCard(newCard), {
     onSuccess: () => {
@@ -44,7 +44,7 @@ export const useCreateCardQueryData = () => {
   });
 };
 
-export const useUpdateQueryData = () => {
+export const useUpdateMutationData = () => {
   const queryClient = useQueryClient();
   return useMutation((newCard: CardType) => FbUpdateCard(newCard), {
     onSuccess: () => {
@@ -54,7 +54,7 @@ export const useUpdateQueryData = () => {
   });
 };
 
-export const useLikeQueryData = (userUid: string, card: CardType) => {
+export const useLikeMutationData = (userUid: string, card: CardType) => {
   const queryClient = useQueryClient();
   return useMutation(() => FbLikeCard(userUid, card), {
     onSuccess: () => {

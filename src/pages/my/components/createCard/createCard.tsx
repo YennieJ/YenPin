@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
 import { ImgConvert } from "service/img_uploader";
-import { useCreateCardQueryData } from "hooks/useQueryData";
+import { useCreateCardMutationData } from "hooks/useQueryData";
 
 import * as S from "./createCard.styled";
 import DialogBox from "components/dialogBox/dialogBox";
@@ -30,7 +30,7 @@ const CreateCard = ({ handleCardModal, onCurrentPage, userUid }: CardProps) => {
 
   const [message, setMessage] = useState<string>("");
 
-  const { mutate: addCard } = useCreateCardQueryData();
+  const { mutate: addCard } = useCreateCardMutationData();
 
   const onCardSubmit = (e: React.FormEvent) => {
     e.preventDefault();

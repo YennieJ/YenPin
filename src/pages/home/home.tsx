@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
@@ -10,12 +10,11 @@ import * as S from "./home.styled";
 import Loading from "components/loading";
 
 const Home = () => {
-  const navigate = useNavigate();
-
   const { isLoading, data } = useAllCardsQueryData();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const navigate = useNavigate();
   const gotoMyPage = () => {
     navigate("/my");
   };
@@ -27,19 +26,17 @@ const Home = () => {
 
       {data?.length === 0 ? (
         <S.CardContainer>
-          <div>첫 카드를 만들어보세요</div>
+          <div>my 페이지로 이동</div>
           <button onClick={() => gotoMyPage()}>ㅇㅅㅇ</button>
         </S.CardContainer>
       ) : isLoading ? (
         <Loading />
       ) : (
-        data && (
-          <Preview
-            cards={data}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        )
+        <Preview
+          cards={data}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       )}
     </>
   );
