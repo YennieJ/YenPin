@@ -1,15 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 
 import { ImgConvert } from "service/img_uploader";
 import { useCreateCardMutationData } from "hooks/useQueryData";
 
 import * as S from "./createCard.styled";
-
-interface CardProps {
-  handleCardModal: () => void;
-  onCurrentPage: () => void;
-  userUid: string;
-}
+import { useNavigate } from "react-router";
+import { AuthContext } from "service/authContext";
 
 export interface ICardForm {
   image: FileList;
@@ -17,7 +13,11 @@ export interface ICardForm {
   message: string;
 }
 
-const CreateCard = ({ handleCardModal, onCurrentPage, userUid }: CardProps) => {
+const CreateCard = () => {
+  const navigate = useNavigate();
+  const userInfo = useContext(AuthContext);
+  const userUid = userInfo!.uid;
+
   const formRef = useRef<HTMLFormElement>(null);
   const cardNameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -51,8 +51,7 @@ const CreateCard = ({ handleCardModal, onCurrentPage, userUid }: CardProps) => {
       addCard(newCard);
       // file && FbUploadImageFile(file, id);
       formRef.current?.reset();
-      handleCardModal();
-      onCurrentPage();
+      navigate("/my");
     }
   };
 
@@ -155,7 +154,7 @@ const CreateCard = ({ handleCardModal, onCurrentPage, userUid }: CardProps) => {
             </S.TextContainer>
           </S.Content>
           <S.ButtonContainer>
-            <S.Button type="button" onClick={() => handleCardModal()}>
+            <S.Button type="button" onClick={() => navigate(-1)}>
               취소
             </S.Button>
             <S.Button type="submit">등록</S.Button>

@@ -10,6 +10,7 @@ import styled from "styled-components";
 import Search from "pages/search/search";
 import Header from "components/header";
 import ProtectUser from "./protectUser";
+import CreateCard from "pages/my/components/createCard";
 
 const Main = styled.div`
   height: calc(100% - 50px);
@@ -20,12 +21,12 @@ const Router = () => {
     <BrowserRouter>
       <Header />
 
-      <Main className="ROUTER">
+      <Main>
         <Routes>
           <Route path="/" element={<Home />} />
 
           <Route
-            path="/welcome"
+            path="welcome"
             element={
               <ProtectUser>
                 <Home />
@@ -45,6 +46,14 @@ const Router = () => {
             element={
               <ProtectRoute>
                 <My />
+              </ProtectRoute>
+            }
+          />
+          <Route
+            path="/my/create"
+            element={
+              <ProtectRoute>
+                <CreateCard />
               </ProtectRoute>
             }
           />

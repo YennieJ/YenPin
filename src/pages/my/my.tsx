@@ -11,25 +11,14 @@ import * as S from "./my.styled";
 
 import { useMyCardsQueryData } from "hooks/useQueryData";
 import Loading from "components/loading";
+import { useNavigate } from "react-router";
 
 const My = () => {
+  const navigate = useNavigate();
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
 
   const { isLoading, data } = useMyCardsQueryData(userUid);
-
-  const [cardAddModal, setCardAddModal] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const handleCardModal = () => {
-    if (cardAddModal === false) {
-      document.body.style.overflow = "hidden";
-      setCardAddModal(true);
-    } else {
-      document.body.style.overflow = "auto";
-      setCardAddModal(false);
-    }
-  };
 
   return (
     <>
@@ -41,25 +30,14 @@ const My = () => {
       {data?.length === 0 ? (
         <S.CardContainer>
           <div>내가 만든 카드가 여기에 보관됩니다.</div>
-          <button onClick={() => handleCardModal()}>새로운 카드 만들기</button>
+          <button onClick={() => navigate("/my/create")}>
+            새로운 카드 만들기
+          </button>
         </S.CardContainer>
       ) : isLoading ? (
         <Loading />
       ) : (
-        <Preview
-          cards={data}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          handleCardModal={handleCardModal}
-        />
-      )}
-
-      {cardAddModal && (
-        <CreateCard
-          handleCardModal={handleCardModal}
-          onCurrentPage={() => setCurrentPage(1)}
-          userUid={userUid}
-        />
+        <Preview cards={data} />
       )}
     </>
   );

@@ -10,14 +10,10 @@ import * as S from "./home.styled";
 import Loading from "components/loading";
 
 const Home = () => {
+  const navigate = useNavigate();
+
   const { isLoading, data } = useAllCardsQueryData();
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const navigate = useNavigate();
-  const gotoMyPage = () => {
-    navigate("/my");
-  };
   return (
     <>
       <Helmet>
@@ -26,17 +22,15 @@ const Home = () => {
 
       {data?.length === 0 ? (
         <S.CardContainer>
-          <div>my 페이지로 이동</div>
-          <button onClick={() => gotoMyPage()}>ㅇㅅㅇ</button>
+          <div>카드를 만들어 보세요.</div>
+          <button onClick={() => navigate("/my/create")}>
+            새로운 카드 만들기
+          </button>
         </S.CardContainer>
       ) : isLoading ? (
         <Loading />
       ) : (
-        <Preview
-          cards={data}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        <Preview cards={data} />
       )}
     </>
   );

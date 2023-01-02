@@ -1,5 +1,5 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Pagination from "./components/pagination";
 import Card from "./components/card";
@@ -11,22 +11,18 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { CardType } from "types";
 
 interface PreviewProps {
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   cards?: CardType[];
-  handleCardModal?: () => void;
 }
 
 const itemsPerPage: number = 3;
 
-const Preview = ({
-  cards,
-  currentPage,
-  setCurrentPage,
-  handleCardModal,
-}: PreviewProps) => {
+const Preview = ({ cards }: PreviewProps) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   // const { data } = useKeepCardData(userUid!);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -42,11 +38,11 @@ const Preview = ({
   return (
     <S.PreviewContainer>
       <S.Content>
-        {pathname === "/my" && handleCardModal && (
+        {pathname === "/my" && (
           <>
             {/* <Link to="/my/created">생성됨</Link>
             <Link to="/my/saved">저장됨</Link> */}
-            <S.NewCardButton onClick={() => handleCardModal()}>
+            <S.NewCardButton onClick={() => navigate("/my/create")}>
               <div>
                 <FontAwesomeIcon icon={faPlus} />
               </div>

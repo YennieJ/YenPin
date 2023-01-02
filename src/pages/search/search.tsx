@@ -9,29 +9,13 @@ const Search = () => {
   const searchValue = location.state.searchValue;
   const keyword = location.state.keyword;
 
-  const [cardAddModal, setCardAddModal] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const handleCardModal = () => {
-    if (cardAddModal === false) {
-      document.body.style.overflow = "hidden";
-      setCardAddModal(true);
-    } else {
-      document.body.style.overflow = "auto";
-      setCardAddModal(false);
-    }
-  };
   return (
     <>
       <S.KeywordBox>
         <span>{keyword}</span>
       </S.KeywordBox>
       {searchValue.length ? (
-        <Preview
-          cards={searchValue}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          handleCardModal={handleCardModal}
-        />
+        <Preview cards={searchValue} />
       ) : (
         <S.Container>관련된 카드를 찾지 못했습니다</S.Container>
       )}
