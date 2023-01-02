@@ -4,7 +4,6 @@ import { ImgConvert } from "service/img_uploader";
 import { useCreateCardMutationData } from "hooks/useQueryData";
 
 import * as S from "./createCard.styled";
-import DialogBox from "components/dialogBox/dialogBox";
 
 interface CardProps {
   handleCardModal: () => void;
@@ -110,57 +109,59 @@ const CreateCard = ({ handleCardModal, onCurrentPage, userUid }: CardProps) => {
   //   }
   // };
   return (
-    <DialogBox preview>
-      <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
-        <S.Content>
-          {fileURL ? (
-            <S.ImgContainer onClick={onButtonClick}>
-              <S.Overlay>
-                <S.OverlayContent>Change File</S.OverlayContent>
-              </S.Overlay>
-              <img alt="" src={fileURL} />
-            </S.ImgContainer>
-          ) : (
-            <S.AddFileButton type="button" onClick={onButtonClick}>
-              Add File
-            </S.AddFileButton>
-          )}
-          <S.TextContainer>
-            <input
-              hidden
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={onFileChange}
-            />
-            <div>
+    <S.Backdrop>
+      <S.DialogBox>
+        <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
+          <S.Content>
+            {fileURL ? (
+              <S.ImgContainer onClick={onButtonClick}>
+                <S.Overlay>
+                  <S.OverlayContent>Change File</S.OverlayContent>
+                </S.Overlay>
+                <img alt="" src={fileURL} />
+              </S.ImgContainer>
+            ) : (
+              <S.AddFileButton type="button" onClick={onButtonClick}>
+                Add File
+              </S.AddFileButton>
+            )}
+            <S.TextContainer>
               <input
-                ref={cardNameRef}
-                type="text"
-                placeholder="카드 이름"
-                maxLength={15}
+                hidden
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                onChange={onFileChange}
               />
-              <span>최대 15글자</span>
-            </div>
-            <div>
-              <textarea
-                rows={1}
-                placeholder="사진에 대해 설명하세요"
-                maxLength={200}
-                ref={messageRef}
-                onChange={textHeightHandler}
-              />
-              <span>{textLength}/200</span>
-            </div>
-          </S.TextContainer>
-        </S.Content>
-        <S.ButtonContainer>
-          <S.Button type="button" onClick={() => handleCardModal()}>
-            취소
-          </S.Button>
-          <S.Button type="submit">등록</S.Button>
-        </S.ButtonContainer>
-      </S.CardForm>
+              <div>
+                <input
+                  ref={cardNameRef}
+                  type="text"
+                  placeholder="카드 이름"
+                  maxLength={15}
+                />
+                <span>최대 15글자</span>
+              </div>
+              <div>
+                <textarea
+                  rows={1}
+                  placeholder="사진에 대해 설명하세요"
+                  maxLength={200}
+                  ref={messageRef}
+                  onChange={textHeightHandler}
+                />
+                <span>{textLength}/200</span>
+              </div>
+            </S.TextContainer>
+          </S.Content>
+          <S.ButtonContainer>
+            <S.Button type="button" onClick={() => handleCardModal()}>
+              취소
+            </S.Button>
+            <S.Button type="submit">등록</S.Button>
+          </S.ButtonContainer>
+        </S.CardForm>
+      </S.DialogBox>
 
       {/* <S.CardForm onSubmit={handleSubmit(onValid)}>
         <S.Content>
@@ -204,7 +205,7 @@ const CreateCard = ({ handleCardModal, onCurrentPage, userUid }: CardProps) => {
           <S.Button type="submit">등록</S.Button>
         </S.ButtonContainer>
       </S.CardForm> */}
-    </DialogBox>
+    </S.Backdrop>
   );
 };
 

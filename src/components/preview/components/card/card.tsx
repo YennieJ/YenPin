@@ -102,16 +102,12 @@ const Card = ({ card }: CardProps) => {
         <img src={image} alt="" onClick={() => onBigCard(card)} />
         <S.Info variants={infoVariants}>
           <span>{title}</span>
-          <div>
-            <S.LikeButton
-              variants={infoVariants}
-              onClick={onLikes}
-              isActive={likeUid}
-            >
+          <S.IsActive isActive={likeUid}>
+            <S.LikeButton variants={infoVariants} onClick={onLikes}>
               <FontAwesomeIcon icon={faHeart} />
             </S.LikeButton>
             <span>{likeCount}</span>
-          </div>
+          </S.IsActive>
         </S.Info>
         {userUid === user && (
           <S.DeletButton

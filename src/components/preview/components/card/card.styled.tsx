@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 interface Props {
-  isActive?: boolean;
+  isActive: boolean;
 }
 
 export const Box = styled(motion.div)`
@@ -32,6 +32,7 @@ export const Info = styled(motion.div)`
   width: 100%;
   bottom: 0;
   font-size: 18px;
+  color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.contentBgColor};
 
   display: flex;
@@ -55,11 +56,8 @@ export const Info = styled(motion.div)`
   }
 `;
 
-export const LikeButton = styled(motion.button)<Props>`
-  font-size: 18px;
-  color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.contentBgColor};
-
+// isActive는 motion의 valid atrribute가 아님.
+export const IsActive = styled.div<Props>`
   svg {
     color: ${(props) => (props.isActive ? "red" : props.theme.textColor)};
     width: 100%;
@@ -67,6 +65,11 @@ export const LikeButton = styled(motion.button)<Props>`
     justify-content: center;
     align-items: center;
   }
+`;
+
+export const LikeButton = styled(motion.button)`
+  font-size: 18px;
+  background-color: ${(props) => props.theme.contentBgColor};
 `;
 
 export const DeletButton = styled(motion.button)`

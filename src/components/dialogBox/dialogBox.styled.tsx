@@ -1,7 +1,6 @@
-import styled, { css } from "styled-components";
-import { motion } from "framer-motion";
+import styled from "styled-components";
 
-export const Backdrop = styled(motion.div)`
+export const Backdrop = styled.div`
   display: flex;
   place-items: center;
   position: fixed;
@@ -15,23 +14,16 @@ export const Backdrop = styled(motion.div)`
   background-color: ${(props) => props.theme.hoverColor};
 `;
 
-interface DialogBoxProps {
-  preview?: boolean;
-}
-export const DialogBox = styled(motion.dialog)<DialogBoxProps>`
+export const DialogBox = styled.dialog`
   display: flex;
 
   border: none;
   border-radius: 20px;
   padding: 0;
 
+  width: 450px;
+  height: 500px;
+
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.contentBgColor};
-
-  /* box-shadow: 0 0 30px rgba(30, 30, 30, 0.185); */
-
-  ${({ preview }) => css`
-    width: ${preview ? "880px" : "450px"};
-    height: ${preview ? "530px" : "500px"};
-  `}
 `;
