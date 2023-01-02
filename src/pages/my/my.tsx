@@ -1,20 +1,17 @@
-import React, { useState, useContext } from "react";
-import { Helmet } from "react-helmet";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { AuthContext } from "service/authContext";
+import { useMyCardsQueryData } from "hooks/useQueryData";
 
 import Profile from "./components/profile/profile";
-import CreateCard from "./components/createCard";
 import Preview from "../../components/preview";
+import Loading from "components/loading";
 
 import * as S from "./my.styled";
-
-import { useMyCardsQueryData } from "hooks/useQueryData";
-import Loading from "components/loading";
-import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet";
 
 const My = () => {
-  const navigate = useNavigate();
   const userInfo = useContext(AuthContext);
   const userUid = userInfo!.uid;
 
@@ -30,9 +27,7 @@ const My = () => {
       {data?.length === 0 ? (
         <S.CardContainer>
           <div>내가 만든 카드가 여기에 보관됩니다.</div>
-          <button onClick={() => navigate("/my/create")}>
-            새로운 카드 만들기
-          </button>
+          <Link to="/my/create">새로운 카드 만들기</Link>
         </S.CardContainer>
       ) : isLoading ? (
         <Loading />

@@ -18,7 +18,7 @@ export const CardContainer = styled.div`
     font-weight: 400;
     color: ${(props) => props.theme.textColor};
   }
-  button {
+  a {
     border: none;
     border-radius: 50px;
     padding: 15px;

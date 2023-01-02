@@ -17,20 +17,20 @@ export const CardContainer = styled.div`
     font-weight: 400;
     margin-bottom: 30px;
   }
-  button {
+  a {
     border: none;
     border-radius: 50px;
     padding: 15px;
 
-    color: white;
-    background: purple;
+    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.contentBgColor};
 
     font-size: 17px;
     font-weight: 500;
 
     cursor: pointer;
     :hover {
-      background-color: #6b006b;
+      background-color: ${(props) => props.theme.hoverColor};
     }
   }
 `;

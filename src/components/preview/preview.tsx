@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import Pagination from "./components/pagination";
 import Card from "./components/card";
+import Pagination from "./components/pagination";
 
 import * as S from "./preview.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +18,6 @@ const itemsPerPage: number = 3;
 
 const Preview = ({ cards }: PreviewProps) => {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
   // const { data } = useKeepCardData(userUid!);
 
@@ -42,7 +41,7 @@ const Preview = ({ cards }: PreviewProps) => {
           <>
             {/* <Link to="/my/created">생성됨</Link>
             <Link to="/my/saved">저장됨</Link> */}
-            <S.NewCardButton onClick={() => navigate("/my/create")}>
+            <S.NewCardButton to="/my/create">
               <div>
                 <FontAwesomeIcon icon={faPlus} />
               </div>

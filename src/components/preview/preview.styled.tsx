@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const PreviewContainer = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ export const Footer = styled.div`
   height: 10%;
 `;
 
-export const NewCardButton = styled.button`
+export const NewCardButton = styled(Link)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -48,6 +49,7 @@ export const NewCardButton = styled.button`
   right: 30px;
   transition: width 0.3s ease-out;
 
+  z-index: 99999;
   div {
     display: flex;
     justify-content: center;
