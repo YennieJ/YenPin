@@ -1,17 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { AuthContext } from "service/authContext";
 
 import { useAllCardsQueryData } from "hooks/useQueryData";
 
 import Preview from "components/preview";
 import Loading from "components/loading";
 
-import * as S from "./home.styled";
 import { Helmet } from "react-helmet";
+import EmptyData from "components/emptyData";
 
 const Home = () => {
+  const userInfo = useContext(AuthContext);
+  const userUid = userInfo?.uid;
   const { isLoading, data } = useAllCardsQueryData();
 
+  const emptyMessage = "첫 카드를 등록해보세요.";
   return (
     <>
       <Helmet>
@@ -19,10 +24,7 @@ const Home = () => {
       </Helmet>
 
       {data?.length === 0 ? (
-        <S.CardContainer>
-          <div>카드를 만들어 보세요.</div>
-          <Link to="/my/create">새로운 카드 만들기</Link>
-        </S.CardContainer>
+        <EmptyData emptyMessage={emptyMessage} />
       ) : isLoading ? (
         <Loading />
       ) : (

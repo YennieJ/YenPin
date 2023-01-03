@@ -1,5 +1,10 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router";
+
 import { AuthContext } from "service/authContext";
+
+import { useLikeMutationData } from "hooks/useQueryData";
+import { FbDeleteCard } from "service/card_repository";
 
 import BigCard from "../bigCard/bigCard";
 
@@ -8,10 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
-import { FbDeleteCard } from "service/card_repository";
-
-import { useLikeMutationData } from "hooks/useQueryData";
-import { useNavigate } from "react-router";
 
 const boxVariants = {
   normal: {

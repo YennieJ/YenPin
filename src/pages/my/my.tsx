@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 
 import { AuthContext } from "service/authContext";
 import { useMyCardsQueryData } from "hooks/useQueryData";
@@ -8,8 +7,8 @@ import Profile from "./components/profile/profile";
 import Preview from "../../components/preview";
 import Loading from "components/loading";
 
-import * as S from "./my.styled";
 import { Helmet } from "react-helmet";
+import EmptyData from "components/emptyData";
 
 const My = () => {
   const userInfo = useContext(AuthContext);
@@ -17,6 +16,7 @@ const My = () => {
 
   const { isLoading, data } = useMyCardsQueryData(userUid);
 
+  const emptyMessage = "내가 만든 카드가 여기에 보관됩니다.";
   return (
     <>
       <Helmet>
@@ -25,10 +25,7 @@ const My = () => {
       <Profile />
 
       {data?.length === 0 ? (
-        <S.CardContainer>
-          <div>내가 만든 카드가 여기에 보관됩니다.</div>
-          <Link to="/my/create">새로운 카드 만들기</Link>
-        </S.CardContainer>
+        <EmptyData emptyMessage={emptyMessage} />
       ) : isLoading ? (
         <Loading />
       ) : (

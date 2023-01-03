@@ -1,23 +1,20 @@
 import styled from "styled-components";
 
-// export const HomeContainer = styled.div`
-//   border: 1px solid green;
-//   height: 100%;
-// `;
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 50px;
 
-  height: 80%;
+  color: ${(props) => props.theme.textColor};
 
   div {
     font-size: 15px;
     font-weight: 400;
     margin-bottom: 30px;
   }
-  a {
+  button {
     border: none;
     border-radius: 50px;
     padding: 15px;
@@ -28,7 +25,6 @@ export const CardContainer = styled.div`
     font-size: 17px;
     font-weight: 500;
 
-    cursor: pointer;
     :hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
