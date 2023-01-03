@@ -6,10 +6,14 @@ import { ImgConvert } from "service/img_uploader";
 import * as S from "./profile.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { useResetRecoilState } from "recoil";
+import { onSidebarAtom } from "style/atoms";
 
 const PROFILE_IMAGE = "/image/profile.jpeg";
 
 const Profile = () => {
+  const closeSidebar = useResetRecoilState(onSidebarAtom);
+
   const userInfo = useContext(AuthContext);
 
   const photoRef = useRef<HTMLInputElement>(null);
@@ -79,7 +83,7 @@ const Profile = () => {
   };
 
   return (
-    <S.Container>
+    <S.Container onClick={closeSidebar}>
       <S.Form>
         <S.ImgContainer onClick={onPhotoClick}>
           {editing && (

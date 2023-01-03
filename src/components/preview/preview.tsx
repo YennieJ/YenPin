@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
+import { useResetRecoilState } from "recoil";
+import { onSidebarAtom } from "style/atoms";
 
 interface PreviewProps {
   cards?: CardType[];
@@ -34,8 +36,10 @@ const Preview = ({ cards }: PreviewProps) => {
     pages.push(i);
   }
 
+  const closeSidebar = useResetRecoilState(onSidebarAtom);
+
   return (
-    <S.PreviewContainer>
+    <S.PreviewContainer onClick={closeSidebar}>
       <S.Content>
         {pathname === "/my" && (
           <>

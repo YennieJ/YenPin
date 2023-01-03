@@ -25,13 +25,12 @@ const EmptyData = ({ emptyMessage }: Props) => {
         navigate("/welcome");
       }
     } else {
-      closeSidebar();
       navigate("/my/create");
     }
   };
 
   return (
-    <S.CardContainer>
+    <S.CardContainer onClick={closeSidebar}>
       <div>{emptyMessage}</div>
       <button onClick={onCreateCard}>새로운 카드 만들기</button>
     </S.CardContainer>
