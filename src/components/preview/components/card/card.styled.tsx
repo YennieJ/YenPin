@@ -23,9 +23,9 @@ export const Box = styled(motion.div)`
     border-radius: 10px;
   }
 `;
+
 export const Info = styled(motion.div)`
   height: 50px;
-
   border-radius: 0 0 10px 10px;
   opacity: 0;
   position: absolute;

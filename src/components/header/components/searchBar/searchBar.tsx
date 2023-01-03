@@ -4,14 +4,17 @@ import { useForm } from "react-hook-form";
 
 import { FbGetAllCards } from "service/card_repository";
 
-import { Helmet } from "react-helmet";
 import * as S from "./searchBar.styled";
+import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faX } from "@fortawesome/free-solid-svg-icons";
+import { useResetRecoilState } from "recoil";
+import { onSidebarAtom } from "style/atoms";
 
 const SearchBar = () => {
   const navigate = useNavigate();
   const [onFocus, setOnFocus] = useState(false);
+  const closeSidebar = useResetRecoilState(onSidebarAtom);
 
   const { register, handleSubmit, setValue } = useForm();
 
@@ -22,6 +25,7 @@ const SearchBar = () => {
         const searchValue = response.filter((card) =>
           card.title.includes(keyword)
         );
+        closeSidebar();
         navigate("/search", { state: { searchValue, keyword } });
       });
       setValue("keyword", "");

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "service/authContext";
 
 import * as S from "./emptyData.styled";
+import { useResetRecoilState } from "recoil";
+import { onSidebarAtom } from "style/atoms";
 
 interface Props {
   emptyMessage: string;
@@ -11,6 +13,8 @@ const EmptyData = ({ emptyMessage }: Props) => {
   const navigate = useNavigate();
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
+
+  const closeSidebar = useResetRecoilState(onSidebarAtom);
 
   const onCreateCard = () => {
     if (!userUid) {
@@ -21,6 +25,7 @@ const EmptyData = ({ emptyMessage }: Props) => {
         navigate("/welcome");
       }
     } else {
+      closeSidebar();
       navigate("/my/create");
     }
   };

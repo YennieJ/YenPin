@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import { CardType } from "types";
+import { useResetRecoilState } from "recoil";
+import { onSidebarAtom } from "style/atoms";
 
 const boxVariants = {
   normal: {
@@ -20,7 +22,7 @@ const boxVariants = {
   },
   hover: {
     //zindex 꼭 사용해야되는건가.. 왜때문이지
-    zIndex: 9,
+    zIndex: 5,
     scale: 1.3,
     transition: {
       delay: 0.5,
@@ -49,6 +51,8 @@ const Card = ({ card }: CardProps) => {
   const userUid = userInfo?.uid;
   const navigate = useNavigate();
 
+  const closeSidebar = useResetRecoilState(onSidebarAtom);
+
   const { id, image, title, user, likeCount } = card;
 
   const [detailModal, setDetailModal] = useState<boolean>(false);
@@ -56,6 +60,7 @@ const Card = ({ card }: CardProps) => {
 
   const onBigCard = (card: CardType) => {
     if (detailModal === false) {
+      closeSidebar();
       document.body.style.overflow = "hidden";
       setDetailCard(card);
       setDetailModal(true);

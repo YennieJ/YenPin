@@ -6,7 +6,9 @@ export const CardForm = styled.form`
   place-items: center;
   justify-content: space-around;
 
-  width: 100%;
+  width: 880px;
+  height: 530px;
+
   padding: 20px;
 `;
 

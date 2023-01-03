@@ -12,6 +12,7 @@ export const StyledBurger = styled.div<Props>`
   align-items: end;
 
   height: 50px;
+
   padding: 10px 10px;
 
   cursor: pointer;

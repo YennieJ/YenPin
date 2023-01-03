@@ -16,7 +16,7 @@ export const LinkBox = styled.span<LinkBoxProps>`
   height: 50px;
 
   border-radius: 20px;
-  margin-right: 10px;
+  margin-right: 5px;
 
   background-color: ${(props) =>
     props.isActive ? props.theme.textColor : props.theme.bgColor};

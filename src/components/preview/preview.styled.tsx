@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export const PreviewContainer = styled.div`
   display: flex;
@@ -49,7 +50,7 @@ export const NewCardButton = styled(Link)`
   right: 30px;
   transition: width 0.3s ease-out;
 
-  z-index: 99999;
+  z-index: 2;
   div {
     display: flex;
     justify-content: center;

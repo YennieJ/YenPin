@@ -17,7 +17,7 @@ const Detail = ({ card, onModalClose, onEditMode }: DetailProps) => {
 
   return (
     <>
-      <S.Div>
+      <S.CardForm>
         <S.Content>
           <S.ImgContainer>
             <img alt="" src={image} />
@@ -37,7 +37,7 @@ const Detail = ({ card, onModalClose, onEditMode }: DetailProps) => {
             </S.Button>
           )}
         </S.ButtonContainer>
-      </S.Div>
+      </S.CardForm>
     </>
   );
 };

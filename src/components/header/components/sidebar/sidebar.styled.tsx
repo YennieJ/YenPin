@@ -5,6 +5,21 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+
+  width: 80px;
+`;
+
+export const SidebarOverlay = styled.div`
+  background: rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 9;
+  overflow: hidden;
 `;
 
 export const SidebarContents = styled.ul`
