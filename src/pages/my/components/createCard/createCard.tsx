@@ -1,11 +1,12 @@
 import React, { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router";
+import { AuthContext } from "service/authContext";
 
 import { ImgConvert } from "service/img_uploader";
 import { useCreateCardMutationData } from "hooks/useQueryData";
 
 import * as S from "./createCard.styled";
-import { useNavigate } from "react-router";
-import { AuthContext } from "service/authContext";
+import DialogBox from "components/dialogBox/dialogBox";
 
 export interface ICardForm {
   image: FileList;
@@ -108,59 +109,57 @@ const CreateCard = () => {
   //   }
   // };
   return (
-    <S.Backdrop>
-      <S.DialogBox>
-        <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
-          <S.Content>
-            {fileURL ? (
-              <S.ImgContainer onClick={onButtonClick}>
-                <S.Overlay>
-                  <S.OverlayContent>Change File</S.OverlayContent>
-                </S.Overlay>
-                <img alt="" src={fileURL} />
-              </S.ImgContainer>
-            ) : (
-              <S.AddFileButton type="button" onClick={onButtonClick}>
-                Add File
-              </S.AddFileButton>
-            )}
-            <S.TextContainer>
+    <DialogBox>
+      <S.CardForm ref={formRef} onSubmit={onCardSubmit}>
+        <S.Content>
+          {fileURL ? (
+            <S.ImgContainer onClick={onButtonClick}>
+              <S.Overlay>
+                <S.OverlayContent>Change File</S.OverlayContent>
+              </S.Overlay>
+              <img alt="" src={fileURL} />
+            </S.ImgContainer>
+          ) : (
+            <S.AddFileButton type="button" onClick={onButtonClick}>
+              Add File
+            </S.AddFileButton>
+          )}
+          <S.TextContainer>
+            <input
+              hidden
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={onFileChange}
+            />
+            <div>
               <input
-                hidden
-                ref={fileRef}
-                type="file"
-                accept="image/*"
-                onChange={onFileChange}
+                ref={cardNameRef}
+                type="text"
+                placeholder="카드 이름"
+                maxLength={15}
               />
-              <div>
-                <input
-                  ref={cardNameRef}
-                  type="text"
-                  placeholder="카드 이름"
-                  maxLength={15}
-                />
-                <span>최대 15글자</span>
-              </div>
-              <div>
-                <textarea
-                  rows={1}
-                  placeholder="사진에 대해 설명하세요"
-                  maxLength={200}
-                  ref={messageRef}
-                  onChange={textHeightHandler}
-                />
-                <span>{textLength}/200</span>
-              </div>
-            </S.TextContainer>
-          </S.Content>
-          <S.ButtonContainer>
-            <S.Button type="button" onClick={() => navigate(-1)}>
-              취소
-            </S.Button>
-            <S.Button type="submit">등록</S.Button>
-          </S.ButtonContainer>
-        </S.CardForm>
-      </S.DialogBox>
+              <span>최대 15글자</span>
+            </div>
+            <div>
+              <textarea
+                rows={1}
+                placeholder="사진에 대해 설명하세요"
+                maxLength={200}
+                ref={messageRef}
+                onChange={textHeightHandler}
+              />
+              <span>{textLength}/200</span>
+            </div>
+          </S.TextContainer>
+        </S.Content>
+        <S.ButtonContainer>
+          <S.Button type="button" onClick={() => navigate(-1)}>
+            취소
+          </S.Button>
+          <S.Button type="submit">등록</S.Button>
+        </S.ButtonContainer>
+      </S.CardForm>
 
       {/* <S.CardForm onSubmit={handleSubmit(onValid)}>
         <S.Content>
@@ -204,7 +203,7 @@ const CreateCard = () => {
           <S.Button type="submit">등록</S.Button>
         </S.ButtonContainer>
       </S.CardForm> */}
-    </S.Backdrop>
+    </DialogBox>
   );
 };
 

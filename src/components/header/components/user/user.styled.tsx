@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const LoginButton = styled.button`
+import { Link } from "react-router-dom";
+
+export const LoginButton = styled(Link)`
   width: 100%;
   height: 100%;
   padding: 0 5px;

@@ -34,3 +34,6 @@ const EmptyData = ({ emptyMessage }: Props) => {
 };
 
 export default EmptyData;
+
+// link는 클릭 시 바로 이동하는 로직 ex)상세페이지 a:외부프로젝트 link:프로젝트 내에서 페이지전환
+// useNavigate는 함수로 페이지 전환시 조건이 만족했을때 처리해야하는 로직이 있는 경우

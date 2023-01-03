@@ -4,12 +4,12 @@ import Login from "./login";
 import Signup from "./signup";
 
 import * as S from "./user.styled";
+
+import { useLocation } from "react-router";
 import DialogBox from "components/dialogBox/dialogBox";
-import { useLocation, useNavigate } from "react-router";
 
 const User = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
-  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return (
@@ -23,9 +23,7 @@ const User = () => {
           )}
         </DialogBox>
       ) : (
-        <S.LoginButton type="button" onClick={() => navigate("/welcome")}>
-          Login
-        </S.LoginButton>
+        <S.LoginButton to="/welcome">Login</S.LoginButton>
       )}
     </div>
   );

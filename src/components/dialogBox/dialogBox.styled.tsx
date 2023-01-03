@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const Backdrop = styled.div`
   display: flex;
@@ -14,15 +15,12 @@ export const Backdrop = styled.div`
   background-color: ${(props) => props.theme.hoverColor};
 `;
 
-export const DialogBox = styled.dialog`
+export const Dialog = styled(motion.dialog)`
   display: flex;
 
   border: none;
   border-radius: 20px;
   padding: 0;
-
-  width: 450px;
-  height: 500px;
 
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.contentBgColor};
