@@ -4,7 +4,7 @@ export const lightTheme: DefaultTheme = {
   textColor: "#202020",
   bgColor: "#ffffff",
 
-  contentBgColor: "white",
+  contentBgColor: "#e9e9e9",
   hoverColor: "rgba(0, 0, 0, 0.3)",
 
   buttonTheme: "#f3f3f3",
