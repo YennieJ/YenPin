@@ -19,7 +19,7 @@ const App = () => {
         <GlobalStyle />
         <Router />
       </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
+      {/* <ReactQueryDevtools initialIsOpen={true} /> */}
     </AuthProvider>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "service/authContext";
 
@@ -7,9 +6,9 @@ import { useAllCardsQueryData } from "hooks/useQueryData";
 
 import Preview from "components/preview";
 import Loading from "components/loading";
+import EmptyData from "components/emptyData";
 
 import { Helmet } from "react-helmet";
-import EmptyData from "components/emptyData";
 
 const Home = () => {
   const userInfo = useContext(AuthContext);

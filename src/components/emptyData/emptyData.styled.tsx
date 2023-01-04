@@ -6,6 +6,7 @@ export const CardContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 50px;
+  border-top: 1px groove gray;
 
   color: ${(props) => props.theme.textColor};
 

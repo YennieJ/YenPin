@@ -9,22 +9,9 @@ export const Container = styled.div`
   width: 80px;
 `;
 
-export const SidebarOverlay = styled.div`
-  background: rgba(0, 0, 0, 0.5);
-
-  position: fixed;
-  top: 80px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  z-index: 9;
-  overflow: hidden;
-`;
-
 export const SidebarContents = styled.ul`
   position: absolute;
-  top: 50px;
+  top: 60px;
   right: 8px;
 
   display: flex;

@@ -4,7 +4,8 @@ export const SpinnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 70%;
+  border-top: 1px groove gray;
 `;
 
 export const Spinner = styled.span`
@@ -15,7 +16,6 @@ export const Spinner = styled.span`
   margin: 15px auto;
   position: relative;
   color: purple;
-  box-sizing: border-box;
   animation: animloader 2s linear infinite;
 
   @keyframes animloader {

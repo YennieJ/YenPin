@@ -16,12 +16,10 @@ interface PreviewProps {
   cards?: CardType[];
 }
 
-const itemsPerPage: number = 3;
+const itemsPerPage: number = 12;
 
 const Preview = ({ cards }: PreviewProps) => {
   const { pathname } = useLocation();
-
-  // const { data } = useKeepCardData(userUid!);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -37,14 +35,12 @@ const Preview = ({ cards }: PreviewProps) => {
   }
 
   const closeSidebar = useResetRecoilState(onSidebarAtom);
-
+  const myPage = pathname === "/my";
   return (
-    <S.PreviewContainer onClick={closeSidebar}>
+    <S.PreviewContainer myPage={myPage} onClick={closeSidebar}>
       <S.Content>
-        {pathname === "/my" && (
+        {myPage && (
           <>
-            {/* <Link to="/my/created">생성됨</Link>
-            <Link to="/my/saved">저장됨</Link> */}
             <S.NewCardButton to="/my/create">
               <div>
                 <FontAwesomeIcon icon={faPlus} />
@@ -59,18 +55,21 @@ const Preview = ({ cards }: PreviewProps) => {
         ))}
       </S.Content>
 
-      {/* <S.Footer> */}
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         pages={pages}
       />
-      {/* </S.Footer> */}
     </S.PreviewContainer>
   );
 };
 
 export default Preview;
+
+{
+  /* <Link to="/my/created">생성됨</Link>
+            <Link to="/my/saved">저장됨</Link>  */
+}
 
 // {PATH && handleCardModal && (
 //   <>

@@ -13,7 +13,8 @@ import ProtectUser from "./protectUser";
 import CreateCard from "pages/my/components/createCard";
 
 const Main = styled.div`
-  height: calc(100% - 50px);
+  height: calc(100% - 70px);
+  flex-grow: 1;
 `;
 
 const Router = () => {

@@ -6,6 +6,6 @@ export const Container = styled.nav`
   justify-content: space-between;
   align-items: center;
 
-  height: 50px;
+  height: 70px;
   margin-bottom: 10px;
 `;

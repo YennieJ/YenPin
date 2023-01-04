@@ -15,6 +15,7 @@ const My = () => {
   const userUid = userInfo!.uid;
 
   const { isLoading, data } = useMyCardsQueryData(userUid);
+  // const { data } = useKeepCardData(userUid!);
 
   const emptyMessage = "내가 만든 카드가 여기에 보관됩니다.";
   return (

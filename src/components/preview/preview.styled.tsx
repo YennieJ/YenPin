@@ -1,33 +1,32 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
-export const PreviewContainer = styled.div`
+interface Props {
+  myPage: boolean;
+}
+export const PreviewContainer = styled.div<Props>`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
-  height: auto;
+  height: ${(props) => (props.myPage ? "calc(100% - 260px)" : "100%")};
+  padding-bottom: 30px;
+
   position: relative;
+
+  @media (max-width: 940px) {
+    padding-bottom: 50px;
+  }
 `;
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 
-  grid-gap: 10px;
+  grid-gap: 20px;
   place-items: center;
 
-  height: 90%;
   padding: 50px 30px 60px 30px;
   border-top: 1px groove gray;
-`;
-
-export const Footer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-
-  width: 100%;
-  height: 10%;
 `;
 
 export const NewCardButton = styled(Link)`

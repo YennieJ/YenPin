@@ -30,24 +30,23 @@ footer, header, hgroup, menu, nav, section {
 *{
   box-sizing: border-box;
 }
-html,body{
-	height: 98vh;
-  @media (max-width: 1240px) {
-    height: auto;
-  }
-		
-	
-}
-#root{
-	height: 100%;
-	position:relative;
-}
 body {
+	width: 100%;
+	min-height: 100vh;
 	line-height: 1;
-	padding: 20px 10px 60px 10px;
 	font-family: 'PT Sans Narrow', sans-serif;
 
+	display: flex;
+
 	background-color: ${(props) => props.theme.bgColor};
+}
+
+#root{
+flex-grow:1;
+}
+
+.app{
+	height: 100vh;
 }
 ol, ul {
 	list-style: none;

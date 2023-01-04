@@ -9,8 +9,8 @@ export const Box = styled(motion.div)`
   position: relative;
   background-position: center center;
 
-  width: 280px;
-  height: 330px;
+  width: 235px;
+  height: 323px;
   border: 1px solid ${(props) => props.theme.hoverColor};
   border-radius: 10px;
 
