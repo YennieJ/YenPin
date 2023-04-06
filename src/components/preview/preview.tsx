@@ -15,11 +15,13 @@ import { onSidebarAtom } from "style/atoms";
 interface PreviewProps {
   cards?: CardType[];
 }
-
-const itemsPerPage: number = 12;
+const itemsPerPage = 6;
 
 const Preview = ({ cards }: PreviewProps) => {
+  const closeSidebar = useResetRecoilState(onSidebarAtom);
+
   const { pathname } = useLocation();
+  const myPage = pathname === "/my";
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -34,8 +36,6 @@ const Preview = ({ cards }: PreviewProps) => {
     pages.push(i);
   }
 
-  const closeSidebar = useResetRecoilState(onSidebarAtom);
-  const myPage = pathname === "/my";
   return (
     <S.PreviewContainer myPage={myPage} onClick={closeSidebar}>
       <S.Content>

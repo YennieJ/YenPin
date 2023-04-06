@@ -13,7 +13,7 @@ import ProtectUser from "./protectUser";
 import CreateCard from "pages/my/components/createCard";
 
 const Main = styled.div`
-  height: calc(100% - 70px);
+  height: calc(100% - 80px);
   flex-grow: 1;
 `;
 

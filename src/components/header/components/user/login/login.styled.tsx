@@ -8,9 +8,9 @@ export const Container = styled.div`
   width: 450px;
   height: 500px;
   padding: 30px 40px 40px 40px;
+
   h1 {
     margin-bottom: 20px;
-
     font-size: 30px;
   }
 `;

@@ -7,5 +7,6 @@ export const Container = styled.nav`
   align-items: center;
 
   height: 70px;
+  padding: 0 5px;
   margin-bottom: 10px;
 `;

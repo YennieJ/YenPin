@@ -21,6 +21,7 @@ export const PreviewContainer = styled.div<Props>`
 export const Content = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  justify-content: center;
 
   grid-gap: 20px;
   place-items: center;
