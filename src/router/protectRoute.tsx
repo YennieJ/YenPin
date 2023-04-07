@@ -12,9 +12,6 @@ const ProtectRoute = ({ children }: Props) => {
   if (!userInfo) {
     return <Navigate to="/" />;
   }
-  // if (!state && pathname === "search") {
-  //   return <Navigate to="/" />;
-  // }
 
   return children;
 };

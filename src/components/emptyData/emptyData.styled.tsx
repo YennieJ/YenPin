@@ -5,24 +5,26 @@ export const CardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   padding-top: 50px;
   border-top: 1px groove gray;
 
   color: ${(props) => props.theme.textColor};
 
   div {
+    margin-bottom: 30px;
+
     font-size: 15px;
     font-weight: 400;
-    margin-bottom: 30px;
   }
   button {
-    border: none;
-    border-radius: 50px;
     padding: 15px;
 
-    color: ${(props) => props.theme.textColor};
+    border: none;
+    border-radius: 50px;
     background-color: ${(props) => props.theme.contentBgColor};
 
+    color: ${(props) => props.theme.textColor};
     font-size: 17px;
     font-weight: 500;
 

@@ -1,31 +1,26 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "pages/home/home";
 import Popular from "pages/popular";
 import My from "pages/my";
 import ProtectRoute from "router/protectRoute";
-
-import styled from "styled-components";
 import Search from "pages/search/search";
 import Header from "components/header";
 import ProtectUser from "./protectUser";
 import CreateCard from "pages/my/components/createCard";
 
-const Main = styled.div`
-  height: calc(100% - 80px);
-  flex-grow: 1;
-`;
+import * as S from "./router.styled";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
 
-      <Main>
+      <S.Main>
         <Routes>
           <Route path="/" element={<Home />} />
-
+          {/* 로그인 (path= welcome) 모달창으로 열림 */}
           <Route
             path="welcome"
             element={
@@ -34,6 +29,7 @@ const Router = () => {
               </ProtectUser>
             }
           />
+          {/* protectRoute로 user가 있을때만 보암 */}
           <Route
             path="popular"
             element={
@@ -60,9 +56,8 @@ const Router = () => {
           />
 
           <Route path="search" element={<Search />} />
-          {/* <Route path="my/:saved" element={<My />} /> */}
         </Routes>
-      </Main>
+      </S.Main>
     </BrowserRouter>
   );
 };

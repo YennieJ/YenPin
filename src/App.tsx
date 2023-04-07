@@ -1,4 +1,6 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
+
 import { AuthProvider } from "service/auth_service";
 
 import Router from "router/router";
@@ -6,10 +8,7 @@ import Router from "router/router";
 import GlobalStyle from "style/grobal.styled";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "style/theme";
-import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "style/atoms";
-
-import { ReactQueryDevtools } from "react-query/devtools";
 
 const App = () => {
   const isDark = useRecoilValue(isDarkAtom);
@@ -19,7 +18,6 @@ const App = () => {
         <GlobalStyle />
         <Router />
       </ThemeProvider>
-      {/* <ReactQueryDevtools initialIsOpen={true} /> */}
     </AuthProvider>
   );
 };

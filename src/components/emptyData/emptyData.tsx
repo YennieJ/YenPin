@@ -1,16 +1,23 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "service/authContext";
 
-import * as S from "./emptyData.styled";
+import { AuthContext } from "service/authContext";
 import { useResetRecoilState } from "recoil";
 import { onSidebarAtom } from "style/atoms";
 
-interface Props {
+import * as S from "./emptyData.styled";
+
+interface IEmptyData {
   emptyMessage: string;
 }
-const EmptyData = ({ emptyMessage }: Props) => {
+
+// firbase DB에  data가 아무것도 없는 경우, user가 있을때와 없을때를 구분해서 페이지 이동
+// pages > home
+// pages > my
+
+const EmptyData = ({ emptyMessage }: IEmptyData) => {
   const navigate = useNavigate();
+
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
 
@@ -38,6 +45,3 @@ const EmptyData = ({ emptyMessage }: Props) => {
 };
 
 export default EmptyData;
-
-// link는 클릭 시 바로 이동하는 로직 ex)상세페이지 a:외부프로젝트 link:프로젝트 내에서 페이지전환
-// useNavigate는 함수로 페이지 전환시 조건이 만족했을때 처리해야하는 로직이 있는 경우

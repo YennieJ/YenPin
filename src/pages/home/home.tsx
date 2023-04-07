@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-
-import { AuthContext } from "service/authContext";
+import React from "react";
 
 import { useAllCardsQueryData } from "hooks/useQueryData";
 
@@ -11,8 +9,6 @@ import EmptyData from "components/emptyData";
 import { Helmet } from "react-helmet";
 
 const Home = () => {
-  const userInfo = useContext(AuthContext);
-  const userUid = userInfo?.uid;
   const { isLoading, data } = useAllCardsQueryData();
 
   const emptyMessage = "첫 카드를 등록해보세요.";

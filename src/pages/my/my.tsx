@@ -4,11 +4,11 @@ import { AuthContext } from "service/authContext";
 import { useMyCardsQueryData } from "hooks/useQueryData";
 
 import Profile from "./components/profile/profile";
-import Preview from "../../components/preview";
+import EmptyData from "components/emptyData";
 import Loading from "components/loading";
+import Preview from "../../components/preview";
 
 import { Helmet } from "react-helmet";
-import EmptyData from "components/emptyData";
 
 const My = () => {
   const userInfo = useContext(AuthContext);
@@ -18,6 +18,7 @@ const My = () => {
   // const { data } = useKeepCardData(userUid!);
 
   const emptyMessage = "내가 만든 카드가 여기에 보관됩니다.";
+
   return (
     <>
       <Helmet>

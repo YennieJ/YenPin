@@ -17,6 +17,9 @@ interface PreviewProps {
 }
 const itemsPerPage = 6;
 
+// pages > home
+// pages > my
+// my 와 home의 차이는 새로운 카드 추가 버튼
 const Preview = ({ cards }: PreviewProps) => {
   const closeSidebar = useResetRecoilState(onSidebarAtom);
 
@@ -25,7 +28,7 @@ const Preview = ({ cards }: PreviewProps) => {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  //한 페이지에 들어갈 아이템 설정 (itemsPerPage의 갯수만큼)
+  //한 페이지에 들어갈 아이템(itemsPerPage의 갯수만큼)
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = cards!.slice(indexOfFirstItem, indexOfLastItem);

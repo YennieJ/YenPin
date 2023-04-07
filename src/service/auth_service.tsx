@@ -1,4 +1,3 @@
-//authProvider.tsx
 import { useEffect, useState } from "react";
 import { AuthContext } from "./authContext";
 
@@ -17,6 +16,13 @@ import {
 type Props = {
   children: React.ReactNode;
 };
+interface AuthProps {
+  email: string;
+  password: string;
+}
+
+//firebase auth service를 이용하여 구글 로그인, 회원가입, 로그아웃 구현
+//context로 어디서나 user 확인
 
 export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
@@ -29,11 +35,6 @@ export const AuthProvider = ({ children }: Props) => {
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
-
-interface AuthProps {
-  email: string;
-  password: string;
-}
 
 export const AuthSignUp = ({ email, password }: AuthProps) => {
   createUserWithEmailAndPassword(auth, email, password)
@@ -94,16 +95,13 @@ export const AuthSignOut = () => {
 };
 
 interface ProfileProps {
-  newDisplayName: string;
+  getName: string;
   newUserPhoto: string;
 }
 
-export const UpdateProfile = ({
-  newDisplayName,
-  newUserPhoto,
-}: ProfileProps) => {
+export const UpdateProfile = ({ getName, newUserPhoto }: ProfileProps) => {
   updateProfile(auth.currentUser!, {
-    displayName: newDisplayName,
+    displayName: getName,
     photoURL: newUserPhoto,
   })
     .then(() => {
