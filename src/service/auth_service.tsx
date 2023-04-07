@@ -13,6 +13,8 @@ import {
   updateProfile,
 } from "@firebase/auth";
 
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+
 type Props = {
   children: React.ReactNode;
 };
@@ -96,20 +98,34 @@ export const AuthSignOut = () => {
 
 interface ProfileProps {
   getName: string;
-  newUserPhoto: string;
+  photo?: File;
+  userId: string;
 }
 
-export const UpdateProfile = ({ getName, newUserPhoto }: ProfileProps) => {
+export const UpdateProfile = async ({
+  getName,
+  photo,
+  userId,
+}: ProfileProps) => {
+  const storage = getStorage();
+
+  const fileRef = ref(storage, `profile/${userId}.png`);
+
+  const snapshot = photo && (await uploadBytes(fileRef, photo));
+
+  const URL = await getDownloadURL(fileRef);
+
   updateProfile(auth.currentUser!, {
     displayName: getName,
-    photoURL: newUserPhoto,
+    photoURL: URL,
   })
     .then(() => {
+      console.log(getName);
+
       // Profile updated!
       // ...
     })
     .catch((error) => {
-      // An error occurred
-      // ...
+      console.log(error);
     });
 };
