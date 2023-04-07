@@ -18,7 +18,6 @@ const Profile = () => {
   const userInfo = useContext(AuthContext);
   const userId = userInfo!.uid;
 
-  console.log(userInfo?.displayName);
   const [editing, setEditing] = useState<boolean>(false);
   const [displayName, setDisplayName] = useState(
     userInfo?.displayName || "User Name"

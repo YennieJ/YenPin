@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import { useResetRecoilState } from "recoil";
 import Card from "./components/card";
 import Pagination from "./components/pagination";
+
+import { CardType } from "types";
 
 import * as S from "./preview.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { CardType } from "types";
-import { useResetRecoilState } from "recoil";
 import { onSidebarAtom } from "style/atoms";
 
 interface PreviewProps {
@@ -68,20 +69,3 @@ const Preview = ({ cards }: PreviewProps) => {
 };
 
 export default Preview;
-
-{
-  /* <Link to="/my/created">생성됨</Link>
-            <Link to="/my/saved">저장됨</Link>  */
-}
-
-// {PATH && handleCardModal && (
-//   <>
-//     <Link to="/my/saved">생성됨</Link> <h1>저장됨</h1>
-//     <S.NewCardButton onClick={() => handleCardModal()}>
-//       <div>
-//         <FontAwesomeIcon icon={faPlus} />
-//       </div>
-//       <div>새로운 카드</div>
-//     </S.NewCardButton>
-//   </>
-// )}

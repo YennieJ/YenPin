@@ -15,16 +15,17 @@ export const LinkBox = styled.span<LinkBoxProps>`
   align-items: center;
   height: 50px;
 
-  border-radius: 20px;
   margin-right: 5px;
 
+  border-radius: 20px;
   background-color: ${(props) =>
     props.isActive ? props.theme.textColor : props.theme.bgColor};
 
   a {
     padding: 0 10px;
-    font-size: ${(props) => (props.home ? "40px" : "28px")};
+
     color: ${(props) =>
       props.isActive ? props.theme.bgColor : props.theme.textColor};
+    font-size: ${(props) => (props.home ? "40px" : "28px")};
   }
 `;
