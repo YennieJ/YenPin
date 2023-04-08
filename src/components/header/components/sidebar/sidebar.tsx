@@ -1,11 +1,13 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 
 import { AuthSignOut } from "service/auth_service";
 
-import * as S from "./sidebar.styled";
 import Burger from "./components/buger";
-import { useRecoilState } from "recoil";
+
 import { onSidebarAtom } from "style/atoms";
+
+import * as S from "./sidebar.styled";
 
 const Sidebar = () => {
   const [onSidebar, setOnSidebar] = useRecoilState(onSidebarAtom);
@@ -14,19 +16,18 @@ const Sidebar = () => {
     AuthSignOut();
     setOnSidebar(!onSidebar);
   };
+
   return (
     <S.Container>
       <Burger onClick={() => setOnSidebar(!onSidebar)} open={onSidebar} />
       {onSidebar ? (
-        <>
-          <S.SidebarContents>
-            <li onClick={handleLogout}>로그아웃</li>
-            <li>로그아웃</li>
-            <li>로그아웃</li>
-            <li>로그아웃</li>
-            <li>로그아웃</li>
-          </S.SidebarContents>
-        </>
+        <S.SidebarContents>
+          <li onClick={handleLogout}>로그아웃</li>
+          <li>로그아웃</li>
+          <li>로그아웃</li>
+          <li>로그아웃</li>
+          <li>로그아웃</li>
+        </S.SidebarContents>
       ) : null}
     </S.Container>
   );

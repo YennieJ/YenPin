@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router";
 
+import DialogBox from "components/dialogBox/dialogBox";
 import Login from "./login";
 import Signup from "./signup";
 
 import * as S from "./user.styled";
 
-import { useLocation } from "react-router";
-import DialogBox from "components/dialogBox/dialogBox";
-
 const User = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
+
   const { pathname } = useLocation();
 
   return (

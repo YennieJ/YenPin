@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,17 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const [onFocus, setOnFocus] = useState(false);
 
+  const focusOut = () => {
+    setValue("keyword", "");
+    setOnFocus(false);
+  };
+
   const { register, handleSubmit, setValue, getValues } = useForm();
+
+  const keywordRegister = register("keyword", {
+    required: true,
+    onBlur: focusOut,
+  });
 
   const onValid = () => {
     const keyword = getValues("keyword");
@@ -35,13 +45,6 @@ const SearchBar = () => {
     }
   };
 
-  const focusOut = () => {
-    setValue("keyword", "");
-    setOnFocus(false);
-  };
-
-  const temp = register("keyword", { required: true, onBlur: focusOut });
-
   return (
     <>
       <Helmet>
@@ -49,7 +52,7 @@ const SearchBar = () => {
       </Helmet>
 
       <S.Container onSubmit={handleSubmit(onValid)}>
-        <S.SearchInput onFocus={() => setOnFocus(true)} {...temp} />
+        <S.SearchInput {...keywordRegister} onFocus={() => setOnFocus(true)} />
 
         {!onFocus && (
           <S.SearchIcon>

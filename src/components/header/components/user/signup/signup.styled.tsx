@@ -8,8 +8,10 @@ export const Container = styled.div`
   height: 500px;
 
   padding: 30px 40px 50px 40px;
+
   h1 {
     margin-bottom: 20px;
+
     font-size: 30px;
   }
 `;
@@ -18,6 +20,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   height: 100%;
 `;
 
@@ -32,71 +35,78 @@ export const InputContainers = styled.div`
 export const inputContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    position: relative;
+
+    font-size: 14px;
+
+    label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
   p {
     color: red;
   }
 `;
 
-export const InputText = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  position: relative;
-
-  font-size: 14px;
-
-  label {
-    font-size: 16px;
-    font-weight: 600;
-  }
-`;
-
-export const Login = styled.span`
-  font-size: 20px;
-  font-weight: 600;
-
-  padding-left: 10px;
-  color: purple;
-  cursor: pointer;
-`;
-
 export const Input = styled.input`
+  padding: 14px;
+  margin: 6px 0;
+
   border: 1px solid #ced4da;
   border-radius: 4px;
-  margin: 6px 0;
-  padding: 14px;
-  outline: none;
+  background-color: ${(props) => props.theme.contentBgColor};
 
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.contentBgColor};
+
+  outline: none;
 
   &:focus {
     border: 1px solid #80bdff;
   }
 `;
 
-// border: 1px solid #ff8d80;
-// box-shadow: 0 0 0 3.2px rgb(255 0 0 / 25%);
+export const LoginButton = styled.button`
+  padding-left: 10px;
 
-export const PasswordText = styled.span`
+  color: purple;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -1px;
+
+  cursor: pointer;
+`;
+
+export const ShowPwdButton = styled.button`
   width: 50px;
-  text-align: end;
 
   color: #606060;
   font-weight: 600;
+  text-align: end;
+
   cursor: pointer;
+
   svg {
     display: inline-block;
+
     position: absolute;
     top: 3px;
-    right: 35px;
+    right: 40px;
   }
 `;
 
 const ButtonBasic = styled.button`
   height: 50px;
+
   border: none;
+
   background: none;
 `;
 
@@ -114,14 +124,15 @@ export const CloseLoginModalButton = styled(ButtonBasic)`
 
 export const SignupButton = styled(ButtonBasic)`
   width: 100%;
+
   padding: 0;
+
   border: 2px solid ${(props) => props.theme.textColor};
   border-radius: 24px;
+  background-color: ${(props) => props.theme.contentBgColor};
 
   font-size: 18px;
-
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.contentBgColor};
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};
   }
