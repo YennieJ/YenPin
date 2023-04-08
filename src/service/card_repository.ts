@@ -100,15 +100,3 @@ export async function FbLikeCard(userUid: string, card: CardType) {
 export async function FbDeleteCard(cardId: number) {
   deleteDoc(doc(db, `/cards/${cardId}`));
 }
-
-export async function FbGetSavedCards(userUid: string) {
-  const q = query(
-    collection(db, "cards"),
-    where("likeUids", "array-contains", userUid)
-  );
-
-  const querySnapshot = await getDocs(q);
-
-  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
-  return data as CardType[];
-}

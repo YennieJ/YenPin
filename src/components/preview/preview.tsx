@@ -17,8 +17,8 @@ interface PreviewProps {
 }
 const itemsPerPage = 6;
 
-// pages > home
-// pages > my
+// pages > home,popular,my
+
 // my 와 home의 차이는 새로운 카드 추가 버튼
 const Preview = ({ cards }: PreviewProps) => {
   const { pathname } = useLocation();

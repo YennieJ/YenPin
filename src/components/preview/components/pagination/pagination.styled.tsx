@@ -4,7 +4,6 @@ export const Paginate = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  list-style: none;
 
   height: 80px;
 `;
@@ -12,13 +11,16 @@ export const Paginate = styled.li`
 export const PageButton = styled.button`
   width: 50px;
   height: 50px;
+
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid ${(props) => props.theme.contentBgColor};
   margin-right: 10px;
 
-  color: ${(props) => props.theme.textColor};
+  border-radius: 5px;
+  border: 1px solid ${(props) => props.theme.contentBgColor};
   background-color: ${(props) => props.theme.contentBgColor};
+
+  color: ${(props) => props.theme.textColor};
+
   cursor: pointer;
 
   &:hover {
@@ -28,7 +30,6 @@ export const PageButton = styled.button`
     background-color: ${(props) => props.theme.hoverColor};
   }
   &:disabled {
-    /* display: none; */
     color: gray;
     cursor: default;
     pointer-events: none;

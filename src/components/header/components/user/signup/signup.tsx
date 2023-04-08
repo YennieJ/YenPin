@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-
 import { useForm } from "react-hook-form";
 
 import { AuthSignUp } from "service/auth_service";
@@ -86,15 +85,13 @@ const Signup = ({ isLogin }: ISignup) => {
     const password = getValues("password");
     const confirmPassword = getValues("confirmPassword");
 
-    if (password !== confirmPassword) {
-      return setError(
-        "confirmPassword",
-        { message: "Password are not the same" },
-        { shouldFocus: true }
-      );
-    } else {
-      AuthSignUp({ email, password });
-    }
+    return password !== confirmPassword
+      ? setError(
+          "confirmPassword",
+          { message: "Passwords do not match" },
+          { shouldFocus: true }
+        )
+      : AuthSignUp({ email, password });
   };
 
   return (

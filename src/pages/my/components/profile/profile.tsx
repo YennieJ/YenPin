@@ -1,7 +1,9 @@
 import React, { useState, useContext, useRef } from "react";
-import { useResetRecoilState } from "recoil";
 
+import { useForm } from "react-hook-form";
+import { useResetRecoilState } from "recoil";
 import { AuthContext } from "service/authContext";
+
 import { UpdateProfile } from "service/auth_service";
 import { ImgConvert } from "hooks/img_uploader";
 import { onSidebarAtom } from "style/atoms";
@@ -9,7 +11,6 @@ import { onSidebarAtom } from "style/atoms";
 import * as S from "./profile.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
 
 const PROFILE_IMAGE = "/image/profile.jpeg";
 

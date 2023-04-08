@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 
-import { useResetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
+import { useResetRecoilState } from "recoil";
+import { onSidebarAtom } from "style/atoms";
 
 import { FbGetAllCards } from "service/card_repository";
 
@@ -11,12 +12,10 @@ import * as S from "./searchBar.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faX } from "@fortawesome/free-solid-svg-icons";
 
-import { onSidebarAtom } from "style/atoms";
-
 const SearchBar = () => {
   const closeSidebar = useResetRecoilState(onSidebarAtom);
-
   const navigate = useNavigate();
+
   const [onFocus, setOnFocus] = useState(false);
 
   const focusOut = () => {
@@ -31,16 +30,15 @@ const SearchBar = () => {
     onBlur: focusOut,
   });
 
-  const onValid = () => {
+  const onValid = async () => {
     const keyword = getValues("keyword");
     if (keyword.length > 0) {
-      FbGetAllCards().then((response) => {
-        const searchValue = response.filter((card) =>
-          card.cardName.includes(keyword)
-        );
-        closeSidebar();
-        navigate("/search", { state: { searchValue, keyword } });
-      });
+      const response = await FbGetAllCards();
+      const searchValue = response.filter((card) =>
+        card.cardName.includes(keyword)
+      );
+      closeSidebar();
+      navigate("/search", { state: { searchValue, keyword } });
       setValue("keyword", "");
     }
   };

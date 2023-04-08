@@ -1,6 +1,7 @@
-import Preview from "components/preview";
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router";
+
+import Preview from "components/preview";
 
 import * as S from "./search.styled";
 

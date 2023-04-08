@@ -2,8 +2,7 @@ import React from "react";
 
 import * as S from "./loading.styled";
 
-// pages > home
-// pages > my
+// pages > home,my,popular
 
 const Loading = () => {
   return (

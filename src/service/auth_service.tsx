@@ -18,7 +18,8 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 type Props = {
   children: React.ReactNode;
 };
-interface AuthProps {
+
+interface IAuth {
   email: string;
   password: string;
 }
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }: Props) => {
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
 
-export const AuthSignUp = ({ email, password }: AuthProps) => {
+export const AuthSignUp = ({ email, password }: IAuth) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       alert("회원가입 성공");
@@ -52,7 +53,7 @@ export const AuthSignUp = ({ email, password }: AuthProps) => {
     });
 };
 
-export const AuthLogIn = ({ email, password }: AuthProps) => {
+export const AuthLogIn = ({ email, password }: IAuth) => {
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       alert("로그인 성공");
@@ -120,8 +121,6 @@ export const UpdateProfile = async ({
     photoURL: URL,
   })
     .then(() => {
-      console.log(getName);
-
       // Profile updated!
       // ...
     })

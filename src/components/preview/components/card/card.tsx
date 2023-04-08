@@ -19,18 +19,17 @@ interface ICard {
 }
 
 const Card = ({ card }: ICard) => {
-  const { id, userUid: cardUid, photoURL, cardName, likeCount } = card;
-
   const navigate = useNavigate();
 
+  const { id, userUid: cardUid, photoURL, cardName, likeCount } = card;
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
+  const likeUid = card?.likeUids.includes(userUid!);
+
+  const { mutate: likeCard } = useLikeMutationData(userUid!, card);
 
   const [detailModal, setDetailModal] = useState<boolean>(false);
   const [detailCard, setDetailCard] = useState<CardType>();
-
-  const likeUid = card?.likeUids.includes(userUid!);
-  const { mutate: likeCard } = useLikeMutationData(userUid!, card);
 
   const onBigCard = (card: CardType) => {
     if (detailModal === false) {
@@ -45,18 +44,19 @@ const Card = ({ card }: ICard) => {
 
   //삭제
   const deleteCard = (cardId: number) => {
-    if (window.confirm("삭제하시겠습니까?") === true) {
+    const confirmed = window.confirm("삭제하시겠습니까?");
+    if (confirmed) {
       FbDeleteCard(cardId);
-    } else return null;
+    }
   };
 
   // 좋아요
   const onLikes = () => {
     if (!userUid) {
-      if (
-        window.confirm("로그인이 필요합니다. 로그인 페이지로 이동할까요?") ===
-        true
-      ) {
+      const checkLogin = window.confirm(
+        "로그인이 필요합니다. 로그인 페이지로 이동할요?"
+      );
+      if (checkLogin) {
         navigate("/welcome");
       }
     } else {

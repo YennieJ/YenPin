@@ -42,12 +42,11 @@ const Edit = ({ card, onModalClose }: IEdit) => {
     photoRef.current?.click();
   };
 
-  const onPhotoCahnge = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { files },
-    } = e;
-    const file = files![0];
-    ImgConvert(file, setPhotoURL);
+  const onPhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      ImgConvert(file, setPhotoURL);
+    }
   };
 
   const onValid = () => {
@@ -68,9 +67,12 @@ const Edit = ({ card, onModalClose }: IEdit) => {
   };
 
   const closeModal = () => {
-    if (window.confirm("화면을 나가시겠습니까?") === true) {
+    const confirmClose = window.confirm("화면을 나가시겠습니까?");
+    if (confirmClose) {
       onModalClose();
-    } else return null;
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -86,7 +88,7 @@ const Edit = ({ card, onModalClose }: IEdit) => {
             ref={photoRef}
             type="file"
             accept="image/*"
-            onChange={onPhotoCahnge}
+            onChange={onPhotoChange}
           />
         </S.ImgContainer>
         <S.TextContainer>

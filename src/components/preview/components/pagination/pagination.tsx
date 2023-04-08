@@ -64,6 +64,7 @@ const Pagination = ({
       }
     }
   }, [currentPage, pages.length, setCurrentPage]);
+
   return (
     <S.Paginate>
       <S.PageButton

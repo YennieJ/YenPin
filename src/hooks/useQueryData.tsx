@@ -7,7 +7,6 @@ import {
   FbCreateCard,
   FbUpdateCard,
   FbLikeCard,
-  FbGetSavedCards,
 } from "service/card_repository";
 
 export const useAllCardsQueryData = () => {
@@ -50,8 +49,4 @@ export const useLikeMutationData = (userUid: string, card: CardType) => {
       queryClient.invalidateQueries(["popular"]);
     },
   });
-};
-
-export const useSavedQueryData = (userUid: string) => {
-  return useQuery<CardType[]>(["keepCards"], () => FbGetSavedCards(userUid));
 };

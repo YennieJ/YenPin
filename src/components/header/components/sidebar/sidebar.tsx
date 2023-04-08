@@ -1,11 +1,11 @@
 import React from "react";
+
 import { useRecoilState } from "recoil";
+import { onSidebarAtom } from "style/atoms";
 
 import { AuthSignOut } from "service/auth_service";
 
 import Burger from "./components/buger";
-
-import { onSidebarAtom } from "style/atoms";
 
 import * as S from "./sidebar.styled";
 

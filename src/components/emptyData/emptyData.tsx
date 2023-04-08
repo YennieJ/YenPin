@@ -25,10 +25,10 @@ const EmptyData = ({ emptyMessage }: IEmptyData) => {
 
   const onCreateCard = () => {
     if (!userUid) {
-      if (
-        window.confirm("로그인이 필요합니다. 로그인 페이지로 이동할까요?") ===
-        true
-      ) {
+      const checkLogin = window.confirm(
+        "로그인이 필요합니다. 로그인 페이지로 이동할까요?"
+      );
+      if (checkLogin) {
         navigate("/welcome");
       }
     } else {
