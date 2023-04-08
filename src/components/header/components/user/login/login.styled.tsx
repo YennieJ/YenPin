@@ -1,16 +1,19 @@
 import styled from "styled-components";
 
+const GOOGLE_IMAGE = "/image/google_logo.png";
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   width: 450px;
   height: 500px;
+
   padding: 30px 40px 40px 40px;
 
   h1 {
     margin-bottom: 20px;
+
     font-size: 30px;
   }
 `;
@@ -19,6 +22,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   height: 100%;
 
   padding: 20px 0;
@@ -35,66 +39,74 @@ export const InputContainers = styled.div`
 export const inputContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
 
-export const InputText = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 
-  position: relative;
+    position: relative;
 
-  font-size: 14px;
+    font-size: 14px;
 
-  label {
-    font-size: 16px;
-    font-weight: 600;
+    label {
+      font-size: 16px;
+      font-weight: 600;
+    }
   }
-`;
-
-export const SignUp = styled.span`
-  font-size: 20px;
-  font-weight: 600;
-
-  padding-left: 10px;
-  color: purple;
-  cursor: pointer;
 `;
 
 export const Input = styled.input`
+  padding: 14px;
+  margin: 6px 0;
+
   border: 1px solid #ced4da;
   border-radius: 4px;
-  margin: 6px 0;
-  padding: 14px;
-  outline: none;
+  background-color: ${(props) => props.theme.contentBgColor};
 
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.contentBgColor};
+
+  outline: none;
 
   &:focus {
     border: 2px solid #80bdff;
-    /* box-shadow: 0 0 0 3.2px rgb(0 123 255 / 25%); */
   }
 `;
 
-export const PasswordText = styled.span`
+export const SignupButton = styled.button`
+  padding-left: 10px;
+
+  color: purple;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -1px;
+
+  cursor: pointer;
+`;
+
+export const ShowPwdButton = styled.button`
   width: 50px;
-  text-align: end;
 
   color: #606060;
   font-weight: 600;
+  text-align: end;
+
   cursor: pointer;
+
   svg {
     display: inline-block;
+
     position: absolute;
     top: 3px;
-    right: 35px;
+    right: 40px;
   }
 `;
 
 const ButtonBasic = styled.button`
   height: 50px;
+
   border: none;
+
   background: none;
 `;
 
@@ -112,14 +124,15 @@ export const CloseLoginModalButton = styled(ButtonBasic)`
 
 export const Button = styled(ButtonBasic)`
   width: 100%;
+
   padding: 0;
+
   border: 2px solid ${(props) => props.theme.textColor};
   border-radius: 24px;
-
-  font-size: 18px;
+  background-color: ${(props) => props.theme.contentBgColor};
 
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.contentBgColor};
+  font-size: 18px;
 
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};
@@ -133,9 +146,9 @@ export const AnotherLogin = styled.div`
 
   width: 100%;
 
+  color: ${(props) => props.theme.textColor};
   font-size: 17px;
   font-weight: 400;
-  color: ${(props) => props.theme.textColor};
 `;
 
 export const GoogleLoginButton = styled.button`
@@ -145,16 +158,21 @@ export const GoogleLoginButton = styled.button`
 
   width: 40px;
   height: 40px;
+
   padding: 0;
   margin-left: 10px;
+
   border: 1px solid gray;
   border-radius: 50%;
-
   background-color: #fff;
+
   cursor: pointer;
 `;
 
-export const GoogleButtonImage = styled.img`
+export const GoogleButtonImage = styled.img.attrs({
+  alt: "",
+  src: GOOGLE_IMAGE,
+})`
   width: 25px;
   height: 25px;
 `;

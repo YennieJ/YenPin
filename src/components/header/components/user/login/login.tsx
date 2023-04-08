@@ -8,10 +8,6 @@ import * as S from "./login.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-import { IForm } from "../signup/signup";
-
-const GOOGLE_IMAGE = "/image/google_logo.png";
-
 interface LoginProps {
   isSignup: () => void;
 }
@@ -19,13 +15,15 @@ interface LoginProps {
 const Login = ({ isSignup }: LoginProps) => {
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<IForm>();
-
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onValid = (data: any) => {
-    const email = data.email;
-    const password = data.password;
+  const handleShowPassword = () => setShowPassword(!showPassword);
+
+  const { register, handleSubmit, getValues } = useForm();
+
+  const onValid = () => {
+    const email = getValues("email");
+    const password = getValues("password");
 
     AuthLogIn({ email, password });
   };
@@ -34,39 +32,39 @@ const Login = ({ isSignup }: LoginProps) => {
     <>
       <S.Container>
         <h1>로그인</h1>
-        <S.CloseLoginModalButton type="button" onClick={() => navigate(-1)}>
+        <S.CloseLoginModalButton type="button" onClick={() => navigate("/")}>
           &#10005;
         </S.CloseLoginModalButton>
         <S.Form onSubmit={handleSubmit(onValid)}>
           <S.InputContainers>
             <S.inputContainer>
-              <S.InputText>
+              <div>
                 <label>Email</label>
                 <span>
                   Need an account?
-                  <S.SignUp onClick={isSignup}>Sign up</S.SignUp>
+                  <S.SignupButton onClick={isSignup}>Sign up</S.SignupButton>
                 </span>
-              </S.InputText>
+              </div>
               <S.Input {...register("email")} />
             </S.inputContainer>
             <S.inputContainer>
-              <S.InputText>
+              <div>
                 <label>Password</label>
                 {showPassword ? (
-                  <S.PasswordText onClick={() => setShowPassword(false)}>
+                  <S.ShowPwdButton onClick={handleShowPassword}>
                     <FontAwesomeIcon icon={faEyeSlash} />
                     Hide
-                  </S.PasswordText>
+                  </S.ShowPwdButton>
                 ) : (
-                  <S.PasswordText onClick={() => setShowPassword(true)}>
+                  <S.ShowPwdButton onClick={handleShowPassword}>
                     <FontAwesomeIcon icon={faEye} />
                     Show
-                  </S.PasswordText>
+                  </S.ShowPwdButton>
                 )}
-              </S.InputText>
+              </div>
               <S.Input
-                type={showPassword ? "text" : "password"}
                 {...register("password")}
+                type={showPassword ? "text" : "password"}
               />
             </S.inputContainer>
           </S.InputContainers>
@@ -75,10 +73,7 @@ const Login = ({ isSignup }: LoginProps) => {
         <S.AnotherLogin>
           Log in with Google
           <S.GoogleLoginButton type="button" onClick={() => GoogleProvider()}>
-            <S.GoogleButtonImage
-              alt=""
-              src={GOOGLE_IMAGE}
-            ></S.GoogleButtonImage>
+            <S.GoogleButtonImage />
           </S.GoogleLoginButton>
         </S.AnotherLogin>
       </S.Container>

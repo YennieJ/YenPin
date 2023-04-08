@@ -131,8 +131,9 @@ export const SignupButton = styled(ButtonBasic)`
   border-radius: 24px;
   background-color: ${(props) => props.theme.contentBgColor};
 
-  font-size: 18px;
   color: ${(props) => props.theme.textColor};
+  font-size: 18px;
+
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};
   }

@@ -6,6 +6,8 @@ interface ContainerProps {
   children: React.ReactNode;
   layoutId?: string;
 }
+
+// header > user
 const DialogBox = ({ children, layoutId }: ContainerProps) => {
   return (
     <S.Backdrop>

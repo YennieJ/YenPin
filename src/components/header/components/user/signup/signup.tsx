@@ -9,7 +9,7 @@ import * as S from "./signup.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-interface SignupProps {
+interface ISignup {
   isLogin: () => void;
 }
 
@@ -19,7 +19,7 @@ export interface IForm {
   confirmPassword: string;
 }
 
-const Signup = ({ isLogin }: SignupProps) => {
+const Signup = ({ isLogin }: ISignup) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -28,6 +28,8 @@ const Signup = ({ isLogin }: SignupProps) => {
     isLogin();
     navigate("/");
   };
+
+  const handleShowPassword = () => setShowPassword(!showPassword);
 
   const {
     register,
@@ -119,12 +121,12 @@ const Signup = ({ isLogin }: SignupProps) => {
             <div>
               <label>Password</label>
               {showPassword ? (
-                <S.ShowPwdButton onClick={() => setShowPassword(!showPassword)}>
+                <S.ShowPwdButton onClick={handleShowPassword}>
                   <FontAwesomeIcon icon={faEyeSlash} />
                   Hide
                 </S.ShowPwdButton>
               ) : (
-                <S.ShowPwdButton onClick={() => setShowPassword(!showPassword)}>
+                <S.ShowPwdButton onClick={handleShowPassword}>
                   <FontAwesomeIcon icon={faEye} />
                   Show
                 </S.ShowPwdButton>
