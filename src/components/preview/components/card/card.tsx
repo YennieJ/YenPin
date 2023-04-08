@@ -8,51 +8,29 @@ import { FbDeleteCard } from "service/card_repository";
 
 import BigCard from "../bigCard/bigCard";
 
+import { CardType } from "types";
+
 import * as S from "./card.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faHeart } from "@fortawesome/free-solid-svg-icons";
 
-import { CardType } from "types";
-
-const boxVariants = {
-  normal: {
-    scale: 1,
-  },
-  hover: {
-    //zindex 꼭 사용해야되는건가.. 왜때문이지
-    zIndex: 5,
-    scale: 1.3,
-    transition: {
-      delay: 0.5,
-      duaration: 0.1,
-      type: "tween",
-    },
-  },
-};
-
-const infoVariants = {
-  hover: {
-    opacity: 1,
-    transition: {
-      delay: 0.5,
-      duaration: 0.1,
-      type: "tween",
-    },
-  },
-};
-
-interface CardProps {
+interface ICard {
   card: CardType;
 }
-const Card = ({ card }: CardProps) => {
-  const userInfo = useContext(AuthContext);
-  const userUid = userInfo?.uid;
+
+const Card = ({ card }: ICard) => {
+  const { id, image, title, user, likeCount } = card;
+
   const navigate = useNavigate();
 
-  const { id, image, title, user, likeCount } = card;
+  const userInfo = useContext(AuthContext);
+  const userUid = userInfo?.uid;
 
   const [detailModal, setDetailModal] = useState<boolean>(false);
   const [detailCard, setDetailCard] = useState<CardType>();
+
+  const likeUid = card?.likeUids.includes(userUid!);
+  const { mutate: likeCard } = useLikeMutationData(userUid!, card);
 
   const onBigCard = (card: CardType) => {
     if (detailModal === false) {
@@ -72,10 +50,7 @@ const Card = ({ card }: CardProps) => {
     } else return null;
   };
 
-  const likeUid = card?.likeUids.includes(userUid!);
-
-  const { mutate: likeCard } = useLikeMutationData(userUid!, card);
-
+  // 좋아요
   const onLikes = () => {
     if (!userUid) {
       if (
@@ -89,31 +64,21 @@ const Card = ({ card }: CardProps) => {
     }
   };
 
-  // const { data } = useKeepCardData(user);
   return (
     <>
-      <S.Box
-        key={id}
-        layoutId={id + ""}
-        variants={boxVariants}
-        whileHover="hover"
-        initial="normal"
-        transition={{ type: "tween" }}
-      >
+      <S.Box key={id} layoutId={id + ""}>
         <img src={image} alt="" onClick={() => onBigCard(card)} />
-        <S.Info variants={infoVariants}>
+        <S.Info>
           <span>{title}</span>
-          <S.IsActive isActive={likeUid}>
-            <S.LikeButton variants={infoVariants} onClick={onLikes}>
+          <S.LikeContainer isActive={likeUid}>
+            <S.LikeButton onClick={onLikes}>
               <FontAwesomeIcon icon={faHeart} />
             </S.LikeButton>
             <span>{likeCount}</span>
-          </S.IsActive>
+          </S.LikeContainer>
         </S.Info>
         {userUid === user && (
           <S.DeletButton
-            variants={infoVariants}
-            // e: React.MouseEvent
             onClick={(e) => {
               e.stopPropagation();
               deleteCard(id);

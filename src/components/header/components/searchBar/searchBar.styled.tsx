@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const InputVariants = {
-  init: {
+  nomal: {
     opacity: 0,
     transition: {
       duration: 0.3,
@@ -50,9 +50,9 @@ export const SearchInput = styled(motion.input).attrs({
 
 export const SearchIcon = styled(motion.div).attrs({
   variants: InputVariants,
-  initial: "init",
+  initial: "nomal",
   animate: "activ",
-  exit: "init",
+  exit: "nomal",
 })`
   position: absolute;
   top: 50%;
@@ -67,9 +67,9 @@ export const SearchIcon = styled(motion.div).attrs({
 export const DeleteButton = styled(motion.button).attrs({
   type: "button",
   variants: InputVariants,
-  initial: "init",
+  initial: "nomal",
   animate: "activ",
-  exit: "init",
+  exit: "nomal",
 })`
   position: absolute;
   top: 50%;
