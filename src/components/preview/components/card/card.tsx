@@ -19,7 +19,7 @@ interface ICard {
 }
 
 const Card = ({ card }: ICard) => {
-  const { id, image, title, user, likeCount } = card;
+  const { id, userUid: cardUid, photoURL, cardName, likeCount } = card;
 
   const navigate = useNavigate();
 
@@ -67,9 +67,9 @@ const Card = ({ card }: ICard) => {
   return (
     <>
       <S.Box key={id} layoutId={id + ""}>
-        <img src={image} alt="" onClick={() => onBigCard(card)} />
+        <img src={photoURL} alt="" onClick={() => onBigCard(card)} />
         <S.Info>
-          <span>{title}</span>
+          <span>{cardName}</span>
           <S.LikeContainer isActive={likeUid}>
             <S.LikeButton onClick={onLikes}>
               <FontAwesomeIcon icon={faHeart} />
@@ -77,7 +77,7 @@ const Card = ({ card }: ICard) => {
             <span>{likeCount}</span>
           </S.LikeContainer>
         </S.Info>
-        {userUid === user && (
+        {userUid === cardUid && (
           <S.DeletButton
             onClick={(e) => {
               e.stopPropagation();

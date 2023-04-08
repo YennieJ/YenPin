@@ -1,9 +1,10 @@
 import imageCompression from "browser-image-compression";
 
-//setState로 넘기는 방법 뿐인가?
+// pages > my > profile
+// pages > createCard
 export async function ImgConvert(
   file: File,
-  setFileURL: React.Dispatch<React.SetStateAction<string>>
+  setPhotoURL: React.Dispatch<React.SetStateAction<string>>
 ) {
   const options = {
     maxSizeMB: 0.2,
@@ -16,7 +17,7 @@ export async function ImgConvert(
     const promise = imageCompression.getDataUrlFromFile(compressedFile);
 
     promise.then((result) => {
-      setFileURL(result);
+      setPhotoURL(result);
     });
   } catch (error) {
     console.log(error);

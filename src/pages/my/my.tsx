@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 
+import { Helmet } from "react-helmet";
+
 import { AuthContext } from "service/authContext";
 import { useMyCardsQueryData } from "hooks/useQueryData";
 
@@ -7,8 +9,6 @@ import Profile from "./components/profile/profile";
 import EmptyData from "components/emptyData";
 import Loading from "components/loading";
 import Preview from "../../components/preview";
-
-import { Helmet } from "react-helmet";
 
 const My = () => {
   const userInfo = useContext(AuthContext);

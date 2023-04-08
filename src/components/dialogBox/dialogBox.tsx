@@ -8,6 +8,8 @@ interface ContainerProps {
 }
 
 // header > user
+// preview > components > bigCard
+
 const DialogBox = ({ children, layoutId }: ContainerProps) => {
   return (
     <S.Backdrop>

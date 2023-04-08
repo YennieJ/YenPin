@@ -1,14 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import ProtectRoute from "./protectRoute";
+import ProtectUser from "./protectUser";
+
+import Header from "components/header";
 import Home from "pages/home/home";
+
 import Popular from "pages/popular";
 import My from "pages/my";
-import ProtectRoute from "router/protectRoute";
+import CreateCard from "pages/createCard";
 import Search from "pages/search/search";
-import Header from "components/header";
-import ProtectUser from "./protectUser";
-import CreateCard from "pages/my/components/createCard";
 
 import * as S from "./router.styled";
 

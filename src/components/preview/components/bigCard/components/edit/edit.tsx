@@ -3,8 +3,9 @@ import React, { useState, useRef } from "react";
 import * as S from "./edit.styled";
 
 import { CardType } from "types";
-import { ImgConvert } from "service/img_uploader";
+import { ImgConvert } from "hooks/img_uploader";
 import { useUpdateMutationData } from "hooks/useQueryData";
+import { useForm } from "react-hook-form";
 
 interface EditProps {
   card: CardType;
@@ -12,7 +13,8 @@ interface EditProps {
 }
 
 const Edit = ({ card, onModalClose }: EditProps) => {
-  const { title, image, message, id, user, likeCount, likeUids } = card;
+  const { cardName, photoURL, message, id, userUid, likeCount, likeUids } =
+    card;
 
   const defaultLength = message ? message.length : 0;
 
@@ -21,13 +23,13 @@ const Edit = ({ card, onModalClose }: EditProps) => {
   // const messageRef = useRef<HTMLPreElement>(null);
   const newMessageRef = useRef<HTMLTextAreaElement>(null);
   //////////
-  const [newTitle, setNewTitle] = useState<string>(title);
+  const [newTitle, setNewTitle] = useState<string>(cardName);
   const [newMessage, setNewMessage] = useState<string | undefined>(message);
 
   //////////
   //firebase upload를 위한
   // const [file, setFile] = useState<File>();
-  const [newFileURL, setNewFileURL] = useState<string>(image);
+  const [newFileURL, setNewFileURL] = useState<string>(photoURL);
 
   const [textLength, setTextLength] = useState<number>(defaultLength);
 
@@ -52,17 +54,19 @@ const Edit = ({ card, onModalClose }: EditProps) => {
 
     const newMessageTrim = newMessage!.trim();
 
+    // 이거 잘작동해결
     const newCard = {
-      id,
-      title: newTitle,
-      image: newFileURL,
+      // id,
+      // userUid,
+      // likeCount,
+      // likeUids,
+      ...card,
+      cardName: newTitle,
+      photoURL: newFileURL,
       message: newMessageTrim,
-      user,
-      likeCount,
-      likeUids,
     };
 
-    if (newCard.title === "") {
+    if (newCard.cardName === "") {
       alert("카드 이름과 파일은 비울 수 없습니다.");
     } else {
       updateCard(newCard);
@@ -82,6 +86,8 @@ const Edit = ({ card, onModalClose }: EditProps) => {
   const onButtonClick = () => {
     fileRef.current?.click();
   };
+
+  const { register } = useForm();
 
   return (
     <S.CardForm>

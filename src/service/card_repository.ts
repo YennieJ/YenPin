@@ -52,10 +52,10 @@ export async function FbGetPopularCards() {
 export async function FbCreateCard(card: CardType) {
   await setDoc(doc(db, `/cards/${card.id}`), {
     id: card.id,
-    image: card.image,
-    title: card.title,
+    userUid: card.userUid,
+    photoURL: card.photoURL,
+    cardName: card.cardName,
     message: card.message,
-    user: card.user,
     likeCount: 0,
     likeUids: [],
     createdAt: serverTimestamp(),
@@ -66,8 +66,8 @@ export async function FbUpdateCard(card: CardType) {
   await setDoc(
     doc(db, `/cards/${card.id}`),
     {
-      image: card.image,
-      title: card.title,
+      photoURL: card.photoURL,
+      cardName: card.cardName,
       message: card.message,
     },
     { merge: true }

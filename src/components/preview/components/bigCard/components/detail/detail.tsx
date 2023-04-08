@@ -13,17 +13,17 @@ interface DetailProps {
 const Detail = ({ card, onModalClose, onEditMode }: DetailProps) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
-  const { title, image, message, user } = card;
+  const { cardName, photoURL, message, userUid: cardUid } = card;
 
   return (
     <>
       <S.CardForm>
         <S.Content>
           <S.ImgContainer>
-            <img alt="" src={image} />
+            <img alt="" src={photoURL} />
           </S.ImgContainer>
           <S.TextContainer>
-            <div>{title}</div>
+            <div>{cardName}</div>
             {message && <pre>{message}</pre>}
           </S.TextContainer>
         </S.Content>
@@ -31,7 +31,7 @@ const Detail = ({ card, onModalClose, onEditMode }: DetailProps) => {
           <S.Button type="button" onClick={onModalClose}>
             뒤로
           </S.Button>
-          {userUid === user && (
+          {userUid === cardUid && (
             <S.Button type="button" onClick={onEditMode}>
               수정
             </S.Button>

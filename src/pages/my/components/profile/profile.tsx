@@ -3,7 +3,7 @@ import { useResetRecoilState } from "recoil";
 
 import { AuthContext } from "service/authContext";
 import { UpdateProfile } from "service/auth_service";
-import { ImgConvert } from "service/img_uploader";
+import { ImgConvert } from "hooks/img_uploader";
 import { onSidebarAtom } from "style/atoms";
 
 import * as S from "./profile.styled";
@@ -30,6 +30,20 @@ const Profile = () => {
 
   const photoRef = useRef<HTMLInputElement>(null);
 
+  //inputfile 대신 사진클릭
+  const handlePhotoRef = () => {
+    photoRef.current?.click();
+  };
+
+  // editing 때 프로플 사진 변화,컨버트
+  const onPhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setPhoto(file);
+    ImgConvert(file, setPhotoURL);
+  };
+
   const {
     register,
     handleSubmit,
@@ -49,20 +63,6 @@ const Profile = () => {
       message: "10자 이하로 입력하세요",
     },
   });
-
-  //inputfile 대신 사진클릭
-  const handlePhotoRef = () => {
-    photoRef.current?.click();
-  };
-
-  // editing 때 프로플 사진 변화,컨버트
-  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setPhoto(file);
-    ImgConvert(file, setPhotoURL);
-  };
 
   // submit
   const onValid = () => {
@@ -104,7 +104,7 @@ const Profile = () => {
           ref={photoRef}
           type="file"
           accept="image/*"
-          onChange={onFileChange}
+          onChange={onPhotoChange}
         />
       </S.PhotoContainer>
       <form onSubmit={handleSubmit(onValid)}>

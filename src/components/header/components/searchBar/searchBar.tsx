@@ -36,7 +36,7 @@ const SearchBar = () => {
     if (keyword.length > 0) {
       FbGetAllCards().then((response) => {
         const searchValue = response.filter((card) =>
-          card.title.includes(keyword)
+          card.cardName.includes(keyword)
         );
         closeSidebar();
         navigate("/search", { state: { searchValue, keyword } });
