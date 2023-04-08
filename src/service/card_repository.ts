@@ -31,7 +31,7 @@ export async function FbGetMyCards(userUid: string) {
   const q = query(
     collection(db, "cards"),
     orderBy("createdAt", "desc"),
-    where("user", "==", userUid)
+    where("userUid", "==", userUid)
   );
 
   const querySnapshot = await getDocs(q);

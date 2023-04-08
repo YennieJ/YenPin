@@ -9,6 +9,7 @@ interface ContainerProps {
 
 // header > user
 // preview > components > bigCard
+// pages > createCard
 
 const DialogBox = ({ children, layoutId }: ContainerProps) => {
   return (

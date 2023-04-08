@@ -13,8 +13,7 @@ interface EditProps {
 }
 
 const Edit = ({ card, onModalClose }: EditProps) => {
-  const { cardName, photoURL, message, id, userUid, likeCount, likeUids } =
-    card;
+  const { cardName, photoURL, message } = card;
 
   const defaultLength = message ? message.length : 0;
 
@@ -54,12 +53,7 @@ const Edit = ({ card, onModalClose }: EditProps) => {
 
     const newMessageTrim = newMessage!.trim();
 
-    // 이거 잘작동해결
     const newCard = {
-      // id,
-      // userUid,
-      // likeCount,
-      // likeUids,
       ...card,
       cardName: newTitle,
       photoURL: newFileURL,

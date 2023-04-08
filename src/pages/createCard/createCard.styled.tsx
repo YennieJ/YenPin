@@ -37,8 +37,9 @@ export const Content = styled.div`
 `;
 
 export const ImgContainer = styled.div<{ photoURL: string }>`
-  position: relative;
   align-self: center;
+
+  position: relative;
 
   width: 350px;
   height: 350px;
@@ -190,6 +191,7 @@ export const Button = styled.button`
 
   color: ${(props) => props.theme.textColor};
   font-size: 33px;
+
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};
   }
