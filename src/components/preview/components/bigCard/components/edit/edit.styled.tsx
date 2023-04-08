@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardForm = styled.form`
+export const EditCardForm = styled.form`
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -10,6 +10,13 @@ export const CardForm = styled.form`
   height: 530px;
 
   padding: 20px;
+
+  @media screen and (max-width: 880px) {
+    width: 450px;
+    height: 100%;
+
+    padding: 30px;
+  }
 `;
 
 export const Content = styled.div`
@@ -20,20 +27,68 @@ export const Content = styled.div`
   height: 370px;
 
   padding: 10px;
+
+  @media screen and (max-width: 880px) {
+    flex-direction: column;
+
+    width: 450px;
+    height: 100%;
+  }
 `;
 
 export const ImgContainer = styled.div`
-  position: relative;
   align-self: center;
+
+  position: relative;
 
   width: 350px;
   height: 350px;
+
   img {
     width: 350px;
     height: 350px;
-    font-size: 20px;
-    border: 1px solid gray;
+
+    border: 1px solid #9e9e9e;
     border-radius: 10px;
+  }
+
+  @media screen and (max-width: 880px) {
+    margin-bottom: 10px;
+  }
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 348px;
+  height: 348px;
+
+  border: 2px solid #62abf8;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+  > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    color: white;
+    font-size: 27px;
+    text-align: center;
+
+    transform: translate(-50%, -50%);
   }
 `;
 
@@ -41,18 +96,20 @@ export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 400px;
 
   input,
   textarea {
     width: 400px;
-    border: 1px solid #9e9e9e;
-    border-radius: 10px;
+
     padding: 10px;
 
-    text-align: left;
-    color: ${(props) => props.theme.textColor};
+    border: 1px solid #9e9e9e;
+    border-radius: 10px;
     background-color: ${(props) => props.theme.contentBgColor};
+
+    color: ${(props) => props.theme.textColor};
+
+    text-align: left;
     outline: none;
 
     &:focus {
@@ -62,9 +119,11 @@ export const TextContainer = styled.div`
 
   input {
     height: 60px;
+
     font-size: 28px;
     font-weight: 700;
   }
+
   textarea {
     height: 220px;
 
@@ -79,50 +138,36 @@ export const TextContainer = styled.div`
       width: 8px;
     }
     &::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.3);
       border-radius: 6px;
+
+      background: rgba(0, 0, 0, 0.3);
     }
   }
+
   span {
     display: flex;
     justify-content: end;
-    padding-right: 5px;
-    font-size: 15px;
-    color: #606060;
+
+    padding-right: 10px;
     margin-top: 10px;
+
+    color: #606060;
+    font-size: 15px;
   }
-`;
 
-export const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
+  @media screen and (max-width: 880px) {
+    align-items: center;
+    width: 100%;
 
-  width: 350px;
-  height: 350px;
-  border: 1px solid gray;
-  border-radius: 10px;
+    > div {
+      margin-bottom: 10px;
 
-  transition: opacity 0.4s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-    border: 2px solid #62abf8;
+      > input,
+      textarea {
+        width: 350px;
+      }
+    }
   }
-`;
-export const OverlayContent = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  text-align: center;
-  font-size: 27px;
-  color: white;
 `;
 
 export const ButtonContainer = styled.div`
@@ -135,13 +180,14 @@ export const ButtonContainer = styled.div`
 export const Button = styled.button`
   width: 100px;
   height: 50px;
-  padding: 0;
+
   border: 2px solid ${(props) => props.theme.textColor};
   border-radius: 24px;
-
-  font-size: 23px;
-  color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.contentBgColor};
+
+  color: ${(props) => props.theme.textColor};
+  font-size: 33px;
+
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};
   }

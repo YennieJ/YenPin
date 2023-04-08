@@ -6,13 +6,14 @@ import { CardType } from "types";
 
 import * as S from "./detail.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faPen } from "@fortawesome/free-solid-svg-icons";
 
 interface IDetail {
   card: CardType;
   onModalClose: () => void;
   onEditMode: () => void;
 }
+
 const Detail = ({ card, onModalClose, onEditMode }: IDetail) => {
   const userInfo = useContext(AuthContext);
   const userUid = userInfo?.uid;
@@ -20,7 +21,7 @@ const Detail = ({ card, onModalClose, onEditMode }: IDetail) => {
   const { cardName, photoURL, message, userUid: cardUid } = card;
 
   return (
-    <S.CardForm>
+    <S.DetailContainer>
       <S.Content>
         <S.ImgContainer>
           <img alt="" src={photoURL} />
@@ -36,11 +37,11 @@ const Detail = ({ card, onModalClose, onEditMode }: IDetail) => {
         </S.Button>
         {userUid === cardUid && (
           <S.Button type="button" onClick={onEditMode}>
-            <FontAwesomeIcon icon={faCheck} />
+            <FontAwesomeIcon icon={faPen} />
           </S.Button>
         )}
       </S.ButtonContainer>
-    </S.CardForm>
+    </S.DetailContainer>
   );
 };
 export default Detail;

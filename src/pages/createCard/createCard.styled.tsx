@@ -128,6 +128,7 @@ export const TextContainer = styled.div`
     font-size: 28px;
     font-weight: 700;
   }
+
   textarea {
     height: 220px;
 

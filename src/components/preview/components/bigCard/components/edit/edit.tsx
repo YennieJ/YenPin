@@ -1,44 +1,70 @@
 import React, { useState, useRef } from "react";
-
-import * as S from "./edit.styled";
-
-import { CardType } from "types";
-import { ImgConvert } from "hooks/img_uploader";
-import { useUpdateMutationData } from "hooks/useQueryData";
 import { useForm } from "react-hook-form";
 
-interface EditProps {
+import { useUpdateMutationData } from "hooks/useQueryData";
+import { ImgConvert } from "hooks/img_uploader";
+
+import { CardType } from "types";
+
+import * as S from "./edit.styled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
+
+interface IEdit {
   card: CardType;
   onModalClose: () => void;
 }
 
-const Edit = ({ card, onModalClose }: EditProps) => {
-  const { cardName, photoURL, message } = card;
+const Edit = ({ card, onModalClose }: IEdit) => {
+  const { cardName, photoURL: cardURL, message } = card;
 
-  const defaultLength = message ? message.length : 0;
+  const { mutate: updateCard } = useUpdateMutationData();
 
-  // const cardNameRef = useRef<HTMLInputElement>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
-  // const messageRef = useRef<HTMLPreElement>(null);
-  const newMessageRef = useRef<HTMLTextAreaElement>(null);
-  //////////
-  const [newTitle, setNewTitle] = useState<string>(cardName);
-  const [newMessage, setNewMessage] = useState<string | undefined>(message);
+  const { register, getValues, handleSubmit } = useForm({
+    defaultValues: { cardName, message },
+  });
 
-  //////////
-  //firebase upload를 위한
-  // const [file, setFile] = useState<File>();
-  const [newFileURL, setNewFileURL] = useState<string>(photoURL);
+  const cardNameRegister = register("cardName");
 
-  const [textLength, setTextLength] = useState<number>(defaultLength);
+  const messageRegister = register("message", {
+    onChange: () => setTextLength(getValues("message").length),
+  });
 
-  const textHeightHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewMessage(e.target.value);
-    setTextLength(e.target.value.length);
+  const [textLength, setTextLength] = useState<number>(
+    getValues("message").length
+  );
+
+  const [photoURL, setPhotoURL] = useState<string>(cardURL);
+
+  const photoRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoRef = () => {
+    photoRef.current?.click();
   };
 
-  const onNewCardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(e.target.value);
+  const onPhotoCahnge = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { files },
+    } = e;
+    const file = files![0];
+    ImgConvert(file, setPhotoURL);
+  };
+
+  const onValid = () => {
+    const cardName = getValues("cardName");
+    const message = getValues("message").trim();
+    if (!cardName || !photoURL) {
+      alert("카드 이름과 파일은 비울 수 없습니다.");
+    } else {
+      const newCard = {
+        ...card,
+        cardName,
+        photoURL,
+        message,
+      };
+      updateCard(newCard);
+      onModalClose();
+    }
   };
 
   const closeModal = () => {
@@ -46,107 +72,53 @@ const Edit = ({ card, onModalClose }: EditProps) => {
       onModalClose();
     } else return null;
   };
-  const { mutate: updateCard } = useUpdateMutationData();
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const newMessageTrim = newMessage!.trim();
-
-    const newCard = {
-      ...card,
-      cardName: newTitle,
-      photoURL: newFileURL,
-      message: newMessageTrim,
-    };
-
-    if (newCard.cardName === "") {
-      alert("카드 이름과 파일은 비울 수 없습니다.");
-    } else {
-      updateCard(newCard);
-      // file && FbUploadImageFile(file, id);
-      onModalClose();
-    }
-  };
-
-  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { files },
-    } = e;
-    const file = files![0];
-    ImgConvert(file, setNewFileURL);
-  };
-
-  const onButtonClick = () => {
-    fileRef.current?.click();
-  };
-
-  const { register } = useForm();
 
   return (
-    <S.CardForm>
+    <S.EditCardForm onSubmit={handleSubmit(onValid)}>
       <S.Content>
-        <S.ImgContainer onClick={onButtonClick}>
+        <S.ImgContainer onClick={handlePhotoRef}>
           <S.Overlay>
-            <S.OverlayContent>Change File</S.OverlayContent>
+            <div>Change File</div>
           </S.Overlay>
-          <img alt="" src={newFileURL} />
+          <img alt="" src={photoURL} />
           <input
             hidden
-            ref={fileRef}
+            ref={photoRef}
             type="file"
             accept="image/*"
-            onChange={onFileChange}
+            onChange={onPhotoCahnge}
           />
         </S.ImgContainer>
         <S.TextContainer>
           <div>
             <input
+              {...cardNameRegister}
               type="text"
               placeholder="카드 이름"
               maxLength={15}
-              value={newTitle}
-              onChange={onNewCardNameChange}
             />
             <span>최대 15글자</span>
           </div>
           <div>
-            {newMessage ? (
-              <textarea
-                rows={1}
-                ref={newMessageRef}
-                placeholder="사진에 대해 설명하세요"
-                maxLength={200}
-                onChange={textHeightHandler}
-                value={newMessage}
-                onFocus={(e) =>
-                  e.currentTarget.setSelectionRange(
-                    e.currentTarget.value.length,
-                    e.currentTarget.value.length
-                  )
-                }
-              />
-            ) : (
-              <textarea
-                rows={1}
-                ref={newMessageRef}
-                placeholder="사진에 대해 설명하세요"
-                onChange={textHeightHandler}
-              />
-            )}
+            <textarea
+              {...messageRegister}
+              rows={1}
+              placeholder="사진에 대해 설명하세요"
+              maxLength={200}
+            />
             <span>{textLength}/200</span>
           </div>
         </S.TextContainer>
       </S.Content>
       <S.ButtonContainer>
         <S.Button type="button" onClick={closeModal}>
-          취소
+          <FontAwesomeIcon icon={faXmark} />
         </S.Button>
-        <S.Button type="submit" onClick={onSubmit}>
-          완료
+        <S.Button type="submit">
+          <FontAwesomeIcon icon={faCheck} />
         </S.Button>
       </S.ButtonContainer>
-    </S.CardForm>
+    </S.EditCardForm>
   );
 };
 export default Edit;

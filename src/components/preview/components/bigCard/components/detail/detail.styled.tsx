@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardForm = styled.form`
+export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -15,7 +15,7 @@ export const CardForm = styled.form`
     width: 450px;
     height: 100%;
 
-    padding-bottom: 30px;
+    padding: 30px;
   }
 `;
 
@@ -133,5 +133,9 @@ export const Button = styled.button`
 
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};
+  }
+
+  :nth-child(2) {
+    font-size: 25px;
   }
 `;

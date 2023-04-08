@@ -19,6 +19,14 @@ const CreateCard = () => {
 
   const { mutate: createCard } = useCreateCardMutationData();
 
+  const { register, getValues, handleSubmit } = useForm();
+
+  const cardNameRegister = register("cardName");
+
+  const messageRegister = register("message", {
+    onChange: () => setTextLength(getValues("message").length),
+  });
+
   const [textLength, setTextLength] = useState<number>(0);
 
   const [photoURL, setPhotoURL] = useState<string>("");
@@ -37,14 +45,6 @@ const CreateCard = () => {
 
     ImgConvert(file, setPhotoURL);
   };
-
-  const { register, getValues, handleSubmit } = useForm();
-
-  const cardNameRegister = register("cardName");
-
-  const messageRegister = register("message", {
-    onChange: () => setTextLength(getValues("message").length),
-  });
 
   const onValid = () => {
     const id = new Date().getTime();
@@ -96,10 +96,10 @@ const CreateCard = () => {
             </div>
             <div>
               <textarea
+                {...messageRegister}
                 rows={1}
                 placeholder="사진에 대해 설명하세요"
                 maxLength={200}
-                {...messageRegister}
               />
               <span>{textLength}/200</span>
             </div>
