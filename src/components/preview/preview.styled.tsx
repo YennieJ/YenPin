@@ -8,27 +8,24 @@ interface Props {
 export const PreviewContainer = styled.div<Props>`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 
   position: relative;
 
   height: ${(props) => (props.myPage ? "calc(100% - 260px)" : "100%")};
-  padding-bottom: 30px;
 
-  @media (max-width: 940px) {
-    padding-bottom: 50px;
-  }
+  padding-bottom: 100px;
+
+  border-top: 1px groove gray;
 `;
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  justify-content: center;
-  place-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  justify-items: center;
   grid-gap: 20px;
 
   padding: 50px 30px 60px 30px;
-  border-top: 1px groove gray;
 `;
 
 export const NewCardButton = styled(Link)`

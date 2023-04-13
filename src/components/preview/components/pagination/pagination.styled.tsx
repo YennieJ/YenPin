@@ -5,6 +5,10 @@ export const Paginate = styled.li`
   justify-content: center;
   align-items: center;
 
+  position: absolute;
+  bottom: 30px;
+
+  width: 100%;
   height: 80px;
 `;
 
