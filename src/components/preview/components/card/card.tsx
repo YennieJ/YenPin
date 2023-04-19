@@ -54,7 +54,7 @@ const Card = ({ card }: ICard) => {
   const onLikes = () => {
     if (!userUid) {
       const checkLogin = window.confirm(
-        "로그인이 필요합니다. 로그인 페이지로 이동할요?"
+        "로그인이 필요합니다. 로그인 페이지로 이동할까요?"
       );
       if (checkLogin) {
         navigate("/welcome");
