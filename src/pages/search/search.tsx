@@ -6,6 +6,7 @@ import Preview from "components/preview";
 import * as S from "./search.styled";
 
 const Search = () => {
+  // src > header > components > searchBar 에서 navigate로 보냄
   const location = useLocation();
   const searchValue = location.state.searchValue;
   const keyword = location.state.keyword;

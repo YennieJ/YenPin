@@ -24,7 +24,7 @@ interface IAuth {
   password: string;
 }
 
-//firebase auth service를 이용하여 구글 로그인, 회원가입, 로그아웃 구현
+//firebase auth service를 이용하여 구글 로그인, 회원가입, 로그아웃, 프로필 구현
 //context로 어디서나 user 확인
 
 export const AuthProvider = ({ children }: Props) => {
@@ -112,7 +112,7 @@ export const UpdateProfile = async ({
 
   const fileRef = ref(storage, `profile/${userId}.png`);
 
-  const snapshot = photo && (await uploadBytes(fileRef, photo));
+  photo && (await uploadBytes(fileRef, photo));
 
   const URL = await getDownloadURL(fileRef);
 

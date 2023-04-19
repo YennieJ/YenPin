@@ -22,8 +22,8 @@ export async function FbGetAllCards() {
   const q = query(collection(db, "cards"), orderBy("createdAt", "desc"));
 
   const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
 
+  const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
   return data as CardType[];
 }
 

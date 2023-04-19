@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 import { AuthContext } from "service/authContext";
 import { useResetRecoilState } from "recoil";
-import { onSidebarAtom } from "style/atoms";
+import { onSidebarAtom } from "atoms";
 
 import * as S from "./emptyData.styled";
 

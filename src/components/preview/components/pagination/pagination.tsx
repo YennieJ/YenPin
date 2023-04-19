@@ -13,14 +13,15 @@ const Pagination = ({
   setCurrentPage,
   pages,
 }: PaginationProps) => {
-  //for page limit
+  // 한번에 보여 질 페이지 갯수
   const pageNumberLimit: number = 5;
   const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(5);
 
-  //페이지 갯수
+  //페이지 디자인
   const renderPageNumber = pages.map((number: number) => {
     const pageNumber = [];
+
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
       pageNumber.push(
         <S.PageButton

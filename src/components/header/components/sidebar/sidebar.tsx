@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useRecoilState } from "recoil";
-import { onSidebarAtom } from "style/atoms";
+import { onSidebarAtom } from "atoms";
 
 import { AuthSignOut } from "service/auth_service";
 
@@ -20,15 +20,11 @@ const Sidebar = () => {
   return (
     <S.Container>
       <Burger onClick={() => setOnSidebar(!onSidebar)} open={onSidebar} />
-      {onSidebar ? (
+      {onSidebar && (
         <S.SidebarContents>
           <li onClick={handleLogout}>로그아웃</li>
-          <li>로그아웃</li>
-          <li>로그아웃</li>
-          <li>로그아웃</li>
-          <li>로그아웃</li>
         </S.SidebarContents>
-      ) : null}
+      )}
     </S.Container>
   );
 };

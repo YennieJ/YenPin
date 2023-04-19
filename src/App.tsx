@@ -8,7 +8,7 @@ import Router from "router/router";
 import GlobalStyle from "style/grobal.styled";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "style/theme";
-import { isDarkAtom } from "style/atoms";
+import { isDarkAtom } from "atoms";
 
 const App = () => {
   const isDark = useRecoilValue(isDarkAtom);

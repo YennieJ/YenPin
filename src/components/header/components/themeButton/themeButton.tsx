@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useRecoilState } from "recoil";
-import { isDarkAtom } from "style/atoms";
+import { isDarkAtom } from "atoms";
 
 import * as S from "./themeButton.styled";
 

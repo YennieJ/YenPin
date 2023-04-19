@@ -6,7 +6,7 @@ import { AuthContext } from "service/authContext";
 
 import { UpdateProfile } from "service/auth_service";
 import { ImgConvert } from "hooks/img_uploader";
-import { onSidebarAtom } from "style/atoms";
+import { onSidebarAtom } from "atoms";
 
 import * as S from "./profile.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,7 +37,7 @@ const Profile = () => {
   };
 
   // editing 때 프로플 사진 변화,컨버트
-  const onPhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onPhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 

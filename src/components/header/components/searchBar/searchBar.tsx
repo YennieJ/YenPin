@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { useResetRecoilState } from "recoil";
-import { onSidebarAtom } from "style/atoms";
+import { onSidebarAtom } from "atoms";
 
 import { FbGetAllCards } from "service/card_repository";
 
@@ -34,6 +34,7 @@ const SearchBar = () => {
     const keyword = getValues("keyword");
     if (keyword.length > 0) {
       const response = await FbGetAllCards();
+      // 전체 카드에서 원하는 키워드 필터하기
       const searchValue = response.filter((card) =>
         card.cardName.includes(keyword)
       );

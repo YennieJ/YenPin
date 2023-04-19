@@ -6,7 +6,7 @@ import Card from "./components/card";
 import Pagination from "./components/pagination";
 
 import { CardType } from "types";
-import { onSidebarAtom } from "style/atoms";
+import { onSidebarAtom } from "atoms";
 
 import * as S from "./preview.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +15,9 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 interface PreviewProps {
   cards?: CardType[];
 }
-const itemsPerPage = 6;
+
+//한 페이지에 들어 갈 아이템 갯수
+const cardsPerPage = 6;
 
 // pages > home,popular,my
 
@@ -28,14 +30,14 @@ const Preview = ({ cards }: PreviewProps) => {
 
   const closeSidebar = useResetRecoilState(onSidebarAtom);
 
-  //한 페이지에 들어갈 아이템(itemsPerPage의 갯수만큼)
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // currentPage에 따라 보여질 cards.slice
+  const indexOfLastItem = currentPage * cardsPerPage;
+  const indexOfFirstItem = indexOfLastItem - cardsPerPage;
   const currentItems = cards!.slice(indexOfFirstItem, indexOfLastItem);
 
   //페이지 수 구하기
   const pages: number[] = [];
-  for (let i = 1; i <= Math.ceil(cards!.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(cards!.length / cardsPerPage); i++) {
     pages.push(i);
   }
 
