@@ -12,7 +12,7 @@ import * as S from "./profile.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
-const PROFILE_IMAGE = "/image/profile.jpeg";
+const PROFILE_IMAGE = "/images/profile.jpeg";
 
 const Profile = () => {
   const closeSidebar = useResetRecoilState(onSidebarAtom);

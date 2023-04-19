@@ -1,19 +1,27 @@
 import styled from "styled-components";
+const logo = "/images/logo.png";
 
 export const SpinnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: 70%;
+  height: 100%;
 
   border-top: 1px groove gray;
+`;
+
+export const LogoImg = styled.img.attrs({ alt: "logo", src: logo })`
+  position: relative;
+
+  width: 500px;
+  height: 500px;
 `;
 
 export const Spinner = styled.span`
   display: block;
 
-  position: relative;
+  position: absolute;
 
   width: 12px;
   height: 12px;
@@ -22,7 +30,7 @@ export const Spinner = styled.span`
 
   margin: 15px auto;
 
-  color: purple;
+  color: white;
 
   animation: animloader 2s linear infinite;
 

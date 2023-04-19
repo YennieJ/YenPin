@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const GOOGLE_IMAGE = "/image/google_logo.png";
+const GOOGLE_IMAGE = "/images/google_logo.png";
 
 export const Container = styled.div`
   display: flex;

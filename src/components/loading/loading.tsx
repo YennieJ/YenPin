@@ -7,6 +7,7 @@ import * as S from "./loading.styled";
 const Loading = () => {
   return (
     <S.SpinnerContainer>
+      <S.LogoImg />
       <S.Spinner />
     </S.SpinnerContainer>
   );

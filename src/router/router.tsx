@@ -17,7 +17,7 @@ import * as S from "./router.styled";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />.
+      <Header />
       <S.Main>
         <Routes>
           <Route path="/" element={<Home />} />

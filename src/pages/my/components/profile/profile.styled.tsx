@@ -22,6 +22,7 @@ export const PhotoContainer = styled.div`
     width: 96px;
     height: 96px;
     border-radius: 50px;
+    border: 1px solid gray;
   }
 `;
 
