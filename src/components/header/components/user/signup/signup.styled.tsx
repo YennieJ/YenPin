@@ -84,7 +84,7 @@ export const LoginButton = styled.button`
   cursor: pointer;
 `;
 
-export const ShowPwdButton = styled.button`
+export const ShowPwdButton = styled.button.attrs({ type: "button" })`
   width: 50px;
 
   color: #606060;
