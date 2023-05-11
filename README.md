@@ -18,6 +18,7 @@
 ![likes](https://img.shields.io/badge/-좋아요-ffffff?&style=for-the-badge)
 ![Dark Mode](https://img.shields.io/badge/-DarkMode-ffffff?&style=for-the-badge)
 ![Pagination](https://img.shields.io/badge/-Pagination-ffffff?&style=for-the-badge)
+![github](https://img.shields.io/badge/-githubdeploy-ffffff?logo=github&logoColor=000000&style=for-the-badge)
 
 ---
 
