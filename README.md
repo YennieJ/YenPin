@@ -583,7 +583,7 @@ const Pagination = ({ currentPage, setCurrentPage, pages }: IPagination) => {
       {renderPageNumber}
       <button
         onClick={handleNextButton}
-        disabled={
+- [ ]         disabled={
           currentPage === pages.length || pages.length === 0 ? true : false
         }
       >
